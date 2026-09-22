@@ -1,0 +1,1 @@
+from .mask_generator import DynamicMaskGenerator, DYNAMIC_CLASSES_COCO

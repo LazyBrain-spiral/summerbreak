@@ -1,0 +1,59 @@
+# Python cache & bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv/
+env.bak/
+venv.bak/
+
+# Packaging & Distribution
+build/
+dist/
+*.egg-info/
+*.egg
+
+# Testing & Coverage
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+tests/scratch*/
+scratch/
+
+# Pipeline Run Outputs & Temporary Workspaces (Heavy photogrammetry outputs)
+runs/
+workspace_*/
+workspace_run_*/
+*.log
+
+# Large ML Weights / Models
+*.pt
+*.pth
+*.onnx
+*.weights
+*.bin
+*.ckpt
+yolov8n-seg.pt
+
+# Large GIS & Raw Point Cloud Deliverables (Generated during runs)
+*.las
+*.laz
+*.tif
+*.tiff
+
+# OS & Editor Files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+.gemini/

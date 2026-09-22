@@ -1,0 +1,34 @@
+{
+  "scale": 0.0,
+  "rotation": [
+    [
+      1.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      1.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "translation": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "rms_error_meters": 0.0,
+  "num_aligned_views": 9,
+  "local_origin": {
+    "lat": 28.6139,
+    "lon": 77.209,
+    "alt": 55.0,
+    "datum": "WGS84"
+  },
+  "transformation_formula": "Y_enu = scale * (Rotation @ X_sfm) + Translation"
+}

@@ -1,0 +1,1679 @@
+1
+00:00:00,000 --> 00:00:00,033
+<font size="28">Srt:1/240
+[latitude: 28.368500] [longitude: 76.938200] [altitude: 52.00] [rel_alt: 52.00]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+2
+00:00:00,033 --> 00:00:00,066
+<font size="28">Srt:2/240
+[latitude: 28.368512] [longitude: 76.938218] [altitude: 52.06] [rel_alt: 52.06]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+3
+00:00:00,066 --> 00:00:00,100
+<font size="28">Srt:3/240
+[latitude: 28.368524] [longitude: 76.938236] [altitude: 52.12] [rel_alt: 52.12]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+4
+00:00:00,100 --> 00:00:00,133
+<font size="28">Srt:4/240
+[latitude: 28.368536] [longitude: 76.938254] [altitude: 52.18] [rel_alt: 52.18]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+5
+00:00:00,133 --> 00:00:00,166
+<font size="28">Srt:5/240
+[latitude: 28.368548] [longitude: 76.938272] [altitude: 52.24] [rel_alt: 52.24]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+6
+00:00:00,166 --> 00:00:00,200
+<font size="28">Srt:6/240
+[latitude: 28.368560] [longitude: 76.938290] [altitude: 52.30] [rel_alt: 52.30]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+7
+00:00:00,200 --> 00:00:00,233
+<font size="28">Srt:7/240
+[latitude: 28.368572] [longitude: 76.938308] [altitude: 52.35] [rel_alt: 52.35]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+8
+00:00:00,233 --> 00:00:00,266
+<font size="28">Srt:8/240
+[latitude: 28.368584] [longitude: 76.938326] [altitude: 52.41] [rel_alt: 52.41]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+9
+00:00:00,266 --> 00:00:00,300
+<font size="28">Srt:9/240
+[latitude: 28.368596] [longitude: 76.938344] [altitude: 52.47] [rel_alt: 52.47]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+10
+00:00:00,300 --> 00:00:00,333
+<font size="28">Srt:10/240
+[latitude: 28.368608] [longitude: 76.938362] [altitude: 52.52] [rel_alt: 52.52]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+11
+00:00:00,333 --> 00:00:00,366
+<font size="28">Srt:11/240
+[latitude: 28.368620] [longitude: 76.938380] [altitude: 52.58] [rel_alt: 52.58]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+12
+00:00:00,366 --> 00:00:00,400
+<font size="28">Srt:12/240
+[latitude: 28.368632] [longitude: 76.938398] [altitude: 52.63] [rel_alt: 52.63]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+13
+00:00:00,400 --> 00:00:00,433
+<font size="28">Srt:13/240
+[latitude: 28.368644] [longitude: 76.938416] [altitude: 52.68] [rel_alt: 52.68]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+14
+00:00:00,433 --> 00:00:00,466
+<font size="28">Srt:14/240
+[latitude: 28.368656] [longitude: 76.938434] [altitude: 52.73] [rel_alt: 52.73]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+15
+00:00:00,466 --> 00:00:00,500
+<font size="28">Srt:15/240
+[latitude: 28.368668] [longitude: 76.938452] [altitude: 52.77] [rel_alt: 52.77]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+16
+00:00:00,500 --> 00:00:00,533
+<font size="28">Srt:16/240
+[latitude: 28.368680] [longitude: 76.938470] [altitude: 52.82] [rel_alt: 52.82]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+17
+00:00:00,533 --> 00:00:00,566
+<font size="28">Srt:17/240
+[latitude: 28.368692] [longitude: 76.938488] [altitude: 52.86] [rel_alt: 52.86]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+18
+00:00:00,566 --> 00:00:00,600
+<font size="28">Srt:18/240
+[latitude: 28.368704] [longitude: 76.938506] [altitude: 52.90] [rel_alt: 52.90]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+19
+00:00:00,600 --> 00:00:00,633
+<font size="28">Srt:19/240
+[latitude: 28.368716] [longitude: 76.938524] [altitude: 52.94] [rel_alt: 52.94]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+20
+00:00:00,633 --> 00:00:00,666
+<font size="28">Srt:20/240
+[latitude: 28.368728] [longitude: 76.938542] [altitude: 52.98] [rel_alt: 52.98]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+21
+00:00:00,666 --> 00:00:00,700
+<font size="28">Srt:21/240
+[latitude: 28.368740] [longitude: 76.938560] [altitude: 53.01] [rel_alt: 53.01]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+22
+00:00:00,700 --> 00:00:00,733
+<font size="28">Srt:22/240
+[latitude: 28.368752] [longitude: 76.938578] [altitude: 53.04] [rel_alt: 53.04]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+23
+00:00:00,733 --> 00:00:00,766
+<font size="28">Srt:23/240
+[latitude: 28.368764] [longitude: 76.938596] [altitude: 53.07] [rel_alt: 53.07]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+24
+00:00:00,766 --> 00:00:00,800
+<font size="28">Srt:24/240
+[latitude: 28.368776] [longitude: 76.938614] [altitude: 53.10] [rel_alt: 53.10]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+25
+00:00:00,800 --> 00:00:00,833
+<font size="28">Srt:25/240
+[latitude: 28.368788] [longitude: 76.938632] [altitude: 53.12] [rel_alt: 53.12]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+26
+00:00:00,833 --> 00:00:00,866
+<font size="28">Srt:26/240
+[latitude: 28.368800] [longitude: 76.938650] [altitude: 53.14] [rel_alt: 53.14]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+27
+00:00:00,866 --> 00:00:00,900
+<font size="28">Srt:27/240
+[latitude: 28.368812] [longitude: 76.938668] [altitude: 53.16] [rel_alt: 53.16]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+28
+00:00:00,900 --> 00:00:00,933
+<font size="28">Srt:28/240
+[latitude: 28.368824] [longitude: 76.938686] [altitude: 53.17] [rel_alt: 53.17]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+29
+00:00:00,933 --> 00:00:00,966
+<font size="28">Srt:29/240
+[latitude: 28.368836] [longitude: 76.938704] [altitude: 53.18] [rel_alt: 53.18]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+30
+00:00:00,966 --> 00:00:01,000
+<font size="28">Srt:30/240
+[latitude: 28.368848] [longitude: 76.938722] [altitude: 53.19] [rel_alt: 53.19]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+31
+00:00:01,000 --> 00:00:01,033
+<font size="28">Srt:31/240
+[latitude: 28.368860] [longitude: 76.938740] [altitude: 53.20] [rel_alt: 53.20]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+32
+00:00:01,033 --> 00:00:01,066
+<font size="28">Srt:32/240
+[latitude: 28.368872] [longitude: 76.938758] [altitude: 53.20] [rel_alt: 53.20]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+33
+00:00:01,066 --> 00:00:01,100
+<font size="28">Srt:33/240
+[latitude: 28.368884] [longitude: 76.938776] [altitude: 53.20] [rel_alt: 53.20]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+34
+00:00:01,100 --> 00:00:01,133
+<font size="28">Srt:34/240
+[latitude: 28.368896] [longitude: 76.938794] [altitude: 53.20] [rel_alt: 53.20]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+35
+00:00:01,133 --> 00:00:01,166
+<font size="28">Srt:35/240
+[latitude: 28.368908] [longitude: 76.938812] [altitude: 53.19] [rel_alt: 53.19]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+36
+00:00:01,166 --> 00:00:01,200
+<font size="28">Srt:36/240
+[latitude: 28.368920] [longitude: 76.938830] [altitude: 53.18] [rel_alt: 53.18]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+37
+00:00:01,200 --> 00:00:01,233
+<font size="28">Srt:37/240
+[latitude: 28.368932] [longitude: 76.938848] [altitude: 53.17] [rel_alt: 53.17]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+38
+00:00:01,233 --> 00:00:01,266
+<font size="28">Srt:38/240
+[latitude: 28.368944] [longitude: 76.938866] [altitude: 53.15] [rel_alt: 53.15]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+39
+00:00:01,266 --> 00:00:01,300
+<font size="28">Srt:39/240
+[latitude: 28.368956] [longitude: 76.938884] [altitude: 53.14] [rel_alt: 53.14]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+40
+00:00:01,300 --> 00:00:01,333
+<font size="28">Srt:40/240
+[latitude: 28.368968] [longitude: 76.938902] [altitude: 53.11] [rel_alt: 53.11]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+41
+00:00:01,333 --> 00:00:01,366
+<font size="28">Srt:41/240
+[latitude: 28.368980] [longitude: 76.938920] [altitude: 53.09] [rel_alt: 53.09]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+42
+00:00:01,366 --> 00:00:01,400
+<font size="28">Srt:42/240
+[latitude: 28.368992] [longitude: 76.938938] [altitude: 53.06] [rel_alt: 53.06]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+43
+00:00:01,400 --> 00:00:01,433
+<font size="28">Srt:43/240
+[latitude: 28.369004] [longitude: 76.938956] [altitude: 53.04] [rel_alt: 53.04]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+44
+00:00:01,433 --> 00:00:01,466
+<font size="28">Srt:44/240
+[latitude: 28.369016] [longitude: 76.938974] [altitude: 53.00] [rel_alt: 53.00]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+45
+00:00:01,466 --> 00:00:01,500
+<font size="28">Srt:45/240
+[latitude: 28.369028] [longitude: 76.938992] [altitude: 52.97] [rel_alt: 52.97]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+46
+00:00:01,500 --> 00:00:01,533
+<font size="28">Srt:46/240
+[latitude: 28.369040] [longitude: 76.939010] [altitude: 52.93] [rel_alt: 52.93]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+47
+00:00:01,533 --> 00:00:01,566
+<font size="28">Srt:47/240
+[latitude: 28.369052] [longitude: 76.939028] [altitude: 52.89] [rel_alt: 52.89]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+48
+00:00:01,566 --> 00:00:01,600
+<font size="28">Srt:48/240
+[latitude: 28.369064] [longitude: 76.939046] [altitude: 52.85] [rel_alt: 52.85]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+49
+00:00:01,600 --> 00:00:01,633
+<font size="28">Srt:49/240
+[latitude: 28.369076] [longitude: 76.939064] [altitude: 52.81] [rel_alt: 52.81]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+50
+00:00:01,633 --> 00:00:01,666
+<font size="28">Srt:50/240
+[latitude: 28.369088] [longitude: 76.939082] [altitude: 52.77] [rel_alt: 52.77]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+51
+00:00:01,666 --> 00:00:01,700
+<font size="28">Srt:51/240
+[latitude: 28.369100] [longitude: 76.939100] [altitude: 52.72] [rel_alt: 52.72]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+52
+00:00:01,700 --> 00:00:01,733
+<font size="28">Srt:52/240
+[latitude: 28.369112] [longitude: 76.939118] [altitude: 52.67] [rel_alt: 52.67]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+53
+00:00:01,733 --> 00:00:01,766
+<font size="28">Srt:53/240
+[latitude: 28.369124] [longitude: 76.939136] [altitude: 52.62] [rel_alt: 52.62]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+54
+00:00:01,766 --> 00:00:01,800
+<font size="28">Srt:54/240
+[latitude: 28.369136] [longitude: 76.939154] [altitude: 52.57] [rel_alt: 52.57]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+55
+00:00:01,800 --> 00:00:01,833
+<font size="28">Srt:55/240
+[latitude: 28.369148] [longitude: 76.939172] [altitude: 52.51] [rel_alt: 52.51]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+56
+00:00:01,833 --> 00:00:01,866
+<font size="28">Srt:56/240
+[latitude: 28.369160] [longitude: 76.939190] [altitude: 52.46] [rel_alt: 52.46]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+57
+00:00:01,866 --> 00:00:01,900
+<font size="28">Srt:57/240
+[latitude: 28.369172] [longitude: 76.939208] [altitude: 52.40] [rel_alt: 52.40]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+58
+00:00:01,900 --> 00:00:01,933
+<font size="28">Srt:58/240
+[latitude: 28.369184] [longitude: 76.939226] [altitude: 52.34] [rel_alt: 52.34]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+59
+00:00:01,933 --> 00:00:01,966
+<font size="28">Srt:59/240
+[latitude: 28.369196] [longitude: 76.939244] [altitude: 52.29] [rel_alt: 52.29]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+60
+00:00:01,966 --> 00:00:02,000
+<font size="28">Srt:60/240
+[latitude: 28.369208] [longitude: 76.939262] [altitude: 52.23] [rel_alt: 52.23]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+61
+00:00:02,000 --> 00:00:02,033
+<font size="28">Srt:61/240
+[latitude: 28.369220] [longitude: 76.939280] [altitude: 52.17] [rel_alt: 52.17]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+62
+00:00:02,033 --> 00:00:02,066
+<font size="28">Srt:62/240
+[latitude: 28.369232] [longitude: 76.939298] [altitude: 52.11] [rel_alt: 52.11]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+63
+00:00:02,066 --> 00:00:02,100
+<font size="28">Srt:63/240
+[latitude: 28.369244] [longitude: 76.939316] [altitude: 52.05] [rel_alt: 52.05]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+64
+00:00:02,100 --> 00:00:02,133
+<font size="28">Srt:64/240
+[latitude: 28.369256] [longitude: 76.939334] [altitude: 51.99] [rel_alt: 51.99]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+65
+00:00:02,133 --> 00:00:02,166
+<font size="28">Srt:65/240
+[latitude: 28.369268] [longitude: 76.939352] [altitude: 51.93] [rel_alt: 51.93]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+66
+00:00:02,166 --> 00:00:02,200
+<font size="28">Srt:66/240
+[latitude: 28.369280] [longitude: 76.939370] [altitude: 51.87] [rel_alt: 51.87]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+67
+00:00:02,200 --> 00:00:02,233
+<font size="28">Srt:67/240
+[latitude: 28.369292] [longitude: 76.939388] [altitude: 51.81] [rel_alt: 51.81]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+68
+00:00:02,233 --> 00:00:02,266
+<font size="28">Srt:68/240
+[latitude: 28.369304] [longitude: 76.939406] [altitude: 51.75] [rel_alt: 51.75]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+69
+00:00:02,266 --> 00:00:02,300
+<font size="28">Srt:69/240
+[latitude: 28.369316] [longitude: 76.939424] [altitude: 51.69] [rel_alt: 51.69]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+70
+00:00:02,300 --> 00:00:02,333
+<font size="28">Srt:70/240
+[latitude: 28.369328] [longitude: 76.939442] [altitude: 51.64] [rel_alt: 51.64]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+71
+00:00:02,333 --> 00:00:02,366
+<font size="28">Srt:71/240
+[latitude: 28.369340] [longitude: 76.939460] [altitude: 51.58] [rel_alt: 51.58]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+72
+00:00:02,366 --> 00:00:02,400
+<font size="28">Srt:72/240
+[latitude: 28.369352] [longitude: 76.939478] [altitude: 51.52] [rel_alt: 51.52]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+73
+00:00:02,400 --> 00:00:02,433
+<font size="28">Srt:73/240
+[latitude: 28.369364] [longitude: 76.939496] [altitude: 51.47] [rel_alt: 51.47]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+74
+00:00:02,433 --> 00:00:02,466
+<font size="28">Srt:74/240
+[latitude: 28.369376] [longitude: 76.939514] [altitude: 51.42] [rel_alt: 51.42]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+75
+00:00:02,466 --> 00:00:02,500
+<font size="28">Srt:75/240
+[latitude: 28.369388] [longitude: 76.939532] [altitude: 51.36] [rel_alt: 51.36]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+76
+00:00:02,500 --> 00:00:02,533
+<font size="28">Srt:76/240
+[latitude: 28.369400] [longitude: 76.939550] [altitude: 51.31] [rel_alt: 51.31]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+77
+00:00:02,533 --> 00:00:02,566
+<font size="28">Srt:77/240
+[latitude: 28.369412] [longitude: 76.939568] [altitude: 51.27] [rel_alt: 51.27]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+78
+00:00:02,566 --> 00:00:02,600
+<font size="28">Srt:78/240
+[latitude: 28.369424] [longitude: 76.939586] [altitude: 51.22] [rel_alt: 51.22]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+79
+00:00:02,600 --> 00:00:02,633
+<font size="28">Srt:79/240
+[latitude: 28.369436] [longitude: 76.939604] [altitude: 51.17] [rel_alt: 51.17]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+80
+00:00:02,633 --> 00:00:02,666
+<font size="28">Srt:80/240
+[latitude: 28.369448] [longitude: 76.939622] [altitude: 51.13] [rel_alt: 51.13]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+81
+00:00:02,666 --> 00:00:02,700
+<font size="28">Srt:81/240
+[latitude: 28.369460] [longitude: 76.939640] [altitude: 51.09] [rel_alt: 51.09]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+82
+00:00:02,700 --> 00:00:02,733
+<font size="28">Srt:82/240
+[latitude: 28.369472] [longitude: 76.939658] [altitude: 51.05] [rel_alt: 51.05]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+83
+00:00:02,733 --> 00:00:02,766
+<font size="28">Srt:83/240
+[latitude: 28.369484] [longitude: 76.939676] [altitude: 51.02] [rel_alt: 51.02]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+84
+00:00:02,766 --> 00:00:02,800
+<font size="28">Srt:84/240
+[latitude: 28.369496] [longitude: 76.939694] [altitude: 50.98] [rel_alt: 50.98]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+85
+00:00:02,800 --> 00:00:02,833
+<font size="28">Srt:85/240
+[latitude: 28.369508] [longitude: 76.939712] [altitude: 50.95] [rel_alt: 50.95]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+86
+00:00:02,833 --> 00:00:02,866
+<font size="28">Srt:86/240
+[latitude: 28.369520] [longitude: 76.939730] [altitude: 50.93] [rel_alt: 50.93]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+87
+00:00:02,866 --> 00:00:02,900
+<font size="28">Srt:87/240
+[latitude: 28.369532] [longitude: 76.939748] [altitude: 50.90] [rel_alt: 50.90]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+88
+00:00:02,900 --> 00:00:02,933
+<font size="28">Srt:88/240
+[latitude: 28.369544] [longitude: 76.939766] [altitude: 50.88] [rel_alt: 50.88]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+89
+00:00:02,933 --> 00:00:02,966
+<font size="28">Srt:89/240
+[latitude: 28.369556] [longitude: 76.939784] [altitude: 50.86] [rel_alt: 50.86]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+90
+00:00:02,966 --> 00:00:03,000
+<font size="28">Srt:90/240
+[latitude: 28.369568] [longitude: 76.939802] [altitude: 50.84] [rel_alt: 50.84]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+91
+00:00:03,000 --> 00:00:03,033
+<font size="28">Srt:91/240
+[latitude: 28.369580] [longitude: 76.939820] [altitude: 50.83] [rel_alt: 50.83]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+92
+00:00:03,033 --> 00:00:03,066
+<font size="28">Srt:92/240
+[latitude: 28.369592] [longitude: 76.939838] [altitude: 50.82] [rel_alt: 50.82]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+93
+00:00:03,066 --> 00:00:03,100
+<font size="28">Srt:93/240
+[latitude: 28.369604] [longitude: 76.939856] [altitude: 50.81] [rel_alt: 50.81]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+94
+00:00:03,100 --> 00:00:03,133
+<font size="28">Srt:94/240
+[latitude: 28.369616] [longitude: 76.939874] [altitude: 50.80] [rel_alt: 50.80]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+95
+00:00:03,133 --> 00:00:03,166
+<font size="28">Srt:95/240
+[latitude: 28.369628] [longitude: 76.939892] [altitude: 50.80] [rel_alt: 50.80]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+96
+00:00:03,166 --> 00:00:03,200
+<font size="28">Srt:96/240
+[latitude: 28.369640] [longitude: 76.939910] [altitude: 50.80] [rel_alt: 50.80]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+97
+00:00:03,200 --> 00:00:03,233
+<font size="28">Srt:97/240
+[latitude: 28.369652] [longitude: 76.939928] [altitude: 50.80] [rel_alt: 50.80]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+98
+00:00:03,233 --> 00:00:03,266
+<font size="28">Srt:98/240
+[latitude: 28.369664] [longitude: 76.939946] [altitude: 50.81] [rel_alt: 50.81]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+99
+00:00:03,266 --> 00:00:03,300
+<font size="28">Srt:99/240
+[latitude: 28.369676] [longitude: 76.939964] [altitude: 50.82] [rel_alt: 50.82]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+100
+00:00:03,300 --> 00:00:03,333
+<font size="28">Srt:100/240
+[latitude: 28.369688] [longitude: 76.939982] [altitude: 50.83] [rel_alt: 50.83]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+101
+00:00:03,333 --> 00:00:03,366
+<font size="28">Srt:101/240
+[latitude: 28.369700] [longitude: 76.940000] [altitude: 50.85] [rel_alt: 50.85]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+102
+00:00:03,366 --> 00:00:03,400
+<font size="28">Srt:102/240
+[latitude: 28.369712] [longitude: 76.940018] [altitude: 50.87] [rel_alt: 50.87]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+103
+00:00:03,400 --> 00:00:03,433
+<font size="28">Srt:103/240
+[latitude: 28.369724] [longitude: 76.940036] [altitude: 50.89] [rel_alt: 50.89]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+104
+00:00:03,433 --> 00:00:03,466
+<font size="28">Srt:104/240
+[latitude: 28.369736] [longitude: 76.940054] [altitude: 50.91] [rel_alt: 50.91]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+105
+00:00:03,466 --> 00:00:03,500
+<font size="28">Srt:105/240
+[latitude: 28.369748] [longitude: 76.940072] [altitude: 50.94] [rel_alt: 50.94]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+106
+00:00:03,500 --> 00:00:03,533
+<font size="28">Srt:106/240
+[latitude: 28.369760] [longitude: 76.940090] [altitude: 50.97] [rel_alt: 50.97]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+107
+00:00:03,533 --> 00:00:03,566
+<font size="28">Srt:107/240
+[latitude: 28.369772] [longitude: 76.940108] [altitude: 51.00] [rel_alt: 51.00]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+108
+00:00:03,566 --> 00:00:03,600
+<font size="28">Srt:108/240
+[latitude: 28.369784] [longitude: 76.940126] [altitude: 51.04] [rel_alt: 51.04]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+109
+00:00:03,600 --> 00:00:03,633
+<font size="28">Srt:109/240
+[latitude: 28.369796] [longitude: 76.940144] [altitude: 51.07] [rel_alt: 51.07]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+110
+00:00:03,633 --> 00:00:03,666
+<font size="28">Srt:110/240
+[latitude: 28.369808] [longitude: 76.940162] [altitude: 51.11] [rel_alt: 51.11]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+111
+00:00:03,666 --> 00:00:03,700
+<font size="28">Srt:111/240
+[latitude: 28.369820] [longitude: 76.940180] [altitude: 51.15] [rel_alt: 51.15]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+112
+00:00:03,700 --> 00:00:03,733
+<font size="28">Srt:112/240
+[latitude: 28.369832] [longitude: 76.940198] [altitude: 51.20] [rel_alt: 51.20]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+113
+00:00:03,733 --> 00:00:03,766
+<font size="28">Srt:113/240
+[latitude: 28.369844] [longitude: 76.940216] [altitude: 51.24] [rel_alt: 51.24]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+114
+00:00:03,766 --> 00:00:03,800
+<font size="28">Srt:114/240
+[latitude: 28.369856] [longitude: 76.940234] [altitude: 51.29] [rel_alt: 51.29]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+115
+00:00:03,800 --> 00:00:03,833
+<font size="28">Srt:115/240
+[latitude: 28.369868] [longitude: 76.940252] [altitude: 51.34] [rel_alt: 51.34]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+116
+00:00:03,833 --> 00:00:03,866
+<font size="28">Srt:116/240
+[latitude: 28.369880] [longitude: 76.940270] [altitude: 51.39] [rel_alt: 51.39]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+117
+00:00:03,866 --> 00:00:03,900
+<font size="28">Srt:117/240
+[latitude: 28.369892] [longitude: 76.940288] [altitude: 51.44] [rel_alt: 51.44]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+118
+00:00:03,900 --> 00:00:03,933
+<font size="28">Srt:118/240
+[latitude: 28.369904] [longitude: 76.940306] [altitude: 51.50] [rel_alt: 51.50]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+119
+00:00:03,933 --> 00:00:03,966
+<font size="28">Srt:119/240
+[latitude: 28.369916] [longitude: 76.940324] [altitude: 51.55] [rel_alt: 51.55]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+120
+00:00:03,966 --> 00:00:04,000
+<font size="28">Srt:120/240
+[latitude: 28.369928] [longitude: 76.940342] [altitude: 51.61] [rel_alt: 51.61]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+121
+00:00:04,000 --> 00:00:04,033
+<font size="28">Srt:121/240
+[latitude: 28.369940] [longitude: 76.940360] [altitude: 51.66] [rel_alt: 51.66]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+122
+00:00:04,033 --> 00:00:04,066
+<font size="28">Srt:122/240
+[latitude: 28.369952] [longitude: 76.940378] [altitude: 51.72] [rel_alt: 51.72]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+123
+00:00:04,066 --> 00:00:04,100
+<font size="28">Srt:123/240
+[latitude: 28.369964] [longitude: 76.940396] [altitude: 51.78] [rel_alt: 51.78]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+124
+00:00:04,100 --> 00:00:04,133
+<font size="28">Srt:124/240
+[latitude: 28.369976] [longitude: 76.940414] [altitude: 51.84] [rel_alt: 51.84]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+125
+00:00:04,133 --> 00:00:04,166
+<font size="28">Srt:125/240
+[latitude: 28.369988] [longitude: 76.940432] [altitude: 51.90] [rel_alt: 51.90]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+126
+00:00:04,166 --> 00:00:04,200
+<font size="28">Srt:126/240
+[latitude: 28.370000] [longitude: 76.940450] [altitude: 51.96] [rel_alt: 51.96]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+127
+00:00:04,200 --> 00:00:04,233
+<font size="28">Srt:127/240
+[latitude: 28.370012] [longitude: 76.940468] [altitude: 52.02] [rel_alt: 52.02]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+128
+00:00:04,233 --> 00:00:04,266
+<font size="28">Srt:128/240
+[latitude: 28.370024] [longitude: 76.940486] [altitude: 52.08] [rel_alt: 52.08]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+129
+00:00:04,266 --> 00:00:04,300
+<font size="28">Srt:129/240
+[latitude: 28.370036] [longitude: 76.940504] [altitude: 52.14] [rel_alt: 52.14]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+130
+00:00:04,300 --> 00:00:04,333
+<font size="28">Srt:130/240
+[latitude: 28.370048] [longitude: 76.940522] [altitude: 52.20] [rel_alt: 52.20]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+131
+00:00:04,333 --> 00:00:04,366
+<font size="28">Srt:131/240
+[latitude: 28.370060] [longitude: 76.940540] [altitude: 52.26] [rel_alt: 52.26]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+132
+00:00:04,366 --> 00:00:04,400
+<font size="28">Srt:132/240
+[latitude: 28.370072] [longitude: 76.940558] [altitude: 52.32] [rel_alt: 52.32]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+133
+00:00:04,400 --> 00:00:04,433
+<font size="28">Srt:133/240
+[latitude: 28.370084] [longitude: 76.940576] [altitude: 52.37] [rel_alt: 52.37]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+134
+00:00:04,433 --> 00:00:04,466
+<font size="28">Srt:134/240
+[latitude: 28.370096] [longitude: 76.940594] [altitude: 52.43] [rel_alt: 52.43]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+135
+00:00:04,466 --> 00:00:04,500
+<font size="28">Srt:135/240
+[latitude: 28.370108] [longitude: 76.940612] [altitude: 52.49] [rel_alt: 52.49]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+136
+00:00:04,500 --> 00:00:04,533
+<font size="28">Srt:136/240
+[latitude: 28.370120] [longitude: 76.940630] [altitude: 52.54] [rel_alt: 52.54]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+137
+00:00:04,533 --> 00:00:04,566
+<font size="28">Srt:137/240
+[latitude: 28.370132] [longitude: 76.940648] [altitude: 52.59] [rel_alt: 52.59]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+138
+00:00:04,566 --> 00:00:04,600
+<font size="28">Srt:138/240
+[latitude: 28.370144] [longitude: 76.940666] [altitude: 52.64] [rel_alt: 52.64]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+139
+00:00:04,600 --> 00:00:04,633
+<font size="28">Srt:139/240
+[latitude: 28.370156] [longitude: 76.940684] [altitude: 52.69] [rel_alt: 52.69]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+140
+00:00:04,633 --> 00:00:04,666
+<font size="28">Srt:140/240
+[latitude: 28.370168] [longitude: 76.940702] [altitude: 52.74] [rel_alt: 52.74]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+141
+00:00:04,666 --> 00:00:04,700
+<font size="28">Srt:141/240
+[latitude: 28.370180] [longitude: 76.940720] [altitude: 52.79] [rel_alt: 52.79]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+142
+00:00:04,700 --> 00:00:04,733
+<font size="28">Srt:142/240
+[latitude: 28.370192] [longitude: 76.940738] [altitude: 52.83] [rel_alt: 52.83]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+143
+00:00:04,733 --> 00:00:04,766
+<font size="28">Srt:143/240
+[latitude: 28.370204] [longitude: 76.940756] [altitude: 52.87] [rel_alt: 52.87]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+144
+00:00:04,766 --> 00:00:04,800
+<font size="28">Srt:144/240
+[latitude: 28.370216] [longitude: 76.940774] [altitude: 52.91] [rel_alt: 52.91]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+145
+00:00:04,800 --> 00:00:04,833
+<font size="28">Srt:145/240
+[latitude: 28.370228] [longitude: 76.940792] [altitude: 52.95] [rel_alt: 52.95]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+146
+00:00:04,833 --> 00:00:04,866
+<font size="28">Srt:146/240
+[latitude: 28.370240] [longitude: 76.940810] [altitude: 52.99] [rel_alt: 52.99]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+147
+00:00:04,866 --> 00:00:04,900
+<font size="28">Srt:147/240
+[latitude: 28.370252] [longitude: 76.940828] [altitude: 53.02] [rel_alt: 53.02]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+148
+00:00:04,900 --> 00:00:04,933
+<font size="28">Srt:148/240
+[latitude: 28.370264] [longitude: 76.940846] [altitude: 53.05] [rel_alt: 53.05]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+149
+00:00:04,933 --> 00:00:04,966
+<font size="28">Srt:149/240
+[latitude: 28.370276] [longitude: 76.940864] [altitude: 53.08] [rel_alt: 53.08]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+150
+00:00:04,966 --> 00:00:05,000
+<font size="28">Srt:150/240
+[latitude: 28.370288] [longitude: 76.940882] [altitude: 53.10] [rel_alt: 53.10]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+151
+00:00:05,000 --> 00:00:05,033
+<font size="28">Srt:151/240
+[latitude: 28.370300] [longitude: 76.940900] [altitude: 53.13] [rel_alt: 53.13]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+152
+00:00:05,033 --> 00:00:05,066
+<font size="28">Srt:152/240
+[latitude: 28.370312] [longitude: 76.940918] [altitude: 53.14] [rel_alt: 53.14]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+153
+00:00:05,066 --> 00:00:05,100
+<font size="28">Srt:153/240
+[latitude: 28.370324] [longitude: 76.940936] [altitude: 53.16] [rel_alt: 53.16]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+154
+00:00:05,100 --> 00:00:05,133
+<font size="28">Srt:154/240
+[latitude: 28.370336] [longitude: 76.940954] [altitude: 53.18] [rel_alt: 53.18]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+155
+00:00:05,133 --> 00:00:05,166
+<font size="28">Srt:155/240
+[latitude: 28.370348] [longitude: 76.940972] [altitude: 53.19] [rel_alt: 53.19]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+156
+00:00:05,166 --> 00:00:05,200
+<font size="28">Srt:156/240
+[latitude: 28.370360] [longitude: 76.940990] [altitude: 53.19] [rel_alt: 53.19]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+157
+00:00:05,200 --> 00:00:05,233
+<font size="28">Srt:157/240
+[latitude: 28.370372] [longitude: 76.941008] [altitude: 53.20] [rel_alt: 53.20]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+158
+00:00:05,233 --> 00:00:05,266
+<font size="28">Srt:158/240
+[latitude: 28.370384] [longitude: 76.941026] [altitude: 53.20] [rel_alt: 53.20]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+159
+00:00:05,266 --> 00:00:05,300
+<font size="28">Srt:159/240
+[latitude: 28.370396] [longitude: 76.941044] [altitude: 53.20] [rel_alt: 53.20]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+160
+00:00:05,300 --> 00:00:05,333
+<font size="28">Srt:160/240
+[latitude: 28.370408] [longitude: 76.941062] [altitude: 53.19] [rel_alt: 53.19]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+161
+00:00:05,333 --> 00:00:05,366
+<font size="28">Srt:161/240
+[latitude: 28.370420] [longitude: 76.941080] [altitude: 53.19] [rel_alt: 53.19]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+162
+00:00:05,366 --> 00:00:05,400
+<font size="28">Srt:162/240
+[latitude: 28.370432] [longitude: 76.941098] [altitude: 53.18] [rel_alt: 53.18]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+163
+00:00:05,400 --> 00:00:05,433
+<font size="28">Srt:163/240
+[latitude: 28.370444] [longitude: 76.941116] [altitude: 53.16] [rel_alt: 53.16]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+164
+00:00:05,433 --> 00:00:05,466
+<font size="28">Srt:164/240
+[latitude: 28.370456] [longitude: 76.941134] [altitude: 53.15] [rel_alt: 53.15]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+165
+00:00:05,466 --> 00:00:05,500
+<font size="28">Srt:165/240
+[latitude: 28.370468] [longitude: 76.941152] [altitude: 53.13] [rel_alt: 53.13]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+166
+00:00:05,500 --> 00:00:05,533
+<font size="28">Srt:166/240
+[latitude: 28.370480] [longitude: 76.941170] [altitude: 53.11] [rel_alt: 53.11]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+167
+00:00:05,533 --> 00:00:05,566
+<font size="28">Srt:167/240
+[latitude: 28.370492] [longitude: 76.941188] [altitude: 53.08] [rel_alt: 53.08]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+168
+00:00:05,566 --> 00:00:05,600
+<font size="28">Srt:168/240
+[latitude: 28.370504] [longitude: 76.941206] [altitude: 53.06] [rel_alt: 53.06]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+169
+00:00:05,600 --> 00:00:05,633
+<font size="28">Srt:169/240
+[latitude: 28.370516] [longitude: 76.941224] [altitude: 53.03] [rel_alt: 53.03]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+170
+00:00:05,633 --> 00:00:05,666
+<font size="28">Srt:170/240
+[latitude: 28.370528] [longitude: 76.941242] [altitude: 52.99] [rel_alt: 52.99]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+171
+00:00:05,666 --> 00:00:05,700
+<font size="28">Srt:171/240
+[latitude: 28.370540] [longitude: 76.941260] [altitude: 52.96] [rel_alt: 52.96]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+172
+00:00:05,700 --> 00:00:05,733
+<font size="28">Srt:172/240
+[latitude: 28.370552] [longitude: 76.941278] [altitude: 52.92] [rel_alt: 52.92]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+173
+00:00:05,733 --> 00:00:05,766
+<font size="28">Srt:173/240
+[latitude: 28.370564] [longitude: 76.941296] [altitude: 52.88] [rel_alt: 52.88]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+174
+00:00:05,766 --> 00:00:05,800
+<font size="28">Srt:174/240
+[latitude: 28.370576] [longitude: 76.941314] [altitude: 52.84] [rel_alt: 52.84]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+175
+00:00:05,800 --> 00:00:05,833
+<font size="28">Srt:175/240
+[latitude: 28.370588] [longitude: 76.941332] [altitude: 52.80] [rel_alt: 52.80]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+176
+00:00:05,833 --> 00:00:05,866
+<font size="28">Srt:176/240
+[latitude: 28.370600] [longitude: 76.941350] [altitude: 52.75] [rel_alt: 52.75]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+177
+00:00:05,866 --> 00:00:05,900
+<font size="28">Srt:177/240
+[latitude: 28.370612] [longitude: 76.941368] [altitude: 52.70] [rel_alt: 52.70]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+178
+00:00:05,900 --> 00:00:05,933
+<font size="28">Srt:178/240
+[latitude: 28.370624] [longitude: 76.941386] [altitude: 52.65] [rel_alt: 52.65]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+179
+00:00:05,933 --> 00:00:05,966
+<font size="28">Srt:179/240
+[latitude: 28.370636] [longitude: 76.941404] [altitude: 52.60] [rel_alt: 52.60]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+180
+00:00:05,966 --> 00:00:06,000
+<font size="28">Srt:180/240
+[latitude: 28.370648] [longitude: 76.941422] [altitude: 52.55] [rel_alt: 52.55]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+181
+00:00:06,000 --> 00:00:06,033
+<font size="28">Srt:181/240
+[latitude: 28.370660] [longitude: 76.941440] [altitude: 52.49] [rel_alt: 52.49]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+182
+00:00:06,033 --> 00:00:06,066
+<font size="28">Srt:182/240
+[latitude: 28.370672] [longitude: 76.941458] [altitude: 52.44] [rel_alt: 52.44]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+183
+00:00:06,066 --> 00:00:06,100
+<font size="28">Srt:183/240
+[latitude: 28.370684] [longitude: 76.941476] [altitude: 52.38] [rel_alt: 52.38]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+184
+00:00:06,100 --> 00:00:06,133
+<font size="28">Srt:184/240
+[latitude: 28.370696] [longitude: 76.941494] [altitude: 52.33] [rel_alt: 52.33]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+185
+00:00:06,133 --> 00:00:06,166
+<font size="28">Srt:185/240
+[latitude: 28.370708] [longitude: 76.941512] [altitude: 52.27] [rel_alt: 52.27]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+186
+00:00:06,166 --> 00:00:06,200
+<font size="28">Srt:186/240
+[latitude: 28.370720] [longitude: 76.941530] [altitude: 52.21] [rel_alt: 52.21]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+187
+00:00:06,200 --> 00:00:06,233
+<font size="28">Srt:187/240
+[latitude: 28.370732] [longitude: 76.941548] [altitude: 52.15] [rel_alt: 52.15]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+188
+00:00:06,233 --> 00:00:06,266
+<font size="28">Srt:188/240
+[latitude: 28.370744] [longitude: 76.941566] [altitude: 52.09] [rel_alt: 52.09]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+189
+00:00:06,266 --> 00:00:06,300
+<font size="28">Srt:189/240
+[latitude: 28.370756] [longitude: 76.941584] [altitude: 52.03] [rel_alt: 52.03]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+190
+00:00:06,300 --> 00:00:06,333
+<font size="28">Srt:190/240
+[latitude: 28.370768] [longitude: 76.941602] [altitude: 51.97] [rel_alt: 51.97]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+191
+00:00:06,333 --> 00:00:06,366
+<font size="28">Srt:191/240
+[latitude: 28.370780] [longitude: 76.941620] [altitude: 51.91] [rel_alt: 51.91]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+192
+00:00:06,366 --> 00:00:06,400
+<font size="28">Srt:192/240
+[latitude: 28.370792] [longitude: 76.941638] [altitude: 51.85] [rel_alt: 51.85]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+193
+00:00:06,400 --> 00:00:06,433
+<font size="28">Srt:193/240
+[latitude: 28.370804] [longitude: 76.941656] [altitude: 51.79] [rel_alt: 51.79]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+194
+00:00:06,433 --> 00:00:06,466
+<font size="28">Srt:194/240
+[latitude: 28.370816] [longitude: 76.941674] [altitude: 51.73] [rel_alt: 51.73]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+195
+00:00:06,466 --> 00:00:06,500
+<font size="28">Srt:195/240
+[latitude: 28.370828] [longitude: 76.941692] [altitude: 51.67] [rel_alt: 51.67]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+196
+00:00:06,500 --> 00:00:06,533
+<font size="28">Srt:196/240
+[latitude: 28.370840] [longitude: 76.941710] [altitude: 51.62] [rel_alt: 51.62]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+197
+00:00:06,533 --> 00:00:06,566
+<font size="28">Srt:197/240
+[latitude: 28.370852] [longitude: 76.941728] [altitude: 51.56] [rel_alt: 51.56]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+198
+00:00:06,566 --> 00:00:06,600
+<font size="28">Srt:198/240
+[latitude: 28.370864] [longitude: 76.941746] [altitude: 51.50] [rel_alt: 51.50]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+199
+00:00:06,600 --> 00:00:06,633
+<font size="28">Srt:199/240
+[latitude: 28.370876] [longitude: 76.941764] [altitude: 51.45] [rel_alt: 51.45]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+200
+00:00:06,633 --> 00:00:06,666
+<font size="28">Srt:200/240
+[latitude: 28.370888] [longitude: 76.941782] [altitude: 51.40] [rel_alt: 51.40]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+201
+00:00:06,666 --> 00:00:06,700
+<font size="28">Srt:201/240
+[latitude: 28.370900] [longitude: 76.941800] [altitude: 51.35] [rel_alt: 51.35]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+202
+00:00:06,700 --> 00:00:06,733
+<font size="28">Srt:202/240
+[latitude: 28.370912] [longitude: 76.941818] [altitude: 51.30] [rel_alt: 51.30]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+203
+00:00:06,733 --> 00:00:06,766
+<font size="28">Srt:203/240
+[latitude: 28.370924] [longitude: 76.941836] [altitude: 51.25] [rel_alt: 51.25]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+204
+00:00:06,766 --> 00:00:06,800
+<font size="28">Srt:204/240
+[latitude: 28.370936] [longitude: 76.941854] [altitude: 51.20] [rel_alt: 51.20]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+205
+00:00:06,800 --> 00:00:06,833
+<font size="28">Srt:205/240
+[latitude: 28.370948] [longitude: 76.941872] [altitude: 51.16] [rel_alt: 51.16]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+206
+00:00:06,833 --> 00:00:06,866
+<font size="28">Srt:206/240
+[latitude: 28.370960] [longitude: 76.941890] [altitude: 51.12] [rel_alt: 51.12]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+207
+00:00:06,866 --> 00:00:06,900
+<font size="28">Srt:207/240
+[latitude: 28.370972] [longitude: 76.941908] [altitude: 51.08] [rel_alt: 51.08]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+208
+00:00:06,900 --> 00:00:06,933
+<font size="28">Srt:208/240
+[latitude: 28.370984] [longitude: 76.941926] [altitude: 51.04] [rel_alt: 51.04]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+209
+00:00:06,933 --> 00:00:06,966
+<font size="28">Srt:209/240
+[latitude: 28.370996] [longitude: 76.941944] [altitude: 51.01] [rel_alt: 51.01]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+210
+00:00:06,966 --> 00:00:07,000
+<font size="28">Srt:210/240
+[latitude: 28.371008] [longitude: 76.941962] [altitude: 50.97] [rel_alt: 50.97]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+211
+00:00:07,000 --> 00:00:07,033
+<font size="28">Srt:211/240
+[latitude: 28.371020] [longitude: 76.941980] [altitude: 50.94] [rel_alt: 50.94]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+212
+00:00:07,033 --> 00:00:07,066
+<font size="28">Srt:212/240
+[latitude: 28.371032] [longitude: 76.941998] [altitude: 50.92] [rel_alt: 50.92]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+213
+00:00:07,066 --> 00:00:07,100
+<font size="28">Srt:213/240
+[latitude: 28.371044] [longitude: 76.942016] [altitude: 50.89] [rel_alt: 50.89]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+214
+00:00:07,100 --> 00:00:07,133
+<font size="28">Srt:214/240
+[latitude: 28.371056] [longitude: 76.942034] [altitude: 50.87] [rel_alt: 50.87]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+215
+00:00:07,133 --> 00:00:07,166
+<font size="28">Srt:215/240
+[latitude: 28.371068] [longitude: 76.942052] [altitude: 50.85] [rel_alt: 50.85]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+216
+00:00:07,166 --> 00:00:07,200
+<font size="28">Srt:216/240
+[latitude: 28.371080] [longitude: 76.942070] [altitude: 50.84] [rel_alt: 50.84]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+217
+00:00:07,200 --> 00:00:07,233
+<font size="28">Srt:217/240
+[latitude: 28.371092] [longitude: 76.942088] [altitude: 50.82] [rel_alt: 50.82]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+218
+00:00:07,233 --> 00:00:07,266
+<font size="28">Srt:218/240
+[latitude: 28.371104] [longitude: 76.942106] [altitude: 50.81] [rel_alt: 50.81]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+219
+00:00:07,266 --> 00:00:07,300
+<font size="28">Srt:219/240
+[latitude: 28.371116] [longitude: 76.942124] [altitude: 50.81] [rel_alt: 50.81]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+220
+00:00:07,300 --> 00:00:07,333
+<font size="28">Srt:220/240
+[latitude: 28.371128] [longitude: 76.942142] [altitude: 50.80] [rel_alt: 50.80]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+221
+00:00:07,333 --> 00:00:07,366
+<font size="28">Srt:221/240
+[latitude: 28.371140] [longitude: 76.942160] [altitude: 50.80] [rel_alt: 50.80]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+222
+00:00:07,366 --> 00:00:07,400
+<font size="28">Srt:222/240
+[latitude: 28.371152] [longitude: 76.942178] [altitude: 50.80] [rel_alt: 50.80]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+223
+00:00:07,400 --> 00:00:07,433
+<font size="28">Srt:223/240
+[latitude: 28.371164] [longitude: 76.942196] [altitude: 50.81] [rel_alt: 50.81]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+224
+00:00:07,433 --> 00:00:07,466
+<font size="28">Srt:224/240
+[latitude: 28.371176] [longitude: 76.942214] [altitude: 50.81] [rel_alt: 50.81]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+225
+00:00:07,466 --> 00:00:07,500
+<font size="28">Srt:225/240
+[latitude: 28.371188] [longitude: 76.942232] [altitude: 50.82] [rel_alt: 50.82]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+226
+00:00:07,500 --> 00:00:07,533
+<font size="28">Srt:226/240
+[latitude: 28.371200] [longitude: 76.942250] [altitude: 50.84] [rel_alt: 50.84]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+227
+00:00:07,533 --> 00:00:07,566
+<font size="28">Srt:227/240
+[latitude: 28.371212] [longitude: 76.942268] [altitude: 50.86] [rel_alt: 50.86]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+228
+00:00:07,566 --> 00:00:07,600
+<font size="28">Srt:228/240
+[latitude: 28.371224] [longitude: 76.942286] [altitude: 50.87] [rel_alt: 50.87]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+229
+00:00:07,600 --> 00:00:07,633
+<font size="28">Srt:229/240
+[latitude: 28.371236] [longitude: 76.942304] [altitude: 50.90] [rel_alt: 50.90]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+230
+00:00:07,633 --> 00:00:07,666
+<font size="28">Srt:230/240
+[latitude: 28.371248] [longitude: 76.942322] [altitude: 50.92] [rel_alt: 50.92]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+231
+00:00:07,666 --> 00:00:07,700
+<font size="28">Srt:231/240
+[latitude: 28.371260] [longitude: 76.942340] [altitude: 50.95] [rel_alt: 50.95]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+232
+00:00:07,700 --> 00:00:07,733
+<font size="28">Srt:232/240
+[latitude: 28.371272] [longitude: 76.942358] [altitude: 50.98] [rel_alt: 50.98]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+233
+00:00:07,733 --> 00:00:07,766
+<font size="28">Srt:233/240
+[latitude: 28.371284] [longitude: 76.942376] [altitude: 51.01] [rel_alt: 51.01]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+234
+00:00:07,766 --> 00:00:07,800
+<font size="28">Srt:234/240
+[latitude: 28.371296] [longitude: 76.942394] [altitude: 51.05] [rel_alt: 51.05]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+235
+00:00:07,800 --> 00:00:07,833
+<font size="28">Srt:235/240
+[latitude: 28.371308] [longitude: 76.942412] [altitude: 51.09] [rel_alt: 51.09]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+236
+00:00:07,833 --> 00:00:07,866
+<font size="28">Srt:236/240
+[latitude: 28.371320] [longitude: 76.942430] [altitude: 51.13] [rel_alt: 51.13]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+237
+00:00:07,866 --> 00:00:07,900
+<font size="28">Srt:237/240
+[latitude: 28.371332] [longitude: 76.942448] [altitude: 51.17] [rel_alt: 51.17]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+238
+00:00:07,900 --> 00:00:07,933
+<font size="28">Srt:238/240
+[latitude: 28.371344] [longitude: 76.942466] [altitude: 51.21] [rel_alt: 51.21]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+239
+00:00:07,933 --> 00:00:07,966
+<font size="28">Srt:239/240
+[latitude: 28.371356] [longitude: 76.942484] [altitude: 51.26] [rel_alt: 51.26]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>
+
+240
+00:00:07,966 --> 00:00:08,000
+<font size="28">Srt:240/240
+[latitude: 28.371368] [longitude: 76.942502] [altitude: 51.31] [rel_alt: 51.31]
+[gimbal_pitch: -65.0] [gimbal_roll: 0.0] [gimbal_yaw: 85.0]
+</font>

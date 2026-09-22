@@ -1,0 +1,19 @@
+{
+  "status": "VALID",
+  "facility_type": "Industrial Warehouse Building",
+  "structural_dimensions": {
+    "footprint_area_sqm": 333.29,
+    "obb_bounding_area_sqm": 378.11,
+    "perimeter_length_meters": 180.1,
+    "peak_height_meters": 3.38,
+    "eave_height_meters": 2.43,
+    "mean_height_meters": 2.48,
+    "estimated_volume_cubic_meters": 827.55,
+    "ground_elevation_datum_meters": -8.5
+  },
+  "centroid_enu_coords": {
+    "east_m": -37.17,
+    "north_m": -29.9
+  },
+  "num_classified_building_points": 27824
+}
