@@ -1,4 +1,4 @@
-# SIH26158: Measurement-Grade 3D Drone Reconstruction Pipeline
+# Summerbreak
 
 > **High-Speed, Georeferenced Offline Photogrammetry & Semantic 3D Classification from Monocular Drone Video**  
 > *Targeting the Smart India Hackathon (SIH26158) Benchmark: Sub-15-Minute Turnaround on Single-GPU Workstations*
