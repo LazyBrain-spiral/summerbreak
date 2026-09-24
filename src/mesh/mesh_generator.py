@@ -1,69 +1,43 @@
 """
-Surface Mesh Reconstruction Module (Workstream B & C - Stage 9 & 10)
-Constructs a watertight surface mesh from the filtered point cloud.
-Uses OpenMVS ReconstructMesh when present, or fast 2.5D Delaunay / Ball-Pivoting reconstruction.
-Avoids Poisson hallucination artifacts over unobserved vertical facades.
+Surface Mesh Reconstruction Module (Phase 7 / Stages 9 & 10)
+Constructs a true 3D watertight surface mesh from the validated dense point cloud.
+Uses OpenMVS ReconstructMesh when available, or Open3D Screened Poisson Surface Reconstruction.
+Avoids SciPy 2.5D planar Delaunay projections.
 """
 
 import os
 import shutil
 import subprocess
 import numpy as np
-from scipy.spatial import Delaunay
+import open3d as o3d
 from typing import Dict, List, Tuple, Any, Optional
 
 from src.pointcloud.pointcloud_fusion import read_ply_points_and_colors
-
-
-def write_ply_mesh(
-    filepath: str,
-    vertices: np.ndarray,
-    faces: np.ndarray,
-    colors: Optional[np.ndarray] = None
-):
-    """Writes an indexed triangle surface mesh to PLY format."""
-    num_verts = len(vertices)
-    num_faces = len(faces)
-    has_colors = colors is not None and len(colors) == num_verts
-
-    with open(filepath, "w", encoding="utf-8") as f:
-        f.write("ply\n")
-        f.write("format ascii 1.0\n")
-        f.write(f"element vertex {num_verts}\n")
-        f.write("property float x\n")
-        f.write("property float y\n")
-        f.write("property float z\n")
-        if has_colors:
-            f.write("property uchar red\n")
-            f.write("property uchar green\n")
-            f.write("property uchar blue\n")
-        f.write(f"element face {num_faces}\n")
-        f.write("property list uchar int vertex_indices\n")
-        f.write("end_header\n")
-
-        for i in range(num_verts):
-            x, y, z = vertices[i]
-            if has_colors:
-                r, g, b = colors[i]
-                f.write(f"{x:.4f} {y:.4f} {z:.4f} {int(r)} {int(g)} {int(b)}\n")
-            else:
-                f.write(f"{x:.4f} {y:.4f} {z:.4f}\n")
-
-        for face in faces:
-            f.write(f"3 {face[0]} {face[1]} {face[2]}\n")
 
 
 def generate_surface_mesh(
     pointcloud_path: str,
     output_mesh_path: str,
     openmvs_bin: str = "ReconstructMesh",
-    max_edge_length: float = 25.0
+    poisson_depth: int = 9,
+    density_trim_percentile: float = 5.0,
+    sor_neighbors: int = 30,
+    sor_std_ratio: float = 1.5,
+    **kwargs
 ) -> Dict[str, Any]:
     """
-    Reconstructs surface triangle mesh from point cloud.
+    Reconstructs a true 3D surface triangle mesh from the input point cloud.
+    
+    1. Checks if OpenMVS ReconstructMesh is available.
+    2. Otherwise applies conservative statistical filtering to reject peripheral noise without
+       arbitrary XYZ clipping.
+    3. Reconstructs genuine 3D manifold surface via Open3D Screened Poisson Surface Reconstruction.
+    4. Trims low-density reconstruction regions using Poisson density percentiles.
+    5. Cleans degenerate triangles and unreferenced vertices.
+    6. Saves mesh to output_mesh_path (.ply) and corresponding .obj format.
     """
     os.makedirs(os.path.dirname(os.path.abspath(output_mesh_path)), exist_ok=True)
-    print(f"[MeshGenerator] Building watertight surface mesh from {pointcloud_path}...")
+    print(f"[MeshGenerator] Building 3D surface mesh from {pointcloud_path}...")
 
     # Check for native OpenMVS binary
     if shutil.which(openmvs_bin) is not None:
@@ -72,40 +46,112 @@ def generate_surface_mesh(
             subprocess.run(cmd, check=True)
             return {"engine": "OpenMVS", "mesh_path": output_mesh_path}
         except Exception as e:
-            print(f"[MeshGenerator] OpenMVS command failed ({e}); falling back to Delaunay 2.5D.")
+            print(f"[MeshGenerator] OpenMVS command failed ({e}); falling back to Open3D Poisson.")
 
-    # High-performance 2.5D Delaunay Triangulation (Aerial standard)
-    pts, clrs = read_ply_points_and_colors(pointcloud_path)
-    if len(pts) < 3:
+    # Load point cloud via Open3D
+    pcd_raw = o3d.io.read_point_cloud(pointcloud_path)
+    input_point_count = len(pcd_raw.points)
+    if input_point_count < 3:
         raise ValueError("Cannot triangulate fewer than 3 points")
 
-    # Project to horizontal plane (X, Y) for aerial triangulation
-    xy_coords = pts[:, :2]
-    tri = Delaunay(xy_coords)
-    faces = tri.simplices
+    # Filter peripheral outliers conservatively if cloud is large enough
+    if input_point_count > 100:
+        cl, ind = pcd_raw.remove_statistical_outlier(nb_neighbors=sor_neighbors, std_ratio=sor_std_ratio)
+        pcd = pcd_raw.select_by_index(ind)
+    else:
+        pcd = pcd_raw
+        ind = list(range(input_point_count))
 
-    # Prune excessively long triangles across outer boundaries or occluded gaps
-    # (prevents hallucinating mesh across unseen flight boundaries)
-    v0 = pts[faces[:, 0]]
-    v1 = pts[faces[:, 1]]
-    v2 = pts[faces[:, 2]]
+    filtered_point_count = len(pcd.points)
+    rejected_point_count = input_point_count - filtered_point_count
+    print(f"[MeshGenerator] Input points: {input_point_count:,} -> Filtered: {filtered_point_count:,} (Rejected: {rejected_point_count:,})")
 
-    d01 = np.linalg.norm(v0 - v1, axis=1)
-    d12 = np.linalg.norm(v1 - v2, axis=1)
-    d20 = np.linalg.norm(v2 - v0, axis=1)
+    # Ensure valid normals
+    if not pcd.has_normals() or len(pcd.normals) == 0:
+        print("[MeshGenerator] Estimating point normals...")
+        pcd.estimate_normals(search_param=o3d.geometry.KDTreeSearchParamHybrid(radius=1.0, max_nn=30))
+    
+    # Orient normals consistently based on tangent planes
+    if filtered_point_count > 15:
+        pcd.orient_normals_consistent_tangent_plane(k=15)
 
-    max_edges = np.maximum(np.maximum(d01, d12), d20)
-    valid_faces = faces[max_edges < max_edge_length]
+    # Adapt Poisson depth for small vs large point clouds
+    effective_depth = poisson_depth
+    if filtered_point_count < 1000:
+        effective_depth = min(poisson_depth, 6)
+    elif filtered_point_count < 10000:
+        effective_depth = min(poisson_depth, 7)
 
-    write_ply_mesh(output_mesh_path, pts, valid_faces, clrs)
-    print(f"[MeshGenerator] Surface mesh generated: {len(pts):,} vertices, {len(valid_faces):,} faces")
-    print(f"  -> Saved to: {output_mesh_path}")
+    print(f"[MeshGenerator] Running Screened Poisson Surface Reconstruction (depth={effective_depth})...")
+    mesh, densities = o3d.geometry.TriangleMesh.create_from_point_cloud_poisson(
+        pcd, depth=effective_depth, width=0, scale=1.1, linear_fit=False
+    )
+
+    dens = np.asarray(densities)
+    if len(dens) > 0 and density_trim_percentile > 0:
+        trim_thresh = float(np.percentile(dens, density_trim_percentile))
+        mesh.remove_vertices_by_mask(dens < trim_thresh)
+
+    # Topology cleanup
+    mesh.remove_unreferenced_vertices()
+    mesh.remove_degenerate_triangles()
+    mesh.remove_unreferenced_vertices()
+
+    verts = np.asarray(mesh.vertices)
+    tris = np.asarray(mesh.triangles)
+    num_verts = len(verts)
+    num_faces = len(tris)
+
+    # Save primary PLY mesh (ASCII for universal compatibility)
+    o3d.io.write_triangle_mesh(output_mesh_path, mesh, write_ascii=True)
+    print(f"  -> Saved PLY mesh: {output_mesh_path}")
+
+    # Also save OBJ mesh alongside if path is .ply
+    base, _ = os.path.splitext(output_mesh_path)
+    output_obj_path = base + ".obj"
+    o3d.io.write_triangle_mesh(output_obj_path, mesh)
+    print(f"  -> Saved OBJ mesh: {output_obj_path}")
+
+    # Compute validation metrics
+    min_bound = [float(v) for v in mesh.get_min_bound()]
+    max_bound = [float(v) for v in mesh.get_max_bound()]
+
+    is_finite = np.all(np.isfinite(verts), axis=1) if num_verts > 0 else []
+    non_finite_count = int(num_verts - np.sum(is_finite)) if num_verts > 0 else 0
+
+    # Connected components
+    tri_clusters, num_tri_per_cluster, area = mesh.cluster_connected_triangles()
+    tri_clusters = np.asarray(tri_clusters)
+    num_tri_per_cluster = np.asarray(num_tri_per_cluster)
+    num_components = len(num_tri_per_cluster)
+
+    if num_components > 0:
+        largest_cluster_id = int(np.argmax(num_tri_per_cluster))
+        largest_cluster_triangles = int(num_tri_per_cluster[largest_cluster_id])
+        largest_cluster_verts = np.unique(tris[tri_clusters == largest_cluster_id])
+        pct_verts_largest = float(len(largest_cluster_verts) / num_verts * 100.0) if num_verts > 0 else 0.0
+    else:
+        largest_cluster_triangles = 0
+        pct_verts_largest = 0.0
+
+    print(f"[MeshGenerator] Surface mesh generated: {num_verts:,} vertices, {num_faces:,} triangles")
+    print(f"  Connected components: {num_components} (Largest: {largest_cluster_triangles:,} triangles, {pct_verts_largest:.1f}% vertices)")
 
     return {
-        "engine": "Delaunay2.5D",
-        "num_vertices": len(pts),
-        "num_faces": len(valid_faces),
-        "mesh_path": output_mesh_path
+        "engine": "Open3D_Poisson",
+        "poisson_depth": effective_depth,
+        "input_points": input_point_count,
+        "filtered_points": filtered_point_count,
+        "rejected_points": rejected_point_count,
+        "num_vertices": num_verts,
+        "num_faces": num_faces,
+        "mesh_bounding_box": {"min": min_bound, "max": max_bound},
+        "connected_components": num_components,
+        "largest_component_triangles": largest_cluster_triangles,
+        "pct_vertices_in_largest_component": pct_verts_largest,
+        "non_finite_vertices": non_finite_count,
+        "mesh_path": output_mesh_path,
+        "mesh_obj_path": output_obj_path
     }
 
 
@@ -113,6 +159,7 @@ if __name__ == "__main__":
     import argparse
     parser = argparse.ArgumentParser(description="Reconstruct surface mesh from point cloud")
     parser.add_argument("--input", required=True, help="Input filtered PLY point cloud")
-    parser.add_argument("--output", default="data/mesh_raw.ply", help="Output PLY mesh")
+    parser.add_argument("--output", default="runs/drone3d_custom/stage_07_mesh/mesh_raw.ply", help="Output PLY mesh")
     args = parser.parse_args()
     generate_surface_mesh(args.input, args.output)
+

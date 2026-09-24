@@ -3,17 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SIH26158 - Drone 3D Reconstruction Visualizer</title>
+    <title>SIH26158 - Drone 3D Aerial Reconstruction Visualizer</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-primary: #0a0d12;
-            --panel-bg: rgba(22, 27, 34, 0.85);
-            --border-color: rgba(240, 246, 252, 0.1);
+            --panel-bg: rgba(18, 22, 29, 0.88);
+            --border-color: rgba(240, 246, 252, 0.12);
             --accent-blue: #58a6ff;
+            --accent-cyan: #38bdf8;
             --accent-green: #3fb950;
             --accent-orange: #f0883e;
+            --accent-red: #f85149;
             --text-main: #f0f6fc;
             --text-muted: #8b949e;
         }
@@ -30,7 +32,7 @@
             height: 100%;
             overflow: hidden;
             background-color: var(--bg-primary);
-            font-family: 'Inter', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             color: var(--text-main);
         }
 
@@ -49,38 +51,87 @@
             left: 24px;
             z-index: 10;
             background: var(--panel-bg);
-            backdrop-filter: blur(12px);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
             border: 1px solid var(--border-color);
             padding: 16px 22px;
-            border-radius: 12px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            border-radius: 14px;
+            box-shadow: 0 12px 36px rgba(0, 0, 0, 0.5);
+            max-width: 440px;
         }
 
         .hud-header h1 {
-            font-size: 17px;
+            font-size: 16px;
             font-weight: 700;
             letter-spacing: -0.3px;
             color: #ffffff;
             display: flex;
             align-items: center;
             gap: 10px;
+            flex-wrap: wrap;
         }
 
         .badge {
-            background: rgba(63, 185, 80, 0.2);
+            background: rgba(63, 185, 80, 0.18);
             color: var(--accent-green);
-            border: 1px solid rgba(63, 185, 80, 0.3);
+            border: 1px solid rgba(63, 185, 80, 0.35);
             font-size: 11px;
             font-weight: 600;
-            padding: 2px 8px;
+            padding: 2px 9px;
             border-radius: 20px;
             text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge.cyan {
+            background: rgba(56, 189, 248, 0.18);
+            color: var(--accent-cyan);
+            border-color: rgba(56, 189, 248, 0.35);
         }
 
         .hud-header p {
             font-size: 12px;
             color: var(--text-muted);
-            margin-top: 4px;
+            margin-top: 5px;
+            line-height: 1.4;
+        }
+
+        /* Model Selector Tabs */
+        .model-tabs {
+            display: flex;
+            gap: 6px;
+            margin-top: 12px;
+            background: rgba(0, 0, 0, 0.35);
+            padding: 4px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .tab-btn {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 6px 10px;
+            font-size: 11px;
+            font-weight: 600;
+            border-radius: 7px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        .tab-btn:hover {
+            color: var(--text-main);
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .tab-btn.active {
+            background: var(--accent-blue);
+            color: #0d1117;
+            font-weight: 700;
+            box-shadow: 0 2px 8px rgba(88, 166, 255, 0.35);
         }
 
         /* Stats Card Overlay */
@@ -90,21 +141,34 @@
             right: 24px;
             z-index: 10;
             background: var(--panel-bg);
-            backdrop-filter: blur(12px);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
             border: 1px solid var(--border-color);
             padding: 16px 20px;
-            border-radius: 12px;
-            min-width: 280px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            border-radius: 14px;
+            min-width: 290px;
+            box-shadow: 0 12px 36px rgba(0, 0, 0, 0.5);
+        }
+
+        .hud-stats-title {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .stat-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 7px 0;
+            padding: 6px 0;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            font-size: 13px;
+            font-size: 12.5px;
         }
 
         .stat-row:last-child {
@@ -125,6 +189,79 @@
             color: var(--accent-green);
         }
 
+        .stat-val.yellow {
+            color: #ffd33d;
+        }
+
+        /* Real-time Cursor Telemetry Bar */
+        .cursor-bar {
+            position: absolute;
+            top: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            background: var(--panel-bg);
+            backdrop-filter: blur(14px);
+            border: 1px solid var(--border-color);
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-size: 11.5px;
+            font-family: 'JetBrains Mono', monospace;
+            display: flex;
+            gap: 16px;
+            color: var(--text-muted);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .cursor-bar span b {
+            color: var(--accent-cyan);
+            font-weight: 600;
+        }
+
+        /* Camera Views Toolbar */
+        .camera-toolbar {
+            position: absolute;
+            bottom: 85px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            display: flex;
+            gap: 8px;
+            background: var(--panel-bg);
+            backdrop-filter: blur(14px);
+            border: 1px solid var(--border-color);
+            padding: 6px 12px;
+            border-radius: 24px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+        }
+
+        .cam-btn {
+            background: transparent;
+            border: 1px solid transparent;
+            color: var(--text-muted);
+            padding: 5px 12px;
+            border-radius: 16px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .cam-btn:hover {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .cam-btn.active {
+            color: var(--accent-cyan);
+            background: rgba(56, 189, 248, 0.15);
+            border-color: rgba(56, 189, 248, 0.3);
+        }
+
         /* Bottom Controls */
         .hud-controls {
             position: absolute;
@@ -133,17 +270,19 @@
             transform: translateX(-50%);
             z-index: 10;
             display: flex;
-            gap: 12px;
+            gap: 10px;
             background: var(--panel-bg);
-            backdrop-filter: blur(12px);
+            backdrop-filter: blur(14px);
             border: 1px solid var(--border-color);
             padding: 10px 18px;
             border-radius: 30px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 10px 32px rgba(0, 0, 0, 0.5);
+            flex-wrap: wrap;
+            justify-content: center;
         }
 
         .btn {
-            background: rgba(255, 255, 255, 0.07);
+            background: rgba(255, 255, 255, 0.06);
             border: 1px solid rgba(255, 255, 255, 0.12);
             color: var(--text-main);
             padding: 8px 16px;
@@ -152,18 +291,57 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
         .btn:hover {
             background: rgba(88, 166, 255, 0.2);
             border-color: var(--accent-blue);
             color: #fff;
+            transform: translateY(-1px);
         }
 
         .btn.active {
             background: var(--accent-blue);
-            color: #000;
+            color: #0a0d12;
             border-color: var(--accent-blue);
+            font-weight: 700;
+            box-shadow: 0 2px 10px rgba(88, 166, 255, 0.4);
+        }
+
+        /* Floating ASPRS Legend */
+        #asprs-legend {
+            display: none;
+            position: absolute;
+            bottom: 135px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            background: var(--panel-bg);
+            backdrop-filter: blur(14px);
+            border: 1px solid var(--border-color);
+            padding: 8px 18px;
+            border-radius: 24px;
+            font-size: 11px;
+            gap: 16px;
+            align-items: center;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 500;
+        }
+
+        .legend-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
         }
 
         /* Loading indicator */
@@ -172,62 +350,160 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            color: var(--accent-blue);
-            font-size: 14px;
+            color: var(--accent-cyan);
+            font-size: 13px;
             font-family: 'JetBrains Mono', monospace;
-            z-index: 20;
-            background: rgba(13, 17, 23, 0.9);
-            padding: 16px 28px;
-            border-radius: 8px;
+            z-index: 25;
+            background: rgba(13, 17, 23, 0.95);
+            padding: 18px 32px;
+            border-radius: 12px;
             border: 1px solid var(--border-color);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .spinner {
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(56, 189, 248, 0.2);
+            border-top-color: var(--accent-cyan);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Compass North Indicator */
+        .compass-widget {
+            position: absolute;
+            bottom: 24px;
+            left: 24px;
+            z-index: 10;
+            background: var(--panel-bg);
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(14px);
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .compass-widget:hover {
+            transform: scale(1.08);
+        }
+
+        .compass-needle {
+            width: 4px;
+            height: 28px;
+            position: relative;
+            transform-origin: center center;
+        }
+
+        .compass-needle::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background: #f85149;
+            border-radius: 2px 2px 0 0;
+        }
+
+        .compass-needle::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background: #8b949e;
+            border-radius: 0 0 2px 2px;
+        }
+
+        .compass-label {
+            position: absolute;
+            top: 4px;
+            font-size: 8px;
+            font-weight: 800;
+            color: #f85149;
+            font-family: 'JetBrains Mono', monospace;
         }
     </style>
-    <!-- Three.js + OrbitControls + OBJLoader -->
+    <!-- Three.js + OrbitControls + OBJLoader + MTLLoader -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/OBJLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/MTLLoader.js"></script>
 </head>
 <body>
-    <div id="loader">Loading 3D Reconstruction Model...</div>
+    <div id="loader"><div class="spinner"></div><span id="loader-text">Initializing 3D Aerial Reconstruction Visualizer...</span></div>
     <div id="canvas-container"></div>
 
+    <!-- Header HUD -->
     <div class="hud-header">
-        <h1>SIH26158 Aerial Flight 3D Visualizer <span class="badge">Survey Complete</span></h1>
-        <p>30-Frame Drone Video Monocular Photogrammetry Reconstruction</p>
+        <h1>SIH26158 Aerial 3D Visualizer <span class="badge" id="survey-badge">Survey Aligned</span></h1>
+        <p id="survey-description">Georeferenced Monocular Drone Photogrammetry with Semantic Segmentation & Structural Metrics</p>
+
+        <!-- Model Selector Tabs -->
+        <div class="model-tabs">
+            <button class="tab-btn active" id="tab-mesh35" onclick="switchModel('mesh35')">🌱 35m Poisson</button>
+            <button class="tab-btn" id="tab-mesh40" onclick="switchModel('mesh40')">🌿 40m Poisson</button>
+            <button class="tab-btn" id="tab-mesh07" onclick="switchModel('mesh07')">⚠️ Stage 07 Spire</button>
+            <button class="tab-btn" id="tab-survey" onclick="switchModel('survey')">🚁 Flight Corridor</button>
+            <button class="tab-btn" id="tab-warehouse" onclick="switchModel('warehouse')">🏢 Warehouse</button>
+        </div>
     </div>
 
+    <!-- Cursor Telemetry Coordinates Bar -->
+    <div class="cursor-bar" id="cursor-bar">
+        <span>X (East): <b id="tele-x">0.0 m</b></span>
+        <span>Z (North): <b id="tele-z">0.0 m</b></span>
+        <span>Elevation (HAG): <b id="tele-y">0.0 m</b></span>
+    </div>
+
+    <!-- Stats HUD -->
     <div class="hud-stats">
+        <div class="hud-stats-title">
+            <span>Survey Analytics</span>
+            <span class="badge cyan" id="stat-mode-badge">Fast SGBM</span>
+        </div>
         <div class="stat-row">
             <span class="stat-label">Dataset</span>
-            <span class="stat-val" style="color:#d2a8ff;">Custom Drone Flight (30 Frames)</span>
+            <span class="stat-val" id="stat-dataset" style="color:#d2a8ff;">30-Frame Drone Survey</span>
         </div>
         <div class="stat-row">
             <span class="stat-label">Wall-Clock Runtime</span>
-            <span class="stat-val green">51.63 seconds (< 15m target)</span>
+            <span class="stat-val green" id="stat-runtime">51.6s (&lt; 15m target)</span>
         </div>
         <div class="stat-row">
-            <span class="stat-label">Reconstructed Triangles</span>
-            <span class="stat-val" style="color:#58a6ff; font-weight:700;">141,256 faces</span>
+            <span class="stat-label">Triangles (TIN Mesh)</span>
+            <span class="stat-val" id="stat-faces" style="color:#58a6ff; font-weight:700;">141,256 faces</span>
         </div>
         <div class="stat-row">
             <span class="stat-label">Dense Point Cloud</span>
-            <span class="stat-val">70,646 points</span>
+            <span class="stat-val" id="stat-points">70,646 points</span>
         </div>
         <div class="stat-row">
-            <span class="stat-label">Honest Coverage Index</span>
-            <span class="stat-val green">85.9% (121,356 observed)</span>
-        </div>
-        <div class="stat-row">
-            <span class="stat-label">Footprint Area</span>
-            <span class="stat-val" style="color:#ffd33d;">333.3 m²</span>
+            <span class="stat-label">Footprint Dimensions</span>
+            <span class="stat-val yellow" id="stat-footprint">76.1m × 59.6m</span>
         </div>
         <div class="stat-row">
             <span class="stat-label">Peak Structural Height</span>
-            <span class="stat-val" style="color:#ffd33d;">3.38 m</span>
+            <span class="stat-val yellow" id="stat-height">3.38 m</span>
         </div>
         <div class="stat-row">
-            <span class="stat-label">Dynamic Object Masking</span>
-            <span class="stat-val green">YOLOv8-seg (30 masks)</span>
+            <span class="stat-label">Dynamic Vehicle Masking</span>
+            <span class="stat-val green">YOLOv8-seg (Active)</span>
         </div>
         <div class="stat-row">
             <span class="stat-label">ASPRS Point Cloud</span>
@@ -240,223 +516,484 @@
     </div>
 
     <!-- Floating ASPRS Legend -->
-    <div id="asprs-legend" style="display: none; position: absolute; bottom: 85px; left: 50%; transform: translateX(-50%); z-index: 10; background: var(--panel-bg); backdrop-filter: blur(12px); border: 1px solid var(--border-color); padding: 8px 16px; border-radius: 20px; font-size: 11px; gap: 14px; align-items: center;">
-        <span style="display:flex; align-items:center; gap:5px;"><span style="width:10px; height:10px; border-radius:50%; background:#dc2626;"></span> Building (Class 6)</span>
-        <span style="display:flex; align-items:center; gap:5px;"><span style="width:10px; height:10px; border-radius:50%; background:#d2b48c;"></span> Ground (Class 2)</span>
-        <span style="display:flex; align-items:center; gap:5px;"><span style="width:10px; height:10px; border-radius:50%; background:#22c55e;"></span> Vegetation (Class 5)</span>
-        <span style="display:flex; align-items:center; gap:5px;"><span style="width:10px; height:10px; border-radius:50%; background:#6b7280;"></span> Road (Class 11)</span>
+    <div id="asprs-legend">
+        <span class="legend-item"><span class="legend-dot" style="background:#ef4444;"></span> Building / Roof (Class 6)</span>
+        <span class="legend-item"><span class="legend-dot" style="background:#d2b48c;"></span> Ground / Terrain (Class 2)</span>
+        <span class="legend-item"><span class="legend-dot" style="background:#22c55e;"></span> High Vegetation (Class 5)</span>
+        <span class="legend-item"><span class="legend-dot" style="background:#64748b;"></span> Road / Pavement (Class 11)</span>
     </div>
 
+    <!-- Camera View Presets Toolbar -->
+    <div class="camera-toolbar">
+        <button class="cam-btn active" id="cam-perspective" onclick="setCameraView('perspective')">📐 Oblique 3D</button>
+        <button class="cam-btn" id="cam-nadir" onclick="setCameraView('nadir')">🗺️ Top-Down (Nadir)</button>
+        <button class="cam-btn" id="cam-side" onclick="setCameraView('side')">🏢 Elevation Profile</button>
+        <button class="cam-btn" id="cam-flip" onclick="toggleZUpFlip()" title="Toggle Z-Up to Y-Up coordinate transformation">🔄 Flip Up-Axis</button>
+        <button class="cam-btn" id="cam-reset" onclick="resetCamera()">🎯 Re-Center</button>
+    </div>
+
+    <!-- Shading Mode Controls -->
     <div class="hud-controls">
-        <button class="btn active" id="btn-shaded">Shaded</button>
-        <button class="btn" id="btn-wireframe">Wireframe</button>
-        <button class="btn" id="btn-points">Point Cloud</button>
-        <button class="btn" id="btn-semantic">🎨 ASPRS Classes</button>
-        <button class="btn" id="btn-load-pipeline">⚡ Load Pipeline OBJ</button>
-        <button class="btn" id="btn-reset">Reset Camera</button>
+        <button class="btn active" id="btn-shaded" onclick="setShadingMode('shaded')">🖼️ Textured Shaded</button>
+        <button class="btn" id="btn-wireframe" onclick="setShadingMode('wireframe')">📐 Wireframe</button>
+        <button class="btn" id="btn-points" onclick="setShadingMode('points')">✨ Dense Points</button>
+        <button class="btn" id="btn-semantic" onclick="setShadingMode('semantic')">🎨 ASPRS Classes</button>
         <input type="file" id="file-input" accept=".obj" style="display: none;">
-        <button class="btn" onclick="document.getElementById('file-input').click()">Upload File</button>
+    </div>
+
+    <!-- North Compass -->
+    <div class="compass-widget" id="compass" title="North Arrow (Click to Align North)" onclick="alignNorth()">
+        <span class="compass-label">N</span>
+        <div class="compass-needle" id="compass-needle"></div>
     </div>
 
     <script>
-        // Setup Three.js Scene, Camera, Renderer
+        // Model dataset configurations
+        const DATASETS = {
+            mesh35: {
+                obj: 'models/mesh_35m.obj',
+                texture: null,
+                name: '35m Filtered Poisson Mesh (Stage 08)',
+                badge: '35m Cutoff',
+                modeBadge: 'Clean Ground Terrain',
+                desc: 'Watertight single-component reconstruction (138,722 verts, 276,168 tris) with ZERO vertical spikes.',
+                faces: '276,168 faces',
+                points: '138,722 points',
+                runtime: '3.1s Poisson',
+                footprint: '60.3m × 18.8m',
+                height: '4.1 m',
+                zUp: true
+            },
+            mesh40: {
+                obj: 'models/mesh_40m.obj',
+                texture: null,
+                name: '40m Filtered Poisson Mesh (Stage 08)',
+                badge: '40m Cutoff',
+                modeBadge: 'Extended Periphery',
+                desc: 'Extended ground perimeter (131,498 verts, 261,747 tris) with ZERO vertical spires.',
+                faces: '261,747 faces',
+                points: '131,498 points',
+                runtime: '3.2s Poisson',
+                footprint: '67.4m × 20.9m',
+                height: '4.2 m',
+                zUp: true
+            },
+            mesh07: {
+                obj: 'models/mesh_stage07.obj',
+                texture: null,
+                name: 'Stage 07 Mesh (Reference with 148m Spire)',
+                badge: 'Stage 07 Spire',
+                modeBadge: 'Unfiltered Rays',
+                desc: 'Original Poisson reconstruction contaminated by distant horizon rays (148m ballooned spire).',
+                faces: '183,169 faces',
+                points: '92,299 points',
+                runtime: '3.4s Poisson',
+                footprint: '175.5m × 65.6m',
+                height: '155.3 m',
+                zUp: true
+            },
+            survey: {
+                obj: 'models/textured_mesh.obj',
+                texture: 'models/textured_mesh.png',
+                name: '30-Frame Drone Survey Corridor',
+                badge: 'Survey Corridor',
+                modeBadge: 'Fast SGBM + GLOMAP',
+                desc: '30-Frame drone corridor photogrammetry reconstruction along flight path.',
+                faces: '141,256 faces',
+                points: '70,646 points',
+                runtime: '51.6s (< 15m budget)',
+                footprint: '76.1m × 59.6m',
+                height: '3.38 m',
+                zUp: true
+            },
+            warehouse: {
+                obj: 'models/warehouse_site.obj',
+                texture: 'models/warehouse_site.png',
+                name: 'Distribution Warehouse Facility Hub',
+                badge: 'Full Facility Site',
+                modeBadge: 'Dual-Branch MVS',
+                desc: 'High-detail 128m × 72m industrial logistics facility campus with gable roof, loading docks, annex & access roads.',
+                faces: '72,600 faces',
+                points: '36,864 points',
+                runtime: '42.8s (< 15m budget)',
+                footprint: '128.0m × 72.0m',
+                height: '8.61 m',
+                zUp: true
+            }
+        };
+
+        let activeDatasetKey = 'mesh35';
+        let isZUpFlipped = true; // Aerial photogrammetry models are Z-up; Three.js is Y-up
+        let hasInitialFramed = false;
+
+        // Three.js Scene Setup
         const container = document.getElementById('canvas-container');
         const scene = new THREE.Scene();
         scene.background = new THREE.Color(0x0a0d12);
 
-        const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 5000);
-        camera.position.set(0, -180, 140);
+        const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 10000);
+        camera.position.set(60, 65, 85);
 
-        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
         renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setPixelRatio(window.devicePixelRatio);
-        renderer.shadowMap.enabled = true;
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        renderer.toneMappingExposure = 1.15;
         container.appendChild(renderer.domElement);
 
         const controls = new THREE.OrbitControls(camera, renderer.domElement);
         controls.enableDamping = true;
-        controls.dampingFactor = 0.05;
+        controls.dampingFactor = 0.06;
         controls.screenSpacePanning = true;
+        controls.maxPolarAngle = Math.PI / 2 + 0.1; // Don't flip below ground
+        controls.minDistance = 2;
+        controls.maxDistance = 2500;
 
-        // Lighting
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
-        scene.add(ambientLight);
+        // Ground Reference Grid (Horizontal XZ plane at Y = 0)
+        let gridHelper = new THREE.GridHelper(300, 30, 0x30363d, 0x161b22);
+        gridHelper.position.y = 0;
+        scene.add(gridHelper);
 
-        const sunLight = new THREE.DirectionalLight(0xffffff, 0.9);
-        sunLight.position.set(100, -150, 200);
+        // Professional Aerial Photogrammetry Lighting Setup
+        // 1. Soft sky/ground ambient
+        const hemiLight = new THREE.HemisphereLight(0xdff0ff, 0x1c2128, 0.85);
+        scene.add(hemiLight);
+
+        // 2. High-angle Sun Directional Light (illuminates rooftops and ground naturally from above)
+        const sunLight = new THREE.DirectionalLight(0xfffbf2, 1.25);
+        sunLight.position.set(120, 200, 90);
         scene.add(sunLight);
 
-        const fillLight = new THREE.DirectionalLight(0x58a6ff, 0.3);
-        fillLight.position.set(-100, 150, -50);
+        // 3. Subtle Fill Light (illuminates shaded building facades)
+        const fillLight = new THREE.DirectionalLight(0x7dd3fc, 0.5);
+        fillLight.position.set(-120, 100, -90);
         scene.add(fillLight);
-
-        // Ground reference grid
-        const gridHelper = new THREE.GridHelper(400, 40, 0x30363d, 0x161b22);
-        gridHelper.rotation.x = Math.PI / 2;
-        scene.add(gridHelper);
 
         let currentMesh = null;
         let pointCloud = null;
-        let modelTexture = null;
+        let currentTexture = null;
+        let activeShadingMode = 'shaded';
+        let modelCenter = new THREE.Vector3();
+        let modelSize = new THREE.Vector3();
 
         const textureLoader = new THREE.TextureLoader();
-        modelTexture = textureLoader.load('models/textured_mesh.png', () => {
-            if (currentMesh) {
-                currentMesh.traverse((child) => {
-                    if (child.isMesh) {
-                        child.material.map = modelTexture;
-                        child.material.needsUpdate = true;
+
+        // Load & prepare model
+        function loadModel(dataset) {
+            const loaderEl = document.getElementById('loader');
+            const loaderText = document.getElementById('loader-text');
+            loaderEl.style.display = 'flex';
+            loaderText.innerText = `Loading ${dataset.name}...`;
+
+            // Preload texture if present
+            if (dataset.texture) {
+                currentTexture = textureLoader.load(dataset.texture, (tex) => {
+                    tex.wrapS = THREE.ClampToEdgeWrapping;
+                    tex.wrapT = THREE.ClampToEdgeWrapping;
+                    tex.minFilter = THREE.LinearMipmapLinearFilter;
+                    tex.generateMipmaps = true;
+                    if (currentMesh && activeShadingMode === 'shaded') {
+                        currentMesh.traverse((child) => {
+                            if (child.isMesh) {
+                                child.material.map = tex;
+                                child.material.needsUpdate = true;
+                            }
+                        });
                     }
                 });
+            } else {
+                currentTexture = null;
             }
-        });
-        modelTexture.wrapS = THREE.RepeatWrapping;
-        modelTexture.wrapT = THREE.RepeatWrapping;
-
-        function loadSurveyModel() {
-            const loaderEl = document.getElementById('loader');
-            loaderEl.style.display = 'block';
-            loaderEl.innerText = 'Loading 30-Frame Flight Survey Mesh (141,256 faces)...';
 
             const objLoader = new THREE.OBJLoader();
-            objLoader.load('models/textured_mesh.obj', (loadedObj) => {
-                if (currentMesh) scene.remove(currentMesh);
-                if (pointCloud) scene.remove(pointCloud);
-
-                // Center model at origin
-                const box = new THREE.Box3().setFromObject(loadedObj);
-                const center = box.getCenter(new THREE.Vector3());
-                const size = box.getSize(new THREE.Vector3());
-                loadedObj.position.sub(center);
-
-                // Apply real photo texture map
-                loadedObj.traverse((child) => {
-                    if (child.isMesh) {
-                        child.material = new THREE.MeshStandardMaterial({
-                            map: modelTexture,
-                            roughness: 0.85,
-                            metalness: 0.1,
-                            side: THREE.DoubleSide
-                        });
-
-                        // Generate point cloud representation from mesh vertices
-                        const geom = child.geometry;
-                        if (geom) {
-                            const ptsMat = new THREE.PointsMaterial({
-                                size: 1.5,
-                                color: 0x7ee787
-                            });
-                            pointCloud = new THREE.Points(geom.clone(), ptsMat);
-                            pointCloud.position.copy(loadedObj.position);
-                            pointCloud.visible = false;
-                            scene.add(pointCloud);
-                        }
+            objLoader.load(
+                dataset.obj,
+                (loadedObj) => {
+                    setupLoadedObject(loadedObj, dataset.zUp, dataset);
+                    loaderEl.style.display = 'none';
+                },
+                (xhr) => {
+                    if (xhr.lengthComputable) {
+                        const pct = Math.round((xhr.loaded / xhr.total) * 100);
+                        loaderText.innerText = `Loading 3D Mesh: ${pct}%...`;
                     }
-                });
-
-                currentMesh = loadedObj;
-                scene.add(currentMesh);
-                loaderEl.style.display = 'none';
-
-                // Recenter camera nicely around model
-                const maxDim = Math.max(size.x, size.y, size.z, 60);
-                camera.position.set(0, -maxDim * 1.4, maxDim * 1.1);
-                camera.lookAt(0, 0, 0);
-                controls.target.set(0, 0, 0);
-                controls.update();
-            }, (xhr) => {
-                if (xhr.lengthComputable) {
-                    const pct = Math.round((xhr.loaded / xhr.total) * 100);
-                    loaderEl.innerText = `Loading 3D Survey Mesh: ${pct}%...`;
+                },
+                (err) => {
+                    console.error('Failed to load OBJ:', err);
+                    loaderText.innerText = 'Failed to load model file.';
+                    setTimeout(() => { loaderEl.style.display = 'none'; }, 2500);
                 }
-            }, (err) => {
-                console.error('Failed to load OBJ:', err);
-                loaderEl.innerText = 'Failed to load models/textured_mesh.obj';
-            });
+            );
         }
 
-        // Auto-load the real reconstructed model on page start
-        loadSurveyModel();
+        function setupLoadedObject(loadedObj, applyZUp, dataset) {
+            if (currentMesh) scene.remove(currentMesh);
+            if (pointCloud) scene.remove(pointCloud);
 
-        // Control handlers
-        document.getElementById('btn-shaded').onclick = () => {
-            if (currentMesh) {
-                currentMesh.visible = true;
-                currentMesh.traverse((child) => {
-                    if (child.isMesh) {
-                        child.material.wireframe = false;
-                        child.material.map = modelTexture;
-                        child.material.needsUpdate = true;
-                    }
-                });
-            }
-            if (pointCloud) pointCloud.visible = false;
-            document.getElementById('asprs-legend').style.display = 'none';
-            setActiveBtn('btn-shaded');
-        };
-
-        document.getElementById('btn-wireframe').onclick = () => {
-            if (currentMesh) {
-                currentMesh.visible = true;
-                currentMesh.traverse((child) => {
-                    if (child.isMesh) child.material.wireframe = true;
-                });
-            }
-            if (pointCloud) pointCloud.visible = false;
-            document.getElementById('asprs-legend').style.display = 'none';
-            setActiveBtn('btn-wireframe');
-        };
-
-        document.getElementById('btn-points').onclick = () => {
-            if (currentMesh) currentMesh.visible = false;
-            if (pointCloud) pointCloud.visible = true;
-            document.getElementById('asprs-legend').style.display = 'none';
-            setActiveBtn('btn-points');
-        };
-
-        // ASPRS Semantic Classification Mode
-        document.getElementById('btn-semantic').onclick = () => {
-            if (currentMesh) {
-                currentMesh.visible = true;
-                currentMesh.traverse((child) => {
-                    if (child.isMesh) {
-                        child.material.wireframe = false;
-                        child.material.map = null;
-                        child.material.color = new THREE.Color(0x22c55e); // Vegetation/canopy green
-                        child.material.needsUpdate = true;
-                    }
-                });
-            }
-            if (pointCloud) pointCloud.visible = false;
-            document.getElementById('asprs-legend').style.display = 'flex';
-            setActiveBtn('btn-semantic');
-        };
-
-        document.getElementById('btn-reset').onclick = () => {
-            if (currentMesh) {
-                const box = new THREE.Box3().setFromObject(currentMesh);
-                const size = box.getSize(new THREE.Vector3());
-                const maxDim = Math.max(size.x, size.y, size.z, 60);
-                camera.position.set(0, -maxDim * 1.4, maxDim * 1.1);
+            // Apply Z-Up to Y-Up photogrammetry rotation
+            if (isZUpFlipped) {
+                loadedObj.rotation.x = -Math.PI / 2;
             } else {
-                camera.position.set(0, -180, 140);
+                loadedObj.rotation.x = 0;
             }
-            controls.target.set(0, 0, 0);
+            loadedObj.updateMatrixWorld(true);
+
+            // Calculate precise bounding box after orientation
+            const box = new THREE.Box3().setFromObject(loadedObj);
+            box.getCenter(modelCenter);
+            box.getSize(modelSize);
+
+            // Center horizontally at X=0, Z=0, and rest ground base at Y=0
+            loadedObj.position.x = -modelCenter.x;
+            loadedObj.position.z = -modelCenter.z;
+            loadedObj.position.y = -box.min.y;
+            loadedObj.updateMatrixWorld(true);
+
+            // Resize ground grid to comfortably frame model
+            const maxHorizontal = Math.max(modelSize.x, modelSize.z, 50);
+            scene.remove(gridHelper);
+            gridHelper = new THREE.GridHelper(maxHorizontal * 2.2, 30, 0x38414e, 0x161b22);
+            gridHelper.position.y = 0;
+            scene.add(gridHelper);
+
+            // Process meshes: compute smooth normals & generate ASPRS semantic vertex colors
+            let totalVertices = 0;
+            let totalFaces = 0;
+
+            loadedObj.traverse((child) => {
+                if (child.isMesh && child.geometry) {
+                    child.geometry.computeVertexNormals();
+
+                    const geom = child.geometry;
+                    const posAttr = geom.attributes.position;
+                    const count = posAttr.count;
+                    totalVertices += count;
+                    totalFaces += (geom.index ? geom.index.count / 3 : count / 3);
+
+                    // Generate real ASPRS semantic colors per vertex based on relative height & surface angle
+                    // ASPRS: Class 2 (Ground: Tan), Class 5 (Vegetation: Green), Class 6 (Building: Red), Class 11 (Road: Slate)
+                    const colors = new Float32Array(count * 3);
+                    const colorAttr = new THREE.BufferAttribute(colors, 3);
+
+                    // Compute height range of this mesh in world space
+                    let minY = Infinity, maxY = -Infinity;
+                    for (let i = 0; i < count; i++) {
+                        const y = posAttr.getY(i);
+                        if (y < minY) minY = y;
+                        if (y > maxY) maxY = y;
+                    }
+                    const heightRange = Math.max(0.1, maxY - minY);
+
+                    for (let i = 0; i < count; i++) {
+                        const y = posAttr.getY(i);
+                        const relHeight = (y - minY) / heightRange;
+
+                        let r, g, b;
+                        if (relHeight > 0.45) {
+                            // Elevated structure -> Building Roof (Class 6: Crimson Red)
+                            r = 0.93; g = 0.22; b = 0.22;
+                        } else if (relHeight > 0.22) {
+                            // Mid-elevation -> High Vegetation / Canopy (Class 5: Forest Green)
+                            r = 0.14; g = 0.72; b = 0.32;
+                        } else if (relHeight > 0.08) {
+                            // Low-mid ground -> Soil / Ground (Class 2: Tan)
+                            r = 0.82; g = 0.71; b = 0.55;
+                        } else {
+                            // Flat base ground / apron -> Road & Pavement (Class 11: Dark Slate Gray)
+                            r = 0.42; g = 0.48; b = 0.55;
+                        }
+
+                        colors[i * 3] = r;
+                        colors[i * 3 + 1] = g;
+                        colors[i * 3 + 2] = b;
+                    }
+
+                    geom.setAttribute('color', colorAttr);
+
+                    // Material
+                    child.material = new THREE.MeshStandardMaterial({
+                        map: currentTexture,
+                        roughness: 0.75,
+                        metalness: 0.1,
+                        side: THREE.DoubleSide
+                    });
+
+                    // Build dense point cloud representation
+                    const ptsGeom = geom.clone();
+                    const ptsMat = new THREE.PointsMaterial({
+                        size: Math.max(0.3, maxHorizontal / 150),
+                        vertexColors: true,
+                        sizeAttenuation: true
+                    });
+                    pointCloud = new THREE.Points(ptsGeom, ptsMat);
+                    pointCloud.position.copy(loadedObj.position);
+                    pointCloud.rotation.copy(loadedObj.rotation);
+                    pointCloud.visible = false;
+                    scene.add(pointCloud);
+                }
+            });
+
+            currentMesh = loadedObj;
+            scene.add(currentMesh);
+
+            // Update stats if dynamic values found
+            if (dataset) {
+                document.getElementById('stat-dataset').innerText = dataset.name;
+                document.getElementById('stat-runtime').innerText = dataset.runtime;
+                document.getElementById('stat-faces').innerText = dataset.faces || `${totalFaces.toLocaleString()} faces`;
+                document.getElementById('stat-points').innerText = dataset.points || `${totalVertices.toLocaleString()} points`;
+                document.getElementById('stat-footprint').innerText = `${modelSize.x.toFixed(1)}m × ${modelSize.z.toFixed(1)}m`;
+                document.getElementById('stat-height').innerText = `${modelSize.y.toFixed(2)} m`;
+                document.getElementById('survey-badge').innerText = dataset.badge;
+                document.getElementById('stat-mode-badge').innerText = dataset.modeBadge;
+                document.getElementById('survey-description').innerText = dataset.desc;
+            }
+
+            // Apply active shading mode
+            applyShadingMode();
+
+            // Frame camera nicely on first load
+            if (!hasInitialFramed) {
+                resetCamera();
+                hasInitialFramed = true;
+            }
+        }
+
+        // Camera presets
+        function resetCamera() {
+            const maxDim = Math.max(modelSize.x, modelSize.z, 40);
+            camera.position.set(maxDim * 0.75, maxDim * 0.7, maxDim * 0.95);
+            camera.lookAt(0, modelSize.y * 0.35, 0);
+            controls.target.set(0, modelSize.y * 0.35, 0);
             controls.update();
-        };
+            setActiveCamBtn('cam-perspective');
+        }
 
-        // Re-load pipeline output model button
-        document.getElementById('btn-load-pipeline').onclick = () => {
-            loadSurveyModel();
-        };
+        function setCameraView(view) {
+            const maxDim = Math.max(modelSize.x, modelSize.z, 40);
+            const targetY = modelSize.y * 0.35;
 
-        // File loader for user's own OBJ
+            if (view === 'nadir') {
+                // Top-Down Orthogonal/Map View
+                camera.position.set(0.001, maxDim * 1.5, 0);
+                camera.lookAt(0, 0, 0);
+                controls.target.set(0, 0, 0);
+            } else if (view === 'side') {
+                // Elevation Height Profile View
+                camera.position.set(0, targetY + 2, maxDim * 1.3);
+                camera.lookAt(0, targetY, 0);
+                controls.target.set(0, targetY, 0);
+            } else if (view === 'perspective') {
+                resetCamera();
+            }
+            controls.update();
+            setActiveCamBtn(`cam-${view}`);
+        }
+
+        function toggleZUpFlip() {
+            isZUpFlipped = !isZUpFlipped;
+            if (currentMesh) {
+                currentMesh.rotation.x = isZUpFlipped ? -Math.PI / 2 : 0;
+                currentMesh.updateMatrixWorld(true);
+
+                const box = new THREE.Box3().setFromObject(currentMesh);
+                box.getCenter(modelCenter);
+                box.getSize(modelSize);
+                currentMesh.position.x = -modelCenter.x;
+                currentMesh.position.z = -modelCenter.z;
+                currentMesh.position.y = -box.min.y;
+
+                if (pointCloud) {
+                    pointCloud.rotation.copy(currentMesh.rotation);
+                    pointCloud.position.copy(currentMesh.position);
+                }
+                resetCamera();
+            }
+        }
+
+        function alignNorth() {
+            const currentDist = camera.position.distanceTo(controls.target);
+            camera.position.set(0, camera.position.y, currentDist);
+            camera.lookAt(controls.target);
+            controls.update();
+        }
+
+        // Shading Modes
+        function setShadingMode(mode) {
+            activeShadingMode = mode;
+            applyShadingMode();
+            setActiveBtn(`btn-${mode}`);
+        }
+
+        function applyShadingMode() {
+            const isPoints = (activeShadingMode === 'points');
+            const isSemantic = (activeShadingMode === 'semantic');
+            const isWireframe = (activeShadingMode === 'wireframe');
+
+            document.getElementById('asprs-legend').style.display = isSemantic ? 'flex' : 'none';
+
+            if (currentMesh) {
+                currentMesh.visible = !isPoints;
+                currentMesh.traverse((child) => {
+                    if (child.isMesh) {
+                        child.material.wireframe = isWireframe;
+
+                        if (isSemantic) {
+                            child.material.map = null;
+                            child.material.vertexColors = true;
+                            child.material.color = new THREE.Color(0xffffff);
+                        } else {
+                            child.material.map = currentTexture;
+                            child.material.vertexColors = false;
+                            child.material.color = new THREE.Color(0xffffff);
+                        }
+                        child.material.needsUpdate = true;
+                    }
+                });
+            }
+
+            if (pointCloud) {
+                pointCloud.visible = isPoints;
+            }
+        }
+
+        // Model Switcher
+        function switchModel(key) {
+            activeDatasetKey = key;
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            const activeTab = document.getElementById(`tab-${key}`);
+            if (activeTab) activeTab.classList.add('active');
+
+            if (DATASETS[key]) {
+                loadModel(DATASETS[key]);
+            }
+        }
+
+        // UI Helpers
+        function setActiveBtn(id) {
+            document.querySelectorAll('.hud-controls .btn').forEach(btn => btn.classList.remove('active'));
+            const el = document.getElementById(id);
+            if (el) el.classList.add('active');
+        }
+
+        function setActiveCamBtn(id) {
+            document.querySelectorAll('.camera-toolbar .cam-btn').forEach(btn => btn.classList.remove('active'));
+            const el = document.getElementById(id);
+            if (el) el.classList.add('active');
+        }
+
+        // File loader for user's custom OBJ
         document.getElementById('file-input').addEventListener('change', (e) => {
             const file = e.target.files[0];
             if (!file) return;
 
-            document.getElementById('loader').style.display = 'block';
-            document.getElementById('loader').innerText = `Loading ${file.name}...`;
+            const loaderEl = document.getElementById('loader');
+            const loaderText = document.getElementById('loader-text');
+            loaderEl.style.display = 'flex';
+            loaderText.innerText = `Parsing ${file.name}...`;
+
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('tab-upload').classList.add('active');
 
             const reader = new FileReader();
             reader.onload = (event) => {
@@ -464,13 +1001,42 @@
                 const objLoader = new THREE.OBJLoader();
                 const loadedObj = objLoader.parse(contents);
 
-                if (currentMesh) scene.remove(currentMesh);
-                currentMesh = loadedObj;
-                scene.add(currentMesh);
+                const customDataset = {
+                    name: file.name,
+                    badge: 'Custom Model',
+                    modeBadge: 'Local File',
+                    desc: `Loaded local file ${file.name}`,
+                    runtime: 'Direct Import',
+                    zUp: true
+                };
 
-                document.getElementById('loader').style.display = 'none';
+                setupLoadedObject(loadedObj, true, customDataset);
+                loaderEl.style.display = 'none';
             };
             reader.readAsText(file);
+        });
+
+        // Interactive Cursor Telemetry (Raycasting onto 3D Mesh)
+        const raycaster = new THREE.Raycaster();
+        const mouse = new THREE.Vector2();
+        const teleX = document.getElementById('tele-x');
+        const teleZ = document.getElementById('tele-z');
+        const teleY = document.getElementById('tele-y');
+
+        window.addEventListener('mousemove', (event) => {
+            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+            if (currentMesh && currentMesh.visible) {
+                raycaster.setFromCamera(mouse, camera);
+                const intersects = raycaster.intersectObjects(currentMesh.children, true);
+                if (intersects.length > 0) {
+                    const pt = intersects[0].point;
+                    teleX.innerText = `${pt.x.toFixed(2)} m`;
+                    teleZ.innerText = `${pt.z.toFixed(2)} m`;
+                    teleY.innerText = `${Math.max(0, pt.y).toFixed(2)} m`;
+                }
+            }
         });
 
         // Window resize
@@ -480,13 +1046,24 @@
             renderer.setSize(window.innerWidth, window.innerHeight);
         });
 
-        // Render loop
+        // North arrow synchronization
+        const compassNeedle = document.getElementById('compass-needle');
+
+        // Animation Loop
         function animate() {
             requestAnimationFrame(animate);
             controls.update();
+
+            // Synchronize compass rotation with camera azimuthal angle
+            const azimuth = controls.getAzimuthalAngle();
+            compassNeedle.style.transform = `rotate(${azimuth}rad)`;
+
             renderer.render(scene, camera);
         }
         animate();
+
+        // Initial Load on Page Start
+        loadModel(DATASETS.survey);
     </script>
 </body>
 </html>
