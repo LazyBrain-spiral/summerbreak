@@ -1,0 +1,9 @@
+# SURVEY profile: COLMAP PatchMatch stereo (CUDA). Offline quality.
+profile: survey
+dense:
+  lane: survey
+  max_image_size: 1600
+fusion:
+  voxel_m: 0.08
+products:
+  gsd_m: 0.1

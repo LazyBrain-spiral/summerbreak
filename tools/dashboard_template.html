@@ -1,0 +1,716 @@
+<title>PS158 Recon Board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:wght@400;600&display=swap">
+<style>
+:root{
+  --ground:#EDF0EB; --surface:#FFFFFF; --surface-2:#F6F8F5; --ink:#17201B; --muted:#5B6862; --line:#D3DAD4;
+  --roof:#C9591F; --wall:#3A68CF; --pass:#2B8452; --pass-bg:#E2F1E8; --fail:#B8372B; --fail-bg:#F8E4E1;
+  --warn:#9A6A08; --warn-bg:#F6EDD6; --viewer:#1A211E; --shadow:0 1px 2px rgba(20,30,25,.06),0 6px 18px rgba(20,30,25,.06);
+  --display:"Barlow Semi Condensed","Arial Narrow",system-ui,sans-serif;
+  --body:"Source Sans 3",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --ground:#0E1311; --surface:#151C19; --surface-2:#1B2420; --ink:#E4EBE6; --muted:#93A39B; --line:#2A3530;
+    --roof:#E47A41; --wall:#7196EC; --pass:#5CC08A; --pass-bg:#16301F; --fail:#EE7A6C; --fail-bg:#3A1C18;
+    --warn:#E0B24C; --warn-bg:#352A10; --viewer:#0A0E0C; --shadow:none;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --ground:#0E1311; --surface:#151C19; --surface-2:#1B2420; --ink:#E4EBE6; --muted:#93A39B; --line:#2A3530;
+  --roof:#E47A41; --wall:#7196EC; --pass:#5CC08A; --pass-bg:#16301F; --fail:#EE7A6C; --fail-bg:#3A1C18;
+  --warn:#E0B24C; --warn-bg:#352A10; --viewer:#0A0E0C; --shadow:none;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--ground);color:var(--ink);font:15px/1.5 var(--body);margin:0}
+.wrap{max-width:1320px;margin:0 auto;padding-inline:20px;padding-block:0 48px}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--ground);border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:12px 24px;padding-block:14px}
+h1{font:700 26px/1.1 var(--display);letter-spacing:.01em;margin:0}
+h1 small{display:block;font:400 13px/1.3 var(--body);color:var(--muted);letter-spacing:0;margin-top:3px}
+h2{font:600 19px/1.2 var(--display);letter-spacing:.02em;margin:0;text-wrap:balance}
+.eyebrow{font:600 11px/1 var(--body);text-transform:uppercase;letter-spacing:.09em;color:var(--muted)}
+.seg{display:flex;flex-wrap:wrap;gap:6px;margin-left:auto}
+.seg button{font:600 13px/1 var(--body);color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:9px 14px;cursor:pointer;display:inline-flex;align-items:center;gap:8px}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--ground);border-color:var(--ink)}
+.seg button:focus-visible,.toggle button:focus-visible,.tabs button:focus-visible{outline:2px solid var(--wall);outline-offset:2px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--pass);flex:none}
+.dot.bad{background:var(--fail)}
+section{margin-top:22px}
+.sub{color:var(--muted);margin:6px 0 0;max-width:78ch}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow)}
+/* pipeline */
+.pipeline{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:6px;margin-top:12px}
+.stage{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px 10px 9px;position:relative;min-width:0}
+.stage::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;border-radius:8px 0 0 8px;background:var(--pass)}
+.stage.bad::before{background:var(--fail)}
+.stage .n{font:500 11px/1 var(--mono);color:var(--muted)}
+.stage .t{font:600 15px/1.2 var(--display);margin-top:4px;letter-spacing:.02em}
+.stage .s{font:400 12px/1.2 var(--mono);color:var(--muted);margin-top:6px;font-variant-numeric:tabular-nums}
+.stage .reuse{font:400 11px/1.2 var(--body);color:var(--muted)}
+/* kpis */
+.kpis{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;margin-top:12px}
+.kpi{padding:14px 14px 12px}
+.kpi .v{font:600 30px/1 var(--display);margin-top:8px;font-variant-numeric:tabular-nums;letter-spacing:.01em}
+.kpi .v small{font:500 15px/1 var(--display);color:var(--muted);margin-left:2px}
+.kpi .c{font-size:12.5px;color:var(--muted);margin-top:6px;line-height:1.35}
+.pill{display:inline-block;font:600 11px/1 var(--body);padding:4px 7px;border-radius:999px;margin-top:8px;letter-spacing:.02em}
+.pill.good{background:var(--pass-bg);color:var(--pass)} .pill.bad{background:var(--fail-bg);color:var(--fail)} .pill.mid{background:var(--warn-bg);color:var(--warn)}
+/* views */
+.views{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:14px;margin-top:12px}
+.viewhead{display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid var(--line)}
+.toggle,.tabs{display:flex;gap:4px;margin-left:auto;flex-wrap:wrap}
+.toggle button,.tabs button{font:600 12.5px/1 var(--body);background:var(--surface-2);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:7px 10px;cursor:pointer}
+.toggle button[aria-pressed="true"],.tabs button[aria-pressed="true"]{background:var(--ink);color:var(--ground);border-color:var(--ink)}
+#viewer{position:relative;height:520px;background:var(--viewer);border-radius:0 0 10px 10px;overflow:hidden}
+#viewer canvas{display:block;width:100%;height:100%}
+#viewer .msg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;color:#C8D2CC;padding:24px;font-size:14px}
+.legend{position:absolute;left:12px;bottom:12px;display:flex;gap:12px;flex-wrap:wrap;background:rgba(10,14,12,.72);color:#E4EBE6;border-radius:6px;padding:7px 10px;font-size:12px}
+.sw{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+.mapbox{position:relative;border-radius:0 0 10px 10px;overflow:hidden;background:#1C1E1D}
+.mapbox img{display:block;width:100%;height:auto}
+.mapbox svg{position:absolute;inset:0;width:100%;height:100%}
+.mapbox polygon{fill:rgba(201,89,31,.10);stroke:var(--roof);stroke-width:2.2;vector-effect:non-scaling-stroke;cursor:pointer}
+.mapbox polygon.false{stroke:var(--warn);stroke-dasharray:6 4;fill:rgba(154,106,8,.10)}
+.mapbox polygon.hi{fill:rgba(201,89,31,.35);stroke-width:3.5}
+.mapbox text{font:600 13px var(--mono);fill:#fff;paint-order:stroke;stroke:rgba(0,0,0,.75);stroke-width:3px;pointer-events:none}
+.mapnote{padding:10px 14px;font-size:12.5px;color:var(--muted);border-top:1px solid var(--line)}
+/* tables */
+.tables{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px;margin-top:12px}
+.tablebox{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th,td{padding:9px 12px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap;font-variant-numeric:tabular-nums}
+th:first-child,td:first-child{text-align:left}
+th{font:600 11px/1.2 var(--body);text-transform:uppercase;letter-spacing:.07em;color:var(--muted);background:var(--surface-2)}
+td.num{font-family:var(--mono);font-size:13px}
+tr.sel td{background:var(--surface-2)}
+tr[data-b]{cursor:pointer}
+tr[data-b]:hover td{background:var(--surface-2)}
+.err-good{color:var(--pass)} .err-mid{color:var(--warn)} .err-bad{color:var(--fail)}
+.tag{font:600 10.5px/1 var(--body);padding:3px 6px;border-radius:4px;background:var(--warn-bg);color:var(--warn);margin-left:6px;letter-spacing:.03em}
+/* compare */
+.compare{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px;margin-top:12px}
+.compare figure{margin:0}
+.compare img{display:block;width:100%;height:auto;border-radius:10px 10px 0 0;background:#1C1E1D}
+.compare figcaption{padding:12px 14px;font-size:13.5px}
+.compare figcaption b{font:600 16px/1.2 var(--display);letter-spacing:.02em;display:block;margin-bottom:3px}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px 22px;margin-top:12px;padding:14px 16px}
+.facts div{font-size:13.5px}
+.facts b{display:block;font:600 11px/1.3 var(--body);text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:3px}
+.mono{font-family:var(--mono);font-size:13px}
+.upload{margin-top:18px;display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:0}
+.drop{padding:18px 20px;border-right:1px solid var(--line);cursor:pointer;border-radius:10px 0 0 10px;outline:2px dashed transparent;outline-offset:-8px}
+.drop.over,.drop:focus-visible{outline-color:var(--wall);background:var(--surface-2)}
+.upopts{padding:16px 18px;display:grid;grid-template-columns:auto 1fr;gap:10px 12px;align-items:center}
+.upopts label{font-size:13px;font-weight:600}
+.upopts label .sub{display:block;font-weight:400;font-size:12px;margin:0}
+.upopts input,.upopts select{font:14px var(--body);padding:8px 10px;border:1px solid var(--line);border-radius:6px;background:var(--surface-2);color:var(--ink);min-width:0}
+.upopts .primary{grid-column:1/-1;font:600 14px var(--body);padding:11px 14px;border-radius:8px;border:0;background:var(--roof);color:#fff;cursor:pointer}
+.upopts .primary:disabled{opacity:.45;cursor:not-allowed}
+.upstatus{grid-column:1/-1;border-top:1px solid var(--line);padding:12px 18px;font-size:13.5px}
+.upstatus .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.upstatus .chip{font:500 12px var(--mono);padding:4px 8px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+.upstatus .chip.ok{background:var(--pass-bg);color:var(--pass);border-color:transparent}
+.upstatus .chip.bad{background:var(--fail-bg);color:var(--fail);border-color:transparent}
+.upstatus .chip.now{border-color:var(--wall);color:var(--ink)}
+.upload.offline{grid-template-columns:1fr}
+.upload.offline .drop{border-right:0;cursor:default}
+@media (max-width:860px){.upload{grid-template-columns:1fr}.drop{border-right:0;border-bottom:1px solid var(--line)}}
+.bcard{position:fixed;z-index:50;width:min(340px,calc(100vw - 24px));max-height:min(82vh,680px);overflow:auto;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.28);font-size:13px}
+.bcard header{display:flex;align-items:center;gap:10px;padding:11px 12px 8px;border-bottom:1px solid var(--line)}
+.bcard header h3{font:600 17px/1.1 var(--display);letter-spacing:.02em;margin:0}
+.bcard header .x{margin-left:auto;background:none;border:0;color:var(--muted);font-size:20px;line-height:1;cursor:pointer;padding:2px 6px}
+.bcard .tags{display:flex;flex-wrap:wrap;gap:5px;padding:8px 12px 0}
+.bcard .tag2{font:600 11px/1 var(--body);padding:4px 7px;border-radius:999px;background:var(--surface-2);border:1px solid var(--line)}
+.bcard .thumb{margin:10px 12px 0;border-radius:6px;overflow:hidden;background:#111;position:relative}
+.bcard .thumb img{display:block;width:100%;height:auto}
+.bcard .thumb span{position:absolute;left:6px;bottom:6px;font:600 10.5px var(--body);background:rgba(0,0,0,.6);color:#fff;padding:2px 6px;border-radius:4px}
+.bcard dl{display:grid;grid-template-columns:auto 1fr;gap:5px 12px;margin:10px 12px 12px}
+.bcard dt{color:var(--muted);font-size:12px}
+.bcard dd{margin:0;font-variant-numeric:tabular-nums}
+.bcard .sw{border:1px solid var(--line)}
+.bcard .note{margin:0 12px 12px;font-size:11.5px;color:var(--muted)}
+#viewer canvas{cursor:grab}
+footer{margin-top:28px;color:var(--muted);font-size:12.5px;max-width:90ch}
+@media (max-width:1100px){.kpis{grid-template-columns:repeat(3,minmax(0,1fr))}.pipeline{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media (max-width:860px){.views,.tables,.compare{grid-template-columns:1fr}#viewer{height:400px}}
+@media (max-width:520px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.pipeline{grid-template-columns:repeat(2,minmax(0,1fr))}.seg{margin-left:0}h1{font-size:22px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <h1>PS158 Recon Board<small>Single-pass drone video to 3D &middot; architecture v3 results on real and synthetic footage</small></h1>
+    <div class="seg" id="runs" role="group" aria-label="Choose a run"></div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="panel upload" id="upload">
+    <div class="drop" id="drop" tabindex="0" role="button" aria-label="Choose a drone video to reconstruct">
+      <div>
+        <div class="eyebrow">New reconstruction</div>
+        <h2>Drop a drone video here</h2>
+        <p class="sub" id="dropHint">MP4 or MOV, plus the DJI .SRT caption file if you have it (it gives real GPS scale and georeferencing). Or click to choose files.</p>
+        <p class="sub mono" id="dropFiles"></p>
+      </div>
+      <input type="file" id="fileInput" accept="video/*,.mp4,.mov,.m4v,.srt,.csv" multiple hidden>
+    </div>
+    <div class="upopts" id="upOpts">
+      <label for="altInput">Flying height (m) <span class="sub">used only without .SRT</span></label>
+      <input id="altInput" type="number" min="5" max="500" step="1" value="60">
+      <label for="laneInput">Depth</label>
+      <select id="laneInput"><option value="live">LIVE: fast (Depth Anything)</option><option value="survey">SURVEY: accurate (stereo)</option></select>
+      <button id="startBtn" class="primary" disabled>Reconstruct</button>
+    </div>
+    <div class="upstatus" id="upStatus" hidden></div>
+  </section>
+
+  <section>
+    <p class="sub" id="runDesc"></p>
+    <div class="pipeline" id="pipeline" aria-label="Pipeline stages"></div>
+  </section>
+
+  <section>
+    <div class="kpis" id="kpis"></div>
+  </section>
+
+  <section class="views">
+    <div class="panel">
+      <div class="viewhead">
+        <div><div class="eyebrow">3D model</div><h2 id="viewTitle">Regularized buildings</h2></div>
+        <div class="toggle" id="meshToggle" role="group" aria-label="3D layers">
+          <button id="tReg" aria-pressed="true">Regularized</button>
+          <button id="tSurface" aria-pressed="false">Raw reconstruction</button>
+          <button id="tLod" aria-pressed="false">Provenance</button>
+        </div>
+      </div>
+      <div id="viewer"><div class="msg" id="viewerMsg">Loading 3D viewer&hellip;</div>
+        <div class="legend" id="pickHint" style="left:auto;right:12px" hidden>Click a building for its details</div>
+        <div class="legend" id="legend" hidden>
+          <span><span class="sw" style="background:#C9591F"></span>Observed roof</span>
+          <span><span class="sw" style="background:#3A68CF"></span>Inferred wall</span>
+          <span>Drag to orbit &middot; scroll to zoom</span>
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="viewhead">
+        <div><div class="eyebrow">Georeferenced maps</div><h2 id="mapTitle">Orthomosaic</h2></div>
+        <div class="tabs" id="mapTabs" role="group" aria-label="Map layer">
+          <button data-m="ortho" aria-pressed="true">Ortho</button>
+          <button data-m="hillshade" aria-pressed="false">DSM</button>
+          <button data-m="ndsm" aria-pressed="false">Height</button>
+        </div>
+      </div>
+      <div class="mapbox" id="mapbox"><img id="mapImg" alt="Map layer"><svg id="mapSvg" preserveAspectRatio="none"></svg></div>
+      <div class="mapnote" id="mapNote"></div>
+    </div>
+  </section>
+
+  <section class="tables">
+    <div class="panel">
+      <div class="viewhead"><div><div class="eyebrow">Measurements</div><h2 id="bTitle">Buildings vs ground truth</h2></div></div>
+      <div class="tablebox"><table id="bTable"></table></div>
+    </div>
+    <div class="panel">
+      <div class="viewhead"><div><div class="eyebrow">All runs</div><h2>Accuracy by run</h2></div></div>
+      <div class="tablebox"><table id="lTable"></table></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Before and after</h2>
+    <p class="sub">The old viewer shows v2 output from the synthetic test clip. Its texture was a grid of resized keyframes stretched over a Poisson blob, built from synthetic poses on a flat 2D video. v3 uses real SfM on real 3D footage.</p>
+    <div class="compare">
+      <figure class="panel" id="legacyFig"><img id="legacyImg" alt="v2 texture atlas"><figcaption><b>v2: texture atlas</b>Nine keyframes resized into tiles. No camera geometry, no CRS, no measurement value.</figcaption></figure>
+      <figure class="panel"><img id="orthoImg" alt="v3 orthomosaic"><figcaption><b>v3: true orthomosaic</b>Each 25 cm cell takes colour from the steepest camera whose depth map sees it. Black areas were never seen and are left empty.</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="panel facts" id="facts"></section>
+
+  <footer id="foot"></footer>
+</main>
+
+<script type="importmap">
+{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}
+</script>
+<script>window.DASH = /*__DATA__*/null;</script>
+<script>
+(function(){
+  const D = window.DASH;
+  const STAGES = {"01_ingest":"Ingest","02_masks":"Masks","03_sfm":"SfM","04_georef":"Georef","05_depth":"Depth","06_fusion":"Fusion","07_products":"Products","08_completion":"Completion"};
+  const $ = s => document.querySelector(s);
+  const fmt = (v, d=2) => (v === null || v === undefined || Number.isNaN(v)) ? "–" : Number(v).toFixed(d);
+  const cls = (v, g, m) => v === null || v === undefined ? "" : (Math.abs(v) <= g ? "err-good" : Math.abs(v) <= m ? "err-mid" : "err-bad");
+  let current = 0, mapLayer = "ortho";
+  try { const s = localStorage.getItem("ps158.run"); if (s !== null && D.runs[+s]) current = +s; } catch(e) {}
+
+  function matchBuildings(run){
+    const rows = run.eval && run.eval.buildings ? run.eval.buildings.rows : [];
+    const used = new Set(), out = [];
+    rows.forEach((r, i) => {
+      if (!r.matched) { out.push({gt:r, est:null}); return; }
+      const b = run.buildings.find(b => !used.has(b.id) && Math.abs(b.footprint_area_m2 - r.area_est) < 0.05);
+      if (b) used.add(b.id);
+      out.push({gt:r, est:b || null});
+    });
+    const extra = run.buildings.filter(b => !used.has(b.id));
+    return {pairs: out, falsePos: extra};
+  }
+
+  function renderRuns(){
+    const box = $("#runs"); box.innerHTML = "";
+    D.runs.forEach((r, i) => {
+      const b = document.createElement("button");
+      b.setAttribute("aria-pressed", i === current ? "true" : "false");
+      b.innerHTML = `<span class="dot ${r.status === "SUCCESS" ? "" : "bad"}"></span>${r.label}`;
+      b.title = r.desc;
+      b.onclick = () => { current = i; try { localStorage.setItem("ps158.run", String(i)); } catch(e) {} render(); };
+      box.appendChild(b);
+    });
+  }
+
+  function renderPipeline(run){
+    const warn = run.products && run.products.coverage_warning ? ` <span class="pill mid">${run.products.coverage_warning}</span>` : "";
+    $("#runDesc").innerHTML = `<b>${run.label}</b> &middot; ${run.desc}. Status <b>${run.status}</b>.${warn}`;
+    const p = $("#pipeline"); p.innerHTML = "";
+    run.stages.forEach((s, i) => {
+      const el = document.createElement("div");
+      el.className = "stage" + (s.passed ? "" : " bad");
+      const why = s.passed ? "" : `<div class="reuse">${(s.failures||[]).join(", ") || s.error}</div>`;
+      el.innerHTML = `<div class="n">${String(i+1).padStart(2,"0")}</div><div class="t">${STAGES[s.name]||s.name}</div>
+        <div class="s">${s.seconds != null ? fmt(s.seconds, s.seconds < 10 ? 1 : 0) + " s" : "–"}${s.passed ? " · pass" : " · FAIL"}</div>
+        ${s.cached ? '<div class="reuse">shared with other lanes</div>' : ""}${why}`;
+      p.appendChild(el);
+    });
+  }
+
+  function kpi(label, value, unit, caption, pill){
+    return `<div class="panel kpi"><div class="eyebrow">${label}</div><div class="v">${value}<small>${unit}</small></div>
+      <div class="c">${caption}</div>${pill ? `<span class="pill ${pill[0]}">${pill[1]}</span>` : ""}</div>`;
+  }
+
+  function renderKpisReal(run){
+    const sf = run.sfm, dp = run.depth, fu = run.fusion, g = run.georef, ing = run.ingest || {};
+    const out = [
+      kpi("Frames registered", `${sf.num_registered}/${sf.num_images}`, "", `${ing.num_keyframes} keyframes picked from ${ing.num_candidates} candidates by image motion.`,
+          sf.num_registered === sf.num_images ? ["good","all frames posed"] : ["mid","partial"]),
+      kpi("Reprojection error", fmt(sf.mean_reproj_px), " px", `${Number(sf.num_points).toLocaleString()} tie points triangulated by ${sf.mapper}.`,
+          sf.mean_reproj_px <= 1 ? ["good","sub-pixel"] : ["mid","check"]),
+      kpi("Georeferencing", g.georeferenced === false ? "None" : "GPS", "", g.georeferenced === false ? `No telemetry in this video. Local frame, scale ASSUMED from a ${fmt(g.assumed_altitude_m,0)} m camera height.` : `Hold-out residual ${fmt(g.rmse_holdout_m)} m.`,
+          g.georeferenced === false ? ["bad","needs SRT / GPS"] : ["good","georeferenced"]),
+      kpi("Depth agreement", fmt((dp.median_consistency||0)*100,0), " %", `Neighbouring views agree on ${fmt((dp.median_consistency||0)*100,0)}% of pixels. Fit error at SfM anchors ${dp.median_fit_rel_err != null ? fmt(dp.median_fit_rel_err*100,1)+"%" : "–"}.`,
+          dp.median_consistency >= 0.8 ? ["good","consistent"] : ["mid","noisy"]),
+      kpi("Surface", (fu.mesh_faces/1e6).toFixed(2), " M faces", `${fmt(fu.coverage_area_frac_2views*100,1)}% of surface area seen by at least two views.`, null),
+      kpi("Buildings detected", String(run.buildings.length), "", "Extruded from the height model; no ground truth for real footage, so accuracy is not scored.", null),
+    ];
+    $("#kpis").innerHTML = out.join("");
+  }
+
+  function renderKpis(run){
+    if (!run.eval) return renderKpisReal(run);
+    const ev = run.eval || {};
+    const m = matchBuildings(run);
+    const matched = m.pairs.filter(p => p.est).length, total = m.pairs.length || (D.scene.buildings || 0);
+    const dsm = ev.dsm || {}, cam = ev.camera_position || {}, bl = ev.buildings || {};
+    const g = run.georef;
+    const out = [
+      kpi("Surface height error", fmt(dsm.median_abs_err_m), " m", `Median over ${(dsm.observed_cells||0).toLocaleString()} observed DSM cells; 90% within ${fmt(dsm.p90_abs_err_m)} m.`,
+          dsm.median_abs_err_m <= 0.3 ? ["good","survey grade"] : dsm.median_abs_err_m <= 0.7 ? ["mid","usable"] : ["bad","too coarse"]),
+      kpi("Camera position error", fmt(cam.rmse_m), " m", `RMSE vs true positions. Telemetry GPS noise is ${fmt(D.scene.gps_sigma_h,1)} m horizontal, ${fmt(D.scene.gps_sigma_v,1)} m vertical.`,
+          cam.rmse_m <= 1 ? ["good","better than the GPS"] : ["mid","GPS level"]),
+      kpi("Buildings found", `${matched}/${total}`, "", m.falsePos.length ? `${m.falsePos.length} false detection${m.falsePos.length>1?"s":""} (dashed on the map).` : "No false detections.",
+          matched === total && !m.falsePos.length ? ["good","clean"] : matched === total ? ["mid","extra detections"] : ["bad","missed buildings"]),
+      kpi("Height error", fmt(bl.median_abs_ridge_err_m), " m", "Median absolute error of roof ridge height above the terrain model.",
+          bl.median_abs_ridge_err_m <= 1 ? ["good","within 1 m"] : ["mid","over 1 m"]),
+      kpi("Footprint area error", fmt((bl.median_abs_area_rel_err||0)*100, 0), " %", "Median absolute error. Wall-top spill enlarges footprints; image edges fix this in Phase 2.",
+          ["mid","known bias"]),
+      kpi("Up direction", fmt(g.up_error_deg, 1), "°", `Straight pass${g.degenerate_trajectory ? " detected" : ""}: roll fixed by the ${g.orientation_prior} prior. Hold-out GPS residual ${fmt(g.rmse_holdout_m)} m.`,
+          g.up_error_deg <= 3 ? ["good","level"] : ["bad","tilted"]),
+    ];
+    $("#kpis").innerHTML = out.join("");
+  }
+
+  function renderMap(run){
+    const im = run.images;
+    $("#mapImg").src = im[mapLayer];
+    $("#mapTitle").textContent = {ortho:"Orthomosaic", hillshade:"Surface model (hillshade)", ndsm:"Height above ground, 0–20 m"}[mapLayer];
+    document.querySelectorAll("#mapTabs button").forEach(b => b.setAttribute("aria-pressed", b.dataset.m === mapLayer ? "true" : "false"));
+    const svg = $("#mapSvg");
+    svg.setAttribute("viewBox", `0 0 ${im.size[0]} ${im.size[1]}`);
+    const m = matchBuildings(run);
+    const falseIds = new Set(m.falsePos.map(b => b.id));
+    svg.innerHTML = run.footprints.map(f => {
+      const pts = f.px.map(p => p.join(",")).join(" ");
+      const cx = f.px.reduce((a,p)=>a+p[0],0)/f.px.length, cy = f.px.reduce((a,p)=>a+p[1],0)/f.px.length;
+      return `<polygon data-b="${f.id}" class="${falseIds.has(f.id) ? "false" : ""}" points="${pts}"><title>Building ${f.id}</title></polygon><text x="${cx}" y="${cy}" text-anchor="middle" dominant-baseline="middle">${f.id}</text>`;
+    }).join("");
+    svg.querySelectorAll("polygon").forEach(p => {
+      p.addEventListener("mouseenter", () => highlight(+p.dataset.b));
+      p.addEventListener("mouseleave", () => { if (!document.querySelector(".bcard")) highlight(null); });
+      p.addEventListener("click", e => {
+        const box = $("#mapbox").getBoundingClientRect();
+        openCard($("#mapbox"), +p.dataset.b, e.clientX - box.left, e.clientY - box.top);
+      });
+    });
+    const crs = run.products.epsg ? `EPSG:${run.products.epsg}` : "<b>Not georeferenced</b>: local metres, scale assumed";
+    $("#mapNote").innerHTML = `${crs} &middot; ${fmt(run.products.gsd_m,2)} m cells &middot; ${fmt(run.products.observed_cell_frac*100,0)}% of the grid observed. Black = never seen from this single pass, left empty rather than invented. Outlines: detected footprints${run.eval ? "; dashed = no matching true building" : ""}.`;
+  }
+
+  const RTYPE = {flat:"Flat", shed:"Single slope", gable_u:"Gable", gable_v:"Gable"};
+  function buildingCard(run, id){
+    const b = run.buildings.find(x => x.id === id);
+    if (!b) return "";
+    const mt = (run.meta || {})[String(id)] || {};
+    const geo = run.georef.georeferenced !== false;
+    const unit = geo ? "" : " *";
+    const m = matchBuildings(run);
+    const pair = m.pairs.find(p => p.est && p.est.id === id);
+    const doors = mt.doors || [];
+    const ent = doors.length ? doors.map(d => `${d.type} on ${d.facing} wall (${fmt(d.width_m,1)} m wide)`).join("<br>") : (b.walls_observed ? "None visible on observed walls" : "Walls not observed");
+    const sw = (hex, name) => hex ? `<span class="sw" style="background:${hex}"></span>${name}` : "–";
+    const prov = b.face_provenance ? Object.entries(b.face_provenance).map(([k,v]) => `${v} ${k}`).join(", ") : "–";
+    const rows = [
+      ["Footprint", `${fmt(b.footprint_area_m2,0)} m²${unit} · ${fmt(b.length_m,1)} × ${fmt(b.width_m,1)} m`],
+      ["Orientation", b.orientation_deg != null ? `${fmt(b.orientation_deg,0)}° ${geo ? "from north" : "(local frame)"}` : "–"],
+      ["Height", `eave ${fmt(b.eave_height_m,1)} m, ridge ${fmt(b.ridge_height_m,1)} m${unit}`],
+      ["Roof", `${RTYPE[b.roof_type] || "–"}${b.roof_pitch_deg ? `, ${fmt(b.roof_pitch_deg,0)}° pitch` : ""}`],
+      ["Floors (est.)", b.floors_estimate != null ? `${b.floors_estimate} <span class="sub">by ${b.floors_method}${b.window_rows ? `, ${b.window_rows} window row${b.window_rows>1?"s":""}` : ""}</span>` : "–"],
+      ["Entrances", ent],
+      ["Windows seen", b.windows_count != null ? String(b.windows_count) : "–"],
+      ["Volume", `${Number(b.volume_m3).toLocaleString()} m³${unit}`],
+      ["Colours", `roof ${sw(b.roof_colour_hex, b.roof_colour || "")} &nbsp; walls ${sw(b.facade_colour_hex, b.facade_colour || "")}`],
+      ["Observed", `${fmt((b.texture_observed_frac||0)*100,0)}% of surfaces · ${b.walls_observed ?? "–"}/${b.walls_total ?? "–"} walls`],
+      ["Faces", prov],
+    ];
+    if (pair) rows.push(["Ground truth", `${fmt(pair.gt.area_gt,0)} m², ridge ${fmt(pair.gt.ridge_gt,1)} m`]);
+    return `<header><h3>Building #${id}</h3><button class="x" aria-label="Close">×</button></header>
+      <div class="tags"><span class="tag2">${b.shape || "footprint"}</span><span class="tag2">${RTYPE[b.roof_type] || "roof"} roof</span>${doors.length ? `<span class="tag2">${doors.length} entrance${doors.length>1?"s":""}</span>` : ""}</div>
+      ${mt.thumb ? `<div class="thumb"><img alt="Best observed facade of building ${id}" src="${mt.thumb}"><span>${mt.thumb_facing || ""} facade · doors blue, windows orange</span></div>` : ""}
+      <dl>${rows.map(([k,v]) => `<dt>${k}</dt><dd>${v}</dd>`).join("")}</dl>
+      <p class="note">${geo ? "" : "* Scale assumed from the flying height: no GPS in this video. "}Floors, doors and windows come from the rectified facade images; only walls the drone saw can be checked.</p>`;
+  }
+  function openCard(container, id, x, y){
+    closeCards();
+    const run = D.runs[current];
+    const html = buildingCard(run, id);
+    if (!html) return;
+    const el = document.createElement("div");
+    el.className = "bcard"; el.innerHTML = html; el.setAttribute("role", "dialog");
+    document.body.appendChild(el);
+    const box = container.getBoundingClientRect();
+    const W = window.innerWidth, H = window.innerHeight, w = el.offsetWidth, h = el.offsetHeight;
+    el.style.left = Math.max(12, Math.min(W - w - 12, box.left + x + 14)) + "px";
+    el.style.top = Math.max(12, Math.min(H - h - 12, box.top + y - 20)) + "px";
+    el.querySelector(".x").onclick = () => { closeCards(); highlight(null); if (window.pick3D) window.pick3D(null); };
+    highlight(id);
+    if (window.pick3D) window.pick3D(id);
+  }
+  function closeCards(){ document.querySelectorAll(".bcard").forEach(e => e.remove()); }
+  window.openBuildingCard = (id, x, y) => openCard($("#viewer"), id, x, y);
+  document.addEventListener("keydown", e => { if (e.key === "Escape") closeCards(); });
+
+  function highlight(id){
+    document.querySelectorAll("#mapSvg polygon").forEach(p => p.classList.toggle("hi", id !== null && +p.dataset.b === id));
+    document.querySelectorAll("#bTable tr[data-b]").forEach(r => r.classList.toggle("sel", id !== null && +r.dataset.b === id));
+  }
+
+  function renderBuildings(run){
+    if (!run.eval) {
+      const RT = {flat:"flat", shed:"single slope", gable_u:"gable", gable_v:"gable"};
+      let h = `<thead><tr><th>Building</th><th>Shape</th><th>Roof</th><th>Footprint</th><th>Eave</th><th>Ridge</th><th>Volume</th><th>Roof seen</th></tr></thead><tbody>`;
+      run.buildings.forEach(e => {
+        h += `<tr data-b="${e.id}"><td>#${e.id}</td><td>${e.shape || "–"}</td><td>${RT[e.roof_type] || "–"}</td><td class="num">${fmt(e.footprint_area_m2,0)} m²</td><td class="num">${fmt(e.eave_height_m,1)} m</td>
+          <td class="num">${fmt(e.ridge_height_m,1)} m</td><td class="num">${Number(e.volume_m3).toLocaleString()} m³</td><td class="num">${fmt(e.roof_observed_frac*100,0)}%</td></tr>`;
+      });
+      if (!run.buildings.length) h += `<tr><td colspan="8">No buildings passed the height, size and smoothness tests.</td></tr>`;
+      $("#bTable").innerHTML = h + "</tbody>";
+      $("#bTitle").textContent = run.georef.georeferenced === false ? "Buildings detected (scale assumed)" : "Buildings detected";
+      document.querySelectorAll("#bTable tr[data-b]").forEach(r => {
+        r.addEventListener("mouseenter", () => highlight(+r.dataset.b));
+        r.addEventListener("mouseleave", () => { if (!document.querySelector(".bcard")) highlight(null); });
+        r.addEventListener("click", () => openCard($("#mapbox"), +r.dataset.b, 20, 30));
+      });
+      return;
+    }
+    $("#bTitle").textContent = "Buildings vs ground truth (regularized)";
+    const m = matchBuildings(run);
+    let h = `<thead><tr><th>Building</th><th>Area est</th><th>Area true</th><th>Err</th><th>Ridge est</th><th>Ridge true</th><th>Err</th><th>Roof seen</th></tr></thead><tbody>`;
+    m.pairs.forEach(p => {
+      if (!p.est) { h += `<tr><td>missed</td><td colspan="7" style="text-align:left">True building at (${p.gt.gt_center.map(v=>v.toFixed(0)).join(", ")}) m not detected</td></tr>`; return; }
+      const e = p.est, g = p.gt;
+      const ae = (e.footprint_area_m2 - g.area_gt) / g.area_gt * 100, re = e.ridge_height_m - g.ridge_gt;
+      h += `<tr data-b="${e.id}"><td>#${e.id}</td><td class="num">${fmt(e.footprint_area_m2,0)} m²</td><td class="num">${fmt(g.area_gt,0)} m²</td>
+        <td class="num ${cls(ae,10,25)}">${ae>0?"+":""}${fmt(ae,0)}%</td><td class="num">${fmt(e.ridge_height_m,1)} m</td><td class="num">${fmt(g.ridge_gt,1)} m</td>
+        <td class="num ${cls(re,0.75,1.5)}">${re>0?"+":""}${fmt(re,2)}</td><td class="num">${fmt(e.roof_observed_frac*100,0)}%</td></tr>`;
+    });
+    m.falsePos.forEach(e => {
+      h += `<tr data-b="${e.id}"><td>#${e.id}<span class="tag">false</span></td><td class="num">${fmt(e.footprint_area_m2,0)} m²</td><td>–</td><td>–</td><td class="num">${fmt(e.ridge_height_m,1)} m</td><td>–</td><td>–</td><td class="num">${fmt(e.roof_observed_frac*100,0)}%</td></tr>`;
+    });
+    $("#bTable").innerHTML = h + "</tbody>";
+    document.querySelectorAll("#bTable tr[data-b]").forEach(r => {
+      r.addEventListener("mouseenter", () => highlight(+r.dataset.b));
+      r.addEventListener("mouseleave", () => highlight(null));
+    });
+  }
+
+  function renderLanes(){
+    let h = `<thead><tr><th>Lane</th><th>DSM median</th><th>DSM p90</th><th>Found</th><th>Ridge err</th><th>Area err</th><th>Depth stage</th></tr></thead><tbody>`;
+    D.runs.forEach((r, i) => {
+      const ev = r.eval || {}, d = ev.dsm || {}, b = ev.buildings || {};
+      const m = matchBuildings(r);
+      const depth = r.stages.find(s => s.name === "05_depth");
+      h += `<tr class="${i===current?"sel":""}"><td>${r.label}</td><td class="num ${cls(d.median_abs_err_m,0.3,0.7)}">${fmt(d.median_abs_err_m)} m</td>
+        <td class="num">${fmt(d.p90_abs_err_m)} m</td><td class="num">${r.eval ? `${m.pairs.filter(p=>p.est).length}/${m.pairs.length}${m.falsePos.length?` +${m.falsePos.length}`:""}` : `${r.buildings.length} found`}</td>
+        <td class="num ${cls(b.median_abs_ridge_err_m,1,1.5)}">${fmt(b.median_abs_ridge_err_m)} m</td><td class="num">${b.median_abs_area_rel_err != null ? fmt(b.median_abs_area_rel_err*100,0)+"%" : "–"}</td>
+        <td class="num">${depth && depth.seconds != null ? fmt(depth.seconds,0)+" s" : "–"}</td></tr>`;
+    });
+    $("#lTable").innerHTML = h + "</tbody>";
+  }
+
+  function renderFacts(run){
+    const s = D.scene, ing = run.ingest || D.ingest, sf = run.sfm, dp = run.depth, fu = run.fusion;
+    const input = run.eval ? `Synthetic single pass, ${s.frames} frames at ${s.fps} fps, ${s.altitude_m} m altitude, gimbal ${s.pitch_deg}°, ${s.buildings} buildings with known dimensions.`
+      : `Real drone video <span class="mono">${run.video || ""}</span>, ${(run.video_meta||{}).resolution || ""}, ${fmt((run.video_meta||{}).duration_s,1)} s. ${ing.telemetry_records ? ing.telemetry_records + " telemetry records." : "No GPS telemetry supplied."}`;
+    $("#facts").innerHTML = `
+      <div><b>Input</b>${input}</div>
+      <div><b>Keyframes</b>${ing.num_keyframes} of ${ing.num_candidates} candidates, chosen by tracked image motion. Focal from captions: <span class="mono">${fmt(ing.focal_prior_px,1)} px</span>.</div>
+      <div><b>Structure from motion</b>${sf.num_registered}/${sf.num_images} frames registered with <span class="mono">${sf.mapper}</span>, ${Number(sf.num_points).toLocaleString()} tie points, reprojection <span class="mono">${fmt(sf.mean_reproj_px)} px</span>.</div>
+      <div><b>Georeferencing</b>${run.georef.georeferenced === false ? `None: no telemetry. Up from the ground plane (${fmt((run.georef.ground_plane_inlier_frac||0)*100,0)}% of tie points on it); scale from an assumed ${fmt(run.georef.assumed_altitude_m,0)} m camera height.` : `Hold-out residual <span class="mono">${fmt(run.georef.rmse_holdout_m)} m</span> against noisy GPS; collinearity ratio <span class="mono">${fmt(run.georef.collinearity_ratio,3)}</span> flags a straight pass.`}</div>
+      <div><b>Depth</b>${dp.predictor}. Fit error at SfM anchors <span class="mono">${dp.median_fit_rel_err != null ? fmt(dp.median_fit_rel_err*100,1)+"%" : "–"}</span>, multi-view agreement <span class="mono">${fmt(dp.median_consistency*100,0)}%</span>.</div>
+      <div><b>Fusion</b>${Number(fu.mesh_faces).toLocaleString()} faces on <span class="mono">${fu.device}</span>; ${fmt(fu.coverage_area_frac_2views*100,1)}% of surface area seen by at least two views.</div>`;
+    const originTxt = run.origin && run.origin.lat != null ? `ENU origin ${fmt(run.origin.lat,5)}, ${fmt(run.origin.lon,5)}.` : "No geographic origin for this run.";
+    $("#foot").innerHTML = `All figures come from the pipeline's own gate files and from <span class="mono">eval/synth_eval.py</span>, which compares each run with the exact synthetic scene. Synthetic results show the geometry is right; they are not a substitute for a real DJI flight with a building measured on the ground, which is the next validation step. ${originTxt}`;
+  }
+
+  function renderCompare(run){
+    $("#orthoImg").src = run.images.ortho;
+    if (D.legacy_texture) $("#legacyImg").src = D.legacy_texture; else $("#legacyFig").hidden = true;
+  }
+
+  function render(){
+    const run = D.runs[current];
+    closeCards();
+    renderRuns(); renderPipeline(run); renderKpis(run); renderMap(run); renderBuildings(run); renderLanes(); renderFacts(run); renderCompare(run);
+    if (window.show3D) window.show3D(run);
+  }
+  document.querySelectorAll("#mapTabs button").forEach(b => b.onclick = () => { mapLayer = b.dataset.m; renderMap(D.runs[current]); });
+
+  // ---------- drag and drop reconstruction (local server only) ----------
+  const up = { video: null, srt: null, online: false };
+  const drop = $("#drop"), fileInput = $("#fileInput"), startBtn = $("#startBtn"), upStatus = $("#upStatus");
+  function setFiles(list){
+    for (const f of list) {
+      if (/\.(srt|csv)$/i.test(f.name)) up.srt = f;
+      else if (/^video\//.test(f.type) || /\.(mp4|mov|m4v|avi|mkv)$/i.test(f.name)) up.video = f;
+    }
+    $("#dropFiles").textContent = [up.video && `${up.video.name} (${(up.video.size/1e6).toFixed(1)} MB)`, up.srt && up.srt.name].filter(Boolean).join(" + ");
+    startBtn.disabled = !(up.online && up.video);
+  }
+  drop.addEventListener("click", () => { if (up.online) fileInput.click(); });
+  drop.addEventListener("keydown", e => { if (up.online && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); fileInput.click(); } });
+  fileInput.addEventListener("change", () => setFiles(fileInput.files));
+  ["dragenter","dragover"].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); if (up.online) drop.classList.add("over"); }));
+  ["dragleave","drop"].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.remove("over"); }));
+  drop.addEventListener("drop", e => { if (up.online) setFiles(e.dataTransfer.files); });
+
+  function chips(stages, now){
+    return `<div class="chips">${Object.keys(STAGES).map(k => {
+      const s = stages[k]; const c = s ? (s.passed ? "ok" : "bad") : (k === now ? "now" : "");
+      return `<span class="chip ${c}">${STAGES[k]}${s && s.seconds != null ? " " + Math.round(s.seconds) + "s" : ""}</span>`;
+    }).join("")}</div>`;
+  }
+  async function addRun(id){
+    const r = await fetch(`/api/runs/${id}/data`);
+    if (!r.ok) return;
+    const run = await r.json();
+    if (D.runs.some(x => x.id === run.id)) return;
+    D.runs.unshift(run); current = 0; render();
+  }
+  async function poll(id){
+    try {
+      const s = await (await fetch(`/api/runs/${id}`)).json();
+      const head = s.state === "queued" ? "Queued…" : s.state === "running" ? `Reconstructing… ${s.elapsed_s ? Math.round(s.elapsed_s) + " s" : ""}`
+        : s.state === "building" ? "Building the dashboard view…" : s.state === "done" ? "Done. The new run is selected above." : `Failed: ${s.error}`;
+      upStatus.hidden = false;
+      upStatus.innerHTML = `<b>${head}</b>${chips(s.stages || {}, s.stage)}`;
+      if (s.state === "done") { await addRun(id); startBtn.disabled = !up.video; return; }
+      if (s.state === "failed") { startBtn.disabled = !up.video; return; }
+    } catch (e) { upStatus.innerHTML = `<b>Lost contact with the local server.</b> ${e.message}`; }
+    setTimeout(() => poll(id), 2000);
+  }
+  startBtn.addEventListener("click", async () => {
+    if (!up.video) return;
+    startBtn.disabled = true;
+    upStatus.hidden = false; upStatus.innerHTML = `<b>Uploading ${up.video.name}…</b>`;
+    const fd = new FormData();
+    fd.append("video", up.video);
+    if (up.srt) fd.append("telemetry", up.srt);
+    fd.append("altitude_m", $("#altInput").value || "60");
+    fd.append("lane", $("#laneInput").value);
+    try {
+      const r = await fetch("/api/runs", { method: "POST", body: fd });
+      const j = await r.json();
+      if (!r.ok) throw new Error(j.detail || r.statusText);
+      poll(j.id);
+    } catch (e) { upStatus.innerHTML = `<b>Upload failed:</b> ${e.message}`; startBtn.disabled = false; }
+  });
+  (async () => {
+    try {
+      const r = await fetch("/api/health", { cache: "no-store" });
+      if (!r.ok) throw new Error();
+      up.online = true;
+      const list = await (await fetch("/api/runs")).json();
+      for (const it of list) {
+        if (it.state === "done") await addRun(it.id);
+        else if (it.state === "queued" || it.state === "running" || it.state === "building") poll(it.id);
+      }
+    } catch (e) {
+      $("#upload").classList.add("offline");
+      $("#upOpts").hidden = true;
+      $("#dropHint").innerHTML = 'Drag-and-drop needs the local pipeline server. In WSL run <span class="mono">python webapp/server_v3.py</span> from the project folder, then open <span class="mono">http://localhost:8765</span>.';
+    }
+  })();
+  window.dashRender = render;
+  // deep link: #b12 opens building 12 of the current run
+  function openFromHash(){
+    const m = /^#b(\d+)$/.exec(location.hash || "");
+    if (m) setTimeout(() => openCard($("#mapbox"), +m[1], 24, 24), 50);
+  }
+  window.addEventListener("hashchange", openFromHash);
+  window.dashCurrent = () => D.runs[current];
+  render();
+  openFromHash();
+})();
+</script>
+<script type="module">
+import * as THREE from "three";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+
+const box = document.getElementById("viewer");
+const msg = document.getElementById("viewerMsg");
+const legend = document.getElementById("legend");
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+box.prepend(renderer.domElement);
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x1a211e);
+const camera = new THREE.PerspectiveCamera(45, 1, 0.5, 5000);
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+scene.add(new THREE.HemisphereLight(0xffffff, 0x3a4a40, 1.6));
+const sun = new THREE.DirectionalLight(0xffffff, 1.4);
+sun.position.set(-1, 2, 1.2);
+scene.add(sun);
+const loader = new GLTFLoader();
+const cache = {};
+let layers = { surface: null, lod: null, terrain: null, reg: null }, mode = "reg", fitted = null;
+
+function resize(){ const w = box.clientWidth, h = box.clientHeight; renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix(); }
+new ResizeObserver(resize).observe(box); resize();
+
+function b64ToBuf(uri){ const s = atob(uri.split(",")[1]); const b = new Uint8Array(s.length); for (let i = 0; i < s.length; i++) b[i] = s.charCodeAt(i); return b.buffer; }
+function parse(uri){ return new Promise((res, rej) => loader.parse(b64ToBuf(uri), "", g => res(g.scene), rej)); }
+
+function applyMode(){
+  const hasReg = !!layers.reg;
+  const m = (mode === "reg" && !hasReg) ? "surface" : mode;
+  if (layers.surface) layers.surface.visible = m === "surface";
+  if (layers.terrain) layers.terrain.visible = m === "reg" || m === "lod";
+  if (layers.reg) layers.reg.visible = m === "reg";
+  if (layers.lod) layers.lod.visible = m === "lod";
+  if (m === "lod" && !layers.terrain && layers.surface) layers.surface.visible = true;
+  legend.hidden = m !== "lod";
+  document.getElementById("pickHint").hidden = m !== "reg";
+  for (const [id, k] of [["tReg","reg"],["tSurface","surface"],["tLod","lod"]]) document.getElementById(id).setAttribute("aria-pressed", m === k ? "true" : "false");
+  document.getElementById("tReg").disabled = !hasReg;
+  document.getElementById("viewTitle").textContent = { reg: "Regularized buildings", surface: "Raw fused surface", lod: "Provenance: observed vs inferred" }[m];
+}
+for (const [id, k] of [["tReg","reg"],["tSurface","surface"],["tLod","lod"]]) document.getElementById(id).onclick = () => { mode = k; applyMode(); };
+
+function fit(obj){
+  const b = new THREE.Box3().setFromObject(obj), c = b.getCenter(new THREE.Vector3()), s = b.getSize(new THREE.Vector3());
+  const r = Math.max(s.x, s.z) * 0.62;
+  controls.target.copy(c);
+  camera.position.set(c.x - r * 0.55, c.y + r * 0.75, c.z + r * 0.9);
+  camera.near = r / 200; camera.far = r * 20; camera.updateProjectionMatrix();
+  controls.update();
+}
+
+let requestId = 0;
+function load(run){
+  if (!cache[run.id]) {
+    cache[run.id] = (async () => {
+      const surf = await parse(run.mesh);
+      surf.traverse(o => { if (o.isMesh) { o.material.side = THREE.DoubleSide; o.material.roughness = 0.95; o.material.metalness = 0; } });
+      let lod = null, terrain = null, reg = null;
+      if (run.lod2) {
+        lod = await parse(run.lod2);
+        lod.traverse(o => { if (o.isMesh) { o.material.side = THREE.DoubleSide; o.material.roughness = 0.7; o.material.metalness = 0; } });
+      }
+      if (run.terrain) {
+        terrain = await parse(run.terrain);
+        terrain.traverse(o => { if (o.isMesh) { o.material.side = THREE.DoubleSide; o.material.roughness = 0.95; o.material.metalness = 0; } });
+      }
+      if (run.reg) {
+        reg = await parse(run.reg);
+        reg.traverse(o => { if (o.isMesh) { o.material.side = THREE.DoubleSide; o.material.metalness = 0; o.material.roughness = 0.85; } });
+      }
+      return { surf, lod, terrain, reg };
+    })();
+  }
+  return cache[run.id];
+}
+
+window.show3D = async function(run){
+  const my = ++requestId;
+  for (const k of ["surface", "lod", "terrain", "reg"]) if (layers[k]) { scene.remove(layers[k]); layers[k] = null; }
+  legend.hidden = true;
+  if (!run.mesh) { msg.hidden = false; msg.textContent = "The 3D model is embedded only for some runs to keep this page small. Pick a run with a 3D model (Test video 2 or SURVEY)."; return; }
+  msg.hidden = false; msg.textContent = "Decoding mesh…";
+  try {
+    const got = await load(run);
+    if (my !== requestId) return;  // a newer selection superseded this one
+    layers.surface = got.surf; layers.lod = got.lod; layers.terrain = got.terrain; layers.reg = got.reg;
+    for (const k of ["surface", "lod", "terrain", "reg"]) if (layers[k]) scene.add(layers[k]);
+    if (fitted !== run.id) { fit(layers.surface); fitted = run.id; }
+    applyMode();
+    msg.hidden = true;
+  } catch (e) { if (my === requestId) msg.textContent = "Could not decode the mesh: " + e.message; }
+};
+// click a building in the 3D view to open its card
+const raycaster = new THREE.Raycaster();
+let downAt = null, picked = null;
+renderer.domElement.addEventListener("pointerdown", e => { downAt = [e.clientX, e.clientY]; });
+renderer.domElement.addEventListener("pointerup", e => {
+  if (!downAt || Math.hypot(e.clientX - downAt[0], e.clientY - downAt[1]) > 5) return;
+  const target = layers.reg && layers.reg.visible ? layers.reg : null;
+  if (!target) return;
+  const r = renderer.domElement.getBoundingClientRect();
+  const p = new THREE.Vector2(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
+  raycaster.setFromCamera(p, camera);
+  const hit = raycaster.intersectObject(target, true)[0];
+  if (!hit) return;
+  let o = hit.object, id = null;
+  while (o) { const m = /^b(\d+)/.exec(o.name || ""); if (m) { id = +m[1]; break; } o = o.parent; }
+  if (id !== null && window.openBuildingCard) window.openBuildingCard(id, e.clientX - r.left, e.clientY - r.top);
+});
+window.pick3D = function(id){
+  if (picked) { scene.remove(picked); picked = null; }
+  if (id === null || !layers.reg) return;
+  let obj = null;
+  layers.reg.traverse(o => { if (!obj && o.name && new RegExp("^b" + id + "(?!\\d)").test(o.name)) obj = o; });
+  if (obj) { picked = new THREE.BoxHelper(obj, 0xffb347); scene.add(picked); }
+};
+(function loop(){ requestAnimationFrame(loop); controls.update(); renderer.render(scene, camera); })();
+if (window.DASH && window.dashCurrent) window.show3D(window.dashCurrent());
+</script>

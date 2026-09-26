@@ -19,12 +19,25 @@ from src.mesh.mesh_generator import read_ply_points_and_colors
 
 def read_ply_mesh(filepath: str) -> Tuple[np.ndarray, np.ndarray, Optional[np.ndarray]]:
     """Reads vertices, faces, and vertex colors from an indexed PLY mesh."""
+    try:
+        import open3d as o3d
+        mesh = o3d.io.read_triangle_mesh(filepath)
+        if len(mesh.vertices) > 0 and len(mesh.triangles) > 0:
+            verts = np.asarray(mesh.vertices, dtype=np.float32)
+            faces = np.asarray(mesh.triangles, dtype=np.int32)
+            clrs = (np.asarray(mesh.vertex_colors) * 255.0).astype(np.uint8) if mesh.has_vertex_colors() else None
+            return verts, faces, clrs
+    except Exception:
+        pass
+
     vertices = []
     colors = []
     faces = []
     header = True
     num_verts = 0
     num_faces = 0
+    vertex_props = []
+    in_vertex = False
 
     with open(filepath, 'r', encoding='utf-8', errors='ignore') as f:
         for line in f:
@@ -32,8 +45,12 @@ def read_ply_mesh(filepath: str) -> Tuple[np.ndarray, np.ndarray, Optional[np.nd
             if header:
                 if line.startswith("element vertex"):
                     num_verts = int(line.split()[2])
+                    in_vertex = True
                 elif line.startswith("element face"):
                     num_faces = int(line.split()[2])
+                    in_vertex = False
+                elif in_vertex and line.startswith("property"):
+                    vertex_props.append(line.split()[-1])
                 elif line == "end_header":
                     header = False
                 continue
@@ -44,13 +61,22 @@ def read_ply_mesh(filepath: str) -> Tuple[np.ndarray, np.ndarray, Optional[np.nd
 
             if len(vertices) < num_verts:
                 vertices.append([float(parts[0]), float(parts[1]), float(parts[2])])
-                if len(parts) >= 6:
-                    colors.append([int(parts[3]), int(parts[4]), int(parts[5])])
+                if "red" in vertex_props and "green" in vertex_props and "blue" in vertex_props:
+                    r_idx = vertex_props.index("red")
+                    g_idx = vertex_props.index("green")
+                    b_idx = vertex_props.index("blue")
+                    if len(parts) > max(r_idx, g_idx, b_idx):
+                        colors.append([
+                            int(np.clip(float(parts[r_idx]), 0, 255)),
+                            int(np.clip(float(parts[g_idx]), 0, 255)),
+                            int(np.clip(float(parts[b_idx]), 0, 255))
+                        ])
             else:
                 if len(parts) >= 4 and parts[0] == '3':
                     faces.append([int(parts[1]), int(parts[2]), int(parts[3])])
 
-    return np.array(vertices, dtype=np.float32), np.array(faces, dtype=np.int32), (np.array(colors, dtype=np.uint8) if colors else None)
+    clr_arr = np.array(colors, dtype=np.uint8) if (colors and len(colors) == len(vertices)) else None
+    return np.array(vertices, dtype=np.float32), np.array(faces, dtype=np.int32), clr_arr
 
 
 def generate_textured_mesh(

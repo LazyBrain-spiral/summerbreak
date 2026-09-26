@@ -363,5 +363,13 @@ def write_ply(filepath: str, points: np.ndarray, colors: Optional[np.ndarray] = 
 
 def get_depth_engine(mode: str = "fast") -> BaseDepthEngine:
     """Factory function returning depth engine instance."""
-    # When Depth Anything V2 is not installed, ColmapMVSEngine provides the true MVS reconstruction
-    return ColmapMVSEngine()
+    if mode.lower() == "fast":
+        return FastDepthEngine()
+    else:
+        runner = GlomapRunner()
+        try:
+            if runner.resolve_colmap_binary():
+                return ColmapMVSEngine()
+        except FileNotFoundError:
+            pass
+        return FastDepthEngine()

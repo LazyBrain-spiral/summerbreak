@@ -1,0 +1,11 @@
+# LIVE profile: learned monocular depth anchored to SfM, TSDF fusion. Target <= 10 min on an 8 GB GPU.
+profile: live
+dense:
+  lane: live
+  predictor: depth_anything
+  model: depth-anything/Depth-Anything-V2-Small-hf   # Large: depth-anything/Depth-Anything-V2-Large-hf
+  max_image_size: 960
+fusion:
+  voxel_m: 0.15
+products:
+  gsd_m: 0.2

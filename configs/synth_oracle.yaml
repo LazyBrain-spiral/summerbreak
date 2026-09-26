@@ -1,0 +1,18 @@
+# Validation on tools/synth3d.py output: ground-truth depth under an unknown affine map
+# replaces the network, so every error measured downstream comes from SfM, georef,
+# fusion and products. Pass --gt <synth folder>.
+profile: live
+allow_cpu: true
+ingest:
+  min_disp_frac: 0.03   # short 16 s clip: denser keyframes
+  min_keyframes: 20
+masks:
+  enabled: false        # no vehicles in the synthetic scene
+dense:
+  lane: live
+  predictor: oracle
+  max_image_size: 960
+fusion:
+  voxel_m: 0.2
+products:
+  gsd_m: 0.25
