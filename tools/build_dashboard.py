@@ -29,6 +29,8 @@ sys.path.insert(0, str(ROOT / "tools"))
 from src.core.io import read_json  # noqa: E402
 
 LABELS = {
+    "upload_test4video_b2638a": ("test4video", "Your test4video.mp4 (832x464, 53 s, nadir), LIVE lane, no GPS; scale from an 83 m height estimated from one car"),
+    "test4video_survey": ("test4video · SURVEY", "Same video, COLMAP PatchMatch stereo depth; no GPS; 83 m height from one car"),
     "upload_testv3_d9d9e9": ("testv3", "Your uploaded testv3.mp4 (848x480, 5 s), LIVE lane, no GPS"),
     "testvideo2_live": ("Test video 2", "Real 2.7K drone video, LIVE lane: Depth Anything V2 Small with anchor correction; no GPS"),
     "testvideo2_survey": ("Test video 2 · SURVEY", "Real 2.7K drone video, COLMAP PatchMatch stereo; no GPS"),
