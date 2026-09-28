@@ -29,6 +29,10 @@ sys.path.insert(0, str(ROOT / "tools"))
 from src.core.io import read_json  # noqa: E402
 
 LABELS = {
+    "testvideo2_pi3": ("Test video 2 · Pi3X", "Real 2.7K drone video, Pi3X multi-view depth conditioned on SfM; no GPS; scale from an assumed 60 m height"),
+    "test4video_pi3": ("test4video · Pi3X", "Same video, Pi3X multi-view depth conditioned on SfM; no GPS; 83 m height from one car"),
+    "synth_pi3": ("Pi3X", "Pi3X multi-view depth conditioned on SfM poses, intrinsics and sparse depth"),
+    "upload_test5video_60e902": ("test5video", "Your test5video.mp4 (1080p, 15 s, oblique over forest), LIVE lane, no GPS; scale from an assumed 60 m height"),
     "upload_test4video_b2638a": ("test4video", "Your test4video.mp4 (832x464, 53 s, nadir), LIVE lane, no GPS; scale from an 83 m height estimated from one car"),
     "test4video_survey": ("test4video · SURVEY", "Same video, COLMAP PatchMatch stereo depth; no GPS; 83 m height from one car"),
     "upload_testv3_d9d9e9": ("testv3", "Your uploaded testv3.mp4 (848x480, 5 s), LIVE lane, no GPS"),

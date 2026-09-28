@@ -1,0 +1,40 @@
+# PS158 v3: dashboard + upload server on http://localhost:8765
+#
+#   docker compose up --build -d                        # NVIDIA GPU (Linux, or Windows with Docker Desktop)
+#   docker compose --profile cpu up --build -d app-cpu  # no GPU (macOS, CPU-only servers)
+#   docker compose run --rm app python scripts/prefetch_models.py   # cache all weights for offline use
+#   docker compose run --rm app pytest -q tests/v3                 # test suite inside the image
+#
+# Reconstructions persist in the "runs" volume, model weights in "cache".
+name: ps158
+
+x-common: &common
+  build: .
+  image: ps158:latest
+  ports:
+    - "${PORT:-8765}:8765"
+  volumes:
+    - runs:/app/runs
+    - cache:/cache
+    - ./data:/data            # drop videos here for CLI runs (python -m src.pipeline --video /data/x.mp4)
+  shm_size: "2gb"            # torch data loaders and open3d need more than the 64 MB default
+  restart: unless-stopped
+
+services:
+  app:
+    <<: *common
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+
+  app-cpu:
+    <<: *common
+    profiles: ["cpu"]
+
+volumes:
+  runs:
+  cache:

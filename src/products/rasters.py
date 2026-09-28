@@ -225,13 +225,23 @@ def _hull_frac(observed: np.ndarray) -> float:
 
     Oblique footage spreads a few far points over a large bounding box; the hull
     measures how complete the mapped area itself is."""
-    ys, xs = np.nonzero(observed)
+    if observed.sum() < 3:
+        return 0.0
+    # hull of the largest dense region: scattered far points must not inflate the area
+    closed = ndimage.binary_closing(observed, structure=np.ones((5, 5), bool))
+    lab, n = ndimage.label(closed)
+    if n == 0:
+        return 0.0
+    sizes = ndimage.sum(np.ones_like(lab), lab, index=np.arange(1, n + 1))
+    main = lab == 1 + int(np.argmax(sizes))
+    ys, xs = np.nonzero(main)
     if len(xs) < 3:
         return 0.0
     hull = cv2.convexHull(np.column_stack([xs, ys]).astype(np.int32))
     m = np.zeros(observed.shape, np.uint8)
     cv2.fillPoly(m, [hull], 1)
-    return float(observed.sum() / max(1, m.sum()))
+    inside = m.astype(bool)
+    return float((observed & inside).sum() / max(1, inside.sum()))
 
 
 def build_products(cloud_path: str, depth_root: str, georef: Dict[str, Any], out_dir: str, cfg: Dict[str, Any],

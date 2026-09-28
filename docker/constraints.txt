@@ -1,0 +1,26 @@
+# Versions validated end-to-end (WSL2 Ubuntu 22.04, Python 3.11, September 2026).
+# Used as pip constraints by the Dockerfile; torch/torchvision come from the CUDA index.
+numpy==2.4.6
+scipy==1.17.1
+opencv-python-headless==5.0.0.93
+open3d==0.20.0
+pycolmap==4.2.0
+pymap3d==3.2.0
+pyproj==3.7.2
+rasterio==1.4.4
+laspy==2.7.0
+shapely==2.1.2
+trimesh==5.1.0
+tifffile==2026.3.3
+pillow==12.3.0
+PyYAML==6.0.3
+pytest==9.1.1
+transformers==5.17.0
+accelerate==1.15.0
+ultralytics==8.4.163
+fastapi==0.141.1
+uvicorn==0.54.0
+python-multipart==0.0.32
+plyfile==1.1.5
+safetensors==0.8.0
+huggingface_hub==1.33.0

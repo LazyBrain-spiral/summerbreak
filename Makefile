@@ -2,7 +2,7 @@
 PY ?= python
 SYNTH ?= test_data/synth3d_pass
 
-.PHONY: env check test test-slow synth synth-run demo
+.PHONY: env check test test-slow synth synth-run demo serve docker docker-cpu docker-test docker-models
 
 env:
 	bash scripts/setup_env.sh
@@ -26,3 +26,19 @@ synth-run:
 
 demo:
 	$(PY) -m src.pipeline --config configs/live.yaml --video $(VIDEO) --telemetry $(SRT) --run-id $(RUN)
+
+serve:
+	$(PY) webapp/server_v3.py
+
+# ---- Docker (any host; see docker/README.md) ----
+docker:
+	docker compose up --build -d
+
+docker-cpu:
+	docker compose --profile cpu up --build -d app-cpu
+
+docker-test:
+	docker compose run --rm app pytest -q tests/v3 -m "not slow"
+
+docker-models:
+	docker compose run --rm app python scripts/prefetch_models.py

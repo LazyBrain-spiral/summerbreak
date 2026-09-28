@@ -137,7 +137,15 @@ def extrude_buildings(grids_path: str, georef: Dict[str, Any], out_dir: str, cfg
     # labelled, then grown back (edges are rough on every building) inside `tall`.
     curv = curvature(np.nan_to_num(dsm, nan=np.nanmin(dsm)), gsd)
     max_curv = float(cfg.get("max_curvature", 0.6))
-    core = tall & (rough <= cfg["max_roughness_m"]) & (curv <= max_curv)
+    exg_early = vegetation_index(ortho_path, dsm.shape) if cfg.get("vegetation_filter", True) else None
+    if exg_early is not None:
+        # colour is the stronger tree test; curvature (which small, noisy roofs also fail) only where colour is missing
+        green = np.nan_to_num(exg_early, nan=0.0) > cfg.get("max_exg", 0.1)
+        flat_ok = np.where(np.isfinite(exg_early), True, curv <= max_curv)
+        core = tall & (rough <= cfg["max_roughness_m"]) & ~green & flat_ok
+    else:
+        green = None
+        core = tall & (rough <= cfg["max_roughness_m"]) & (curv <= max_curv)
     core = ndimage.binary_opening(core, iterations=max(1, int(round(0.5 / gsd))))
     labels, n = ndimage.label(core)
     # Roof edges have high curvature too, but only in a thin band; tree crowns are
@@ -147,8 +155,8 @@ def extrude_buildings(grids_path: str, georef: Dict[str, Any], out_dir: str, cfg
     rad = max(1, int(round(1.0 / gsd)))
     yy, xx = np.mgrid[-rad:rad + 1, -rad:rad + 1]
     disk = (xx * xx + yy * yy) <= rad * rad
-    tree_core = ndimage.binary_opening(tall & ((rough > 3.0 * cfg["max_roughness_m"]) | (curv > 2.0 * max_curv)),
-                                       structure=disk)
+    treeish = (green if green is not None else (curv > 2.0 * max_curv)) | (rough > 3.0 * cfg["max_roughness_m"])
+    tree_core = ndimage.binary_opening(tall & treeish, structure=disk)
     if n:
         grown = ndimage.grey_dilation(labels, size=(2 * grow + 1, 2 * grow + 1))
         labels = np.where(labels > 0, labels, np.where(tall & ~tree_core, grown, 0))
@@ -173,7 +181,7 @@ def extrude_buildings(grids_path: str, georef: Dict[str, Any], out_dir: str, cfg
                 rejected["vegetation"] += 1
                 continue
         med_rough = float(np.median(rough[comp]))
-        if med_rough > cfg["max_roughness_m"] or float(np.median(curv[comp])) > max_curv:
+        if med_rough > cfg["max_roughness_m"] or (exg is None and float(np.median(curv[comp])) > max_curv):
             rejected["rough"] += 1
             continue
         # Fused surfaces slope down at roof edges instead of dropping vertically.

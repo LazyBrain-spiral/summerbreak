@@ -292,6 +292,28 @@ def _ortho_fill(tex: Dict[str, Any], grp: Dict[str, Any], ortho) -> None:
     tex["ortho_frac"] = float(ok.mean())
 
 
+_LAMA = {"model": None, "failed": False}
+
+
+def inpaint(patch_bgr: np.ndarray, hole: np.ndarray) -> Tuple[np.ndarray, str]:
+    """Learned inpainting (LaMa) when available, classic Telea otherwise."""
+    if not _LAMA["failed"]:
+        try:
+            if _LAMA["model"] is None:
+                from simple_lama_inpainting import SimpleLama
+
+                _LAMA["model"] = SimpleLama()
+            h, w = patch_bgr.shape[:2]
+            out = np.array(_LAMA["model"](patch_bgr[..., ::-1].copy(), (hole > 0).astype(np.uint8) * 255))
+            out = out[:h, :w, ::-1]
+            if out.shape[:2] == (h, w):
+                keep = (hole == 0)[..., None]
+                return np.where(keep, patch_bgr, out).astype(np.uint8), "lama"
+        except Exception:
+            _LAMA["failed"] = True
+    return cv2.inpaint(patch_bgr, hole.astype(np.uint8), 5, cv2.INPAINT_TELEA), "telea"
+
+
 def _fill(tex: Dict[str, Any], kind: str, donor: Optional[np.ndarray]) -> str:
     """Complete unseen texels. Returns provenance: observed | inpainted | generated | neutral."""
     patch, seen, inside = tex["patch"], tex["seen"], tex["inside"]
@@ -300,7 +322,7 @@ def _fill(tex: Dict[str, Any], kind: str, donor: Optional[np.ndarray]) -> str:
         return "observed"
     if frac >= 0.25:
         hole = (inside & ~seen).astype(np.uint8)
-        patch[:] = cv2.inpaint(patch, hole, 5, cv2.INPAINT_TELEA)
+        patch[:], tex["inpaint_method"] = inpaint(patch, hole)
         return "observed" if frac > 0.9 else "inpainted"
     if donor is not None and kind == "wall":
         H, W = patch.shape[:2]

@@ -1,0 +1,19 @@
+# Keep the build context small: code, configs, dashboard and the small YOLO weights only.
+.git
+.gitignore
+.pytest_cache
+**/__pycache__
+**/*.pyc
+runs/
+workspace_*/
+tests/scratch*/
+*.mp4
+*.MP4
+*.mov
+*.MOV
+*.avi
+*.mkv
+*.log
+webapp/models/
+data_warehouse/
+*.bat

@@ -17,14 +17,18 @@
 | Georef: RANSAC Sim(3), hold-out RMSE, collinearity check, gimbal / ground-plane orientation prior | done, tested | `src/georef/solver.py` |
 | GPS-prior bundle adjustment | not started (Phase 1) | |
 | LIVE lane: Depth Anything V2, per-frame affine fit to SfM tracks, multi-view consistency | done; oracle predictor for validation | `src/depth/lanes.py`, `src/depth/common.py` |
-| SURVEY lane: COLMAP PatchMatch geometric | written, needs a CUDA run | `src/depth/lanes.py` |
+| SURVEY lane: COLMAP PatchMatch geometric | done, benchmarked on the synthetic flight | `src/depth/lanes.py` |
+| Pi3X lane: multi-view depth conditioned on SfM poses, K, sparse depth | done, best synthetic DSM accuracy | `src/depth/pi3_predictor.py` |
 | TSDF fusion with masks, view counts, coverage | done | `src/fusion/tsdf.py` |
 | DSM, DTM (PMF), true ortho, LAS 1.4 with CRS, GeoTIFF in UTM | done, tested | `src/products/rasters.py`, `src/products/geo.py` |
 | Tier-1 completion: footprint extrusion with provenance, buildings GeoJSON | done, tested | `src/completion/extrusion.py` |
 | GLB export | done | `src/products/glb.py` |
 | Stage runner: gates, caching, status, report | done | `src/core/stage.py`, `src/pipeline.py` |
 | Synthetic evaluation harness | done | `eval/synth_eval.py` |
-| Textured mesh (view selection + xatlas), 3D classification, web viewer | not started (Phase 2 and 3) | |
+| Regularised, textured buildings with floors, doors, windows | done | `src/completion/` |
+| Dashboard: runs, 3D modes, measure tools, building cards | done | `tools/build_dashboard.py`, `tools/dashboard_template.html` |
+| Upload server: drag-and-drop video, quality presets and tuning options, restart recovery | done, tested for all three lanes | `webapp/server_v3.py` |
+| Docker image for any host (GPU or CPU, amd64 or arm64), compose file, model prefetch | done | `Dockerfile`, `docker-compose.yml`, `docker/README.md` |
 
 ---
 

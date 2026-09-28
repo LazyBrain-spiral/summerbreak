@@ -119,19 +119,31 @@ def run_live_lane(paths: Dict[str, str], geo: Dict[str, Any], cfg: Dict[str, Any
         os.makedirs(os.path.join(out, sub), exist_ok=True)
     ws, model, cams = _prepare(paths, geo, cfg["max_image_size"])
     by_name = {c["name"]: c for c in cams}
+    multi = None
     if cfg["predictor"] == "oracle":
         if not gt_dir:
             raise RuntimeError("predictor=oracle needs inputs.gt pointing at a synth3d folder")
         predictor = OraclePredictor(gt_dir, by_name, keyframes)
+    elif cfg["predictor"] == "pi3x":
+        from src.depth.pi3_predictor import Pi3XPredictor
+
+        predictor = Pi3XPredictor(cfg.get("pi3_model", "yyfz233/Pi3X"), window=int(cfg.get("pi3_window", 12)),
+                                  stride=int(cfg.get("pi3_stride", 8)), allow_cpu=allow_cpu)
+        all_anchors = {c["name"]: anchors_for_image(model, c["name"], geo) for c in cams}
+        multi = predictor.predict_all(cams, all_anchors)
     else:
         predictor = DepthAnythingPredictor(cfg["model"], allow_cpu)
 
     fits, accepted = {}, []
     for cam in cams:
         name = cam["name"]
-        bgr = cv2.imread(cam["image"])
-        rgb = cv2.cvtColor(bgr, cv2.COLOR_BGR2RGB)
-        pred = predictor(rgb, name)
+        if multi is not None:
+            pred, pconf = multi[name]
+            pred = np.where(pconf >= float(cfg.get("pi3_min_conf", 0.1)), pred, 0.0).astype(np.float32)
+        else:
+            bgr = cv2.imread(cam["image"])
+            rgb = cv2.cvtColor(bgr, cv2.COLOR_BGR2RGB)
+            pred = predictor(rgb, name)
         uv, z = anchors_for_image(model, name, geo)
         stem = os.path.splitext(name)[0]
         if len(z) < cfg["min_anchors"]:

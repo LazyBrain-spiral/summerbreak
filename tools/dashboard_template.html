@@ -110,6 +110,11 @@ tr[data-b]:hover td{background:var(--surface-2)}
 .upopts label{font-size:13px;font-weight:600}
 .upopts label .sub{display:block;font-weight:400;font-size:12px;margin:0}
 .upopts input,.upopts select{font:14px var(--body);padding:8px 10px;border:1px solid var(--line);border-radius:6px;background:var(--surface-2);color:var(--ink);min-width:0}
+.adv{grid-column:1/-1;border-top:1px solid var(--line);padding-top:8px}
+.adv summary{cursor:pointer;font-weight:600;font-size:13px}
+.advgrid{display:grid;grid-template-columns:auto 1fr;gap:8px 12px;align-items:center;margin-top:10px}
+.advgrid .checks{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px}
+.advgrid .checks label{font-weight:400;display:flex;align-items:center;gap:6px}
 .upopts .primary{grid-column:1/-1;font:600 14px var(--body);padding:11px 14px;border-radius:8px;border:0;background:var(--roof);color:#fff;cursor:pointer}
 .upopts .primary:disabled{opacity:.45;cursor:not-allowed}
 .upstatus{grid-column:1/-1;border-top:1px solid var(--line);padding:12px 18px;font-size:13.5px}
@@ -136,6 +141,17 @@ tr[data-b]:hover td{background:var(--surface-2)}
 .bcard .sw{border:1px solid var(--line)}
 .bcard .note{margin:0 12px 12px;font-size:11.5px;color:var(--muted)}
 #viewer canvas{cursor:grab}
+.toggle button.measure[aria-pressed="true"],.tabs button.measure[aria-pressed="true"]{background:var(--wall);border-color:var(--wall);color:#fff}
+.mpanel{position:absolute;left:12px;bottom:12px;z-index:15;pointer-events:none;max-width:min(360px,calc(100% - 24px));background:rgba(14,19,17,.88);color:#E4EBE6;border-radius:8px;padding:10px 12px;font-size:12.5px;line-height:1.45}
+.mpanel b{font:600 14px var(--display);letter-spacing:.02em}
+.mpanel .big{font:600 22px var(--display);color:#fff;margin:2px 0}
+.mpanel .row{display:flex;justify-content:space-between;gap:14px;font-variant-numeric:tabular-nums}
+.mpanel .row span:first-child{color:#9fb0a8}
+.mpanel button{pointer-events:auto;margin-top:8px;font:600 12px var(--body);background:#2a3530;color:#E4EBE6;border:0;border-radius:5px;padding:5px 9px;cursor:pointer}
+.mapbox .mline{stroke:#ffd166;stroke-width:3;vector-effect:non-scaling-stroke}
+.mapbox .mpt{fill:#ffd166;stroke:#000;stroke-width:1;vector-effect:non-scaling-stroke}
+.mapbox .mlabel{font:700 16px var(--mono);fill:#ffd166}
+.mapbox polygon.sel{stroke:#ffd166;stroke-width:3.5}
 footer{margin-top:28px;color:var(--muted);font-size:12.5px;max-width:90ch}
 @media (max-width:1100px){.kpis{grid-template-columns:repeat(3,minmax(0,1fr))}.pipeline{grid-template-columns:repeat(4,minmax(0,1fr))}}
 @media (max-width:860px){.views,.tables,.compare{grid-template-columns:1fr}#viewer{height:400px}}
@@ -162,11 +178,37 @@ footer{margin-top:28px;color:var(--muted);font-size:12.5px;max-width:90ch}
       <input type="file" id="fileInput" accept="video/*,.mp4,.mov,.m4v,.srt,.csv" multiple hidden>
     </div>
     <div class="upopts" id="upOpts">
-      <label for="altInput">Flying height (m) <span class="sub">used only without .SRT</span></label>
-      <input id="altInput" type="number" min="5" max="500" step="1" value="60">
-      <label for="laneInput">Depth</label>
-      <select id="laneInput"><option value="live">LIVE: fast (Depth Anything)</option><option value="survey">SURVEY: accurate (stereo)</option></select>
+      <label for="presetInput">Quality</label>
+      <select id="presetInput">
+        <option value="fast">Fast: about 4 min, Depth Anything</option>
+        <option value="balanced" selected>Balanced: about 10 min, Pi3X multi-view</option>
+        <option value="best">Best: Pi3X, high detail, dense keyframes</option>
+        <option value="custom">Custom (advanced settings)</option>
+      </select>
+      <label for="altInput">Flying height (m) <span class="sub">sets the scale when there is no .SRT: every size and height scales with it</span></label>
+      <input id="altInput" type="number" min="5" max="1000" step="1" value="60">
+      <details class="adv" id="advBox">
+        <summary>Advanced settings</summary>
+        <div class="advgrid">
+          <label for="laneInput">Depth method</label>
+          <select id="laneInput"><option value="live">Depth Anything (fast)</option><option value="pi3x">Pi3X multi-view (best)</option><option value="survey">Stereo PatchMatch (slow, GPU)</option></select>
+          <label for="detailInput">Detail <span class="sub">voxel / map cell / texture</span></label>
+          <select id="detailInput"><option value="draft">Draft: 30 cm / 40 cm / 10 cm</option><option value="standard">Standard: 15 cm / 20 cm / 6 cm</option><option value="high">High: 10 cm / 10 cm / 4 cm</option></select>
+          <label for="kfInput">Keyframes <span class="sub">dense helps slow or short clips</span></label>
+          <select id="kfInput"><option value="auto">Auto</option><option value="dense">Dense</option><option value="sparse">Sparse (long fast flights)</option></select>
+          <label for="minbInput">Min. building height (m)</label>
+          <input id="minbInput" type="number" min="1" max="20" step="0.5" value="2.5">
+          <span class="checks">
+            <label><input type="checkbox" id="optFacades" checked> Doors &amp; windows</label>
+            <label><input type="checkbox" id="optReg" checked> Straighten buildings</label>
+            <label><input type="checkbox" id="optTex" checked> Texture from video</label>
+            <label><input type="checkbox" id="optMasks" checked> Ignore cars &amp; people</label>
+            <label><input type="checkbox" id="optVeg" checked> Tree filter</label>
+          </span>
+        </div>
+      </details>
       <button id="startBtn" class="primary" disabled>Reconstruct</button>
+      <p class="sub" id="capsNote" style="grid-column:1/-1;margin:0"></p>
     </div>
     <div class="upstatus" id="upStatus" hidden></div>
   </section>
@@ -188,10 +230,12 @@ footer{margin-top:28px;color:var(--muted);font-size:12.5px;max-width:90ch}
           <button id="tReg" aria-pressed="true">Regularized</button>
           <button id="tSurface" aria-pressed="false">Raw reconstruction</button>
           <button id="tLod" aria-pressed="false">Provenance</button>
+          <button id="tMeasure" class="measure" aria-pressed="false" title="Click two surfaces to measure between them">Measure</button>
         </div>
       </div>
       <div id="viewer"><div class="msg" id="viewerMsg">Loading 3D viewer&hellip;</div>
         <div class="legend" id="pickHint" style="left:auto;right:12px" hidden>Click a building for its details</div>
+        <div class="mpanel" id="measPanel" style="top:12px;bottom:auto" hidden></div>
         <div class="legend" id="legend" hidden>
           <span><span class="sw" style="background:#C9591F"></span>Observed roof</span>
           <span><span class="sw" style="background:#3A68CF"></span>Inferred wall</span>
@@ -206,9 +250,10 @@ footer{margin-top:28px;color:var(--muted);font-size:12.5px;max-width:90ch}
           <button data-m="ortho" aria-pressed="true">Ortho</button>
           <button data-m="hillshade" aria-pressed="false">DSM</button>
           <button data-m="ndsm" aria-pressed="false">Height</button>
+          <button id="mapMeasure" class="measure" aria-pressed="false" title="Click two buildings or two points">Measure</button>
         </div>
       </div>
-      <div class="mapbox" id="mapbox"><img id="mapImg" alt="Map layer"><svg id="mapSvg" preserveAspectRatio="none"></svg></div>
+      <div class="mapbox" id="mapbox"><img id="mapImg" alt="Map layer"><svg id="mapSvg" preserveAspectRatio="none"></svg><div class="mpanel" id="mapPanel" hidden></div></div>
       <div class="mapnote" id="mapNote"></div>
     </div>
   </section>
@@ -342,7 +387,7 @@ footer{margin-top:28px;color:var(--muted);font-size:12.5px;max-width:90ch}
     const im = run.images;
     $("#mapImg").src = im[mapLayer];
     $("#mapTitle").textContent = {ortho:"Orthomosaic", hillshade:"Surface model (hillshade)", ndsm:"Height above ground, 0–20 m"}[mapLayer];
-    document.querySelectorAll("#mapTabs button").forEach(b => b.setAttribute("aria-pressed", b.dataset.m === mapLayer ? "true" : "false"));
+    document.querySelectorAll("#mapTabs button[data-m]").forEach(b => b.setAttribute("aria-pressed", b.dataset.m === mapLayer ? "true" : "false"));
     const svg = $("#mapSvg");
     svg.setAttribute("viewBox", `0 0 ${im.size[0]} ${im.size[1]}`);
     const m = matchBuildings(run);
@@ -356,6 +401,7 @@ footer{margin-top:28px;color:var(--muted);font-size:12.5px;max-width:90ch}
       p.addEventListener("mouseenter", () => highlight(+p.dataset.b));
       p.addEventListener("mouseleave", () => { if (!document.querySelector(".bcard")) highlight(null); });
       p.addEventListener("click", e => {
+        if (window.mapMeasuring && window.mapMeasuring()) return;
         const box = $("#mapbox").getBoundingClientRect();
         openCard($("#mapbox"), +p.dataset.b, e.clientX - box.left, e.clientY - box.top);
       });
@@ -363,6 +409,85 @@ footer{margin-top:28px;color:var(--muted);font-size:12.5px;max-width:90ch}
     const crs = run.products.epsg ? `EPSG:${run.products.epsg}` : "<b>Not georeferenced</b>: local metres, scale assumed";
     $("#mapNote").innerHTML = `${crs} &middot; ${fmt(run.products.gsd_m,2)} m cells &middot; ${fmt(run.products.observed_cell_frac*100,0)}% of the grid observed. Black = never seen from this single pass, left empty rather than invented. Outlines: detected footprints${run.eval ? "; dashed = no matching true building" : ""}.`;
   }
+
+  // ---------- measuring helpers (metres in the product grid: x east, y south in pixels * gsd)
+  function segDist(p, q, a, b){  // closest points between segments pq and ab (2D)
+    const cand = [];
+    const proj = (x, s0, s1) => { const dx = s1[0]-s0[0], dy = s1[1]-s0[1], L = dx*dx+dy*dy;
+      const t = L ? Math.max(0, Math.min(1, ((x[0]-s0[0])*dx + (x[1]-s0[1])*dy) / L)) : 0; return [s0[0]+t*dx, s0[1]+t*dy]; };
+    cand.push([p, proj(p, a, b)], [q, proj(q, a, b)], [proj(a, p, q), a], [proj(b, p, q), b]);
+    let best = null;
+    for (const [u, v] of cand) { const d = Math.hypot(u[0]-v[0], u[1]-v[1]); if (!best || d < best[0]) best = [d, u, v]; }
+    return best;
+  }
+  function inPoly(pt, poly){ let c = false; for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
+    const [xi, yi] = poly[i], [xj, yj] = poly[j];
+    if (((yi > pt[1]) !== (yj > pt[1])) && (pt[0] < (xj - xi) * (pt[1] - yi) / (yj - yi) + xi)) c = !c; } return c; }
+  function polyGap(A, B){  // metres, closest points, 0 if overlapping
+    if (inPoly(A[0], B) || inPoly(B[0], A)) return [0, A[0], A[0]];
+    let best = null;
+    for (let i = 0; i < A.length; i++) for (let j = 0; j < B.length; j++) {
+      const r = segDist(A[i], A[(i+1)%A.length], B[j], B[(j+1)%B.length]);
+      if (!best || r[0] < best[0]) best = r;
+    }
+    return best;
+  }
+  window.buildingGap = (idA, idB) => {
+    const run = D.runs[current], g = run.images.gsd;
+    const fa = run.footprints.find(f => f.id === idA), fb = run.footprints.find(f => f.id === idB);
+    if (!fa || !fb) return null;
+    const r = polyGap(fa.px, fb.px);
+    return { m: r[0] * g, a: r[1], b: r[2] };
+  };
+  const scaleNote = run => run.georef.georeferenced === false ? "<br><span style='color:#f0c36a'>Scale assumed (no GPS): distances scale with the flying height.</span>" : "";
+  window.dashScaleNote = () => scaleNote(D.runs[current]);
+
+  let mapMeasure = false, mapSel = [];
+  function renderMapMeasure(){
+    const svg = $("#mapSvg"), panel = $("#mapPanel"), run = D.runs[current], g = run.images.gsd;
+    svg.querySelectorAll(".mline,.mpt,.mlabel").forEach(e => e.remove());
+    svg.querySelectorAll("polygon").forEach(p => p.classList.toggle("sel", mapSel.some(s => s.b === +p.dataset.b)));
+    if (!mapMeasure) { panel.hidden = true; return; }
+    panel.hidden = false;
+    if (mapSel.length < 2) { panel.innerHTML = `<b>Measure on the map</b><br>Click two buildings for the gap between them, or two points on the ground. (${mapSel.length}/2)`; return; }
+    const [A, B] = mapSel;
+    let d, pa, pb, what;
+    if (A.b != null && B.b != null && A.b !== B.b) {
+      const r = polyGap(run.footprints.find(f => f.id === A.b).px, run.footprints.find(f => f.id === B.b).px);
+      d = r[0] * g; pa = r[1]; pb = r[2]; what = `Gap between building #${A.b} and #${B.b}`;
+    } else if (A.b != null && B.b == null || A.b == null && B.b != null) {
+      const bsel = A.b != null ? A : B, psel = A.b != null ? B : A;
+      const poly = run.footprints.find(f => f.id === bsel.b).px;
+      let best = null;
+      for (let i = 0; i < poly.length; i++) { const r = segDist(psel.p, psel.p, poly[i], poly[(i+1)%poly.length]); if (!best || r[0] < best[0]) best = r; }
+      d = inPoly(psel.p, poly) ? 0 : best[0] * g; pa = best[1]; pb = best[2]; what = `Point to building #${bsel.b}`;
+    } else {
+      pa = A.p; pb = B.p; d = Math.hypot(pa[0]-pb[0], pa[1]-pb[1]) * g; what = "Distance between points";
+    }
+    const NS = "http://www.w3.org/2000/svg";
+    const line = document.createElementNS(NS, "line");
+    line.setAttribute("x1", pa[0]); line.setAttribute("y1", pa[1]); line.setAttribute("x2", pb[0]); line.setAttribute("y2", pb[1]);
+    line.setAttribute("class", "mline"); svg.appendChild(line);
+    for (const p of [pa, pb]) { const c = document.createElementNS(NS, "circle"); c.setAttribute("cx", p[0]); c.setAttribute("cy", p[1]); c.setAttribute("r", 4); c.setAttribute("class", "mpt"); svg.appendChild(c); }
+    panel.innerHTML = `<b>${what}</b><div class="big">${fmt(d, 2)} m</div>Horizontal distance in the map plane.${scaleNote(run)}<br><button id="mapClear">Clear</button>`;
+    $("#mapClear").onclick = () => { mapSel = []; renderMapMeasure(); };
+  }
+  $("#mapMeasure").onclick = () => {
+    mapMeasure = !mapMeasure; mapSel = [];
+    $("#mapMeasure").setAttribute("aria-pressed", mapMeasure ? "true" : "false");
+    closeCards(); renderMapMeasure();
+  };
+  $("#mapSvg").addEventListener("click", e => {
+    if (!mapMeasure) return;
+    const svg = $("#mapSvg"), r = svg.getBoundingClientRect(), im = D.runs[current].images.size;
+    const p = [(e.clientX - r.left) / r.width * im[0], (e.clientY - r.top) / r.height * im[1]];
+    const poly = e.target.closest && e.target.closest("polygon");
+    if (mapSel.length >= 2) mapSel = [];
+    mapSel.push(poly ? { b: +poly.dataset.b, p } : { b: null, p });
+    renderMapMeasure();
+    e.stopPropagation();
+  }, true);
+  window.mapMeasuring = () => mapMeasure;
 
   const RTYPE = {flat:"Flat", shed:"Single slope", gable_u:"Gable", gable_v:"Gable"};
   function buildingCard(run, id){
@@ -498,10 +623,13 @@ footer{margin-top:28px;color:var(--muted);font-size:12.5px;max-width:90ch}
   function render(){
     const run = D.runs[current];
     closeCards();
+    mapSel = []; renderMapMeasure && setTimeout(renderMapMeasure, 0);
+    if (window.clearMeasure3D) window.clearMeasure3D();
     renderRuns(); renderPipeline(run); renderKpis(run); renderMap(run); renderBuildings(run); renderLanes(); renderFacts(run); renderCompare(run);
     if (window.show3D) window.show3D(run);
   }
-  document.querySelectorAll("#mapTabs button").forEach(b => b.onclick = () => { mapLayer = b.dataset.m; renderMap(D.runs[current]); });
+  // only the layer tabs switch layers; the Measure button in the same group has its own handler
+  document.querySelectorAll("#mapTabs button[data-m]").forEach(b => b.onclick = () => { mapLayer = b.dataset.m; renderMap(D.runs[current]); });
 
   // ---------- drag and drop reconstruction (local server only) ----------
   const up = { video: null, srt: null, online: false };
@@ -555,6 +683,11 @@ footer{margin-top:28px;color:var(--muted);font-size:12.5px;max-width:90ch}
     if (up.srt) fd.append("telemetry", up.srt);
     fd.append("altitude_m", $("#altInput").value || "60");
     fd.append("lane", $("#laneInput").value);
+    fd.append("detail", $("#detailInput").value);
+    fd.append("keyframes", $("#kfInput").value);
+    fd.append("min_building_m", $("#minbInput").value || "2.5");
+    for (const [k, id] of [["facades","optFacades"],["regularize","optReg"],["texture","optTex"],["masks","optMasks"],["vegetation","optVeg"]])
+      fd.append(k, $("#" + id).checked ? "true" : "false");
     try {
       const r = await fetch("/api/runs", { method: "POST", body: fd });
       const j = await r.json();
@@ -562,13 +695,34 @@ footer{margin-top:28px;color:var(--muted);font-size:12.5px;max-width:90ch}
       poll(j.id);
     } catch (e) { upStatus.innerHTML = `<b>Upload failed:</b> ${e.message}`; startBtn.disabled = false; }
   });
+  const PRESETS = { fast: ["live","standard","auto"], balanced: ["pi3x","standard","auto"], best: ["pi3x","high","dense"] };
+  function applyPreset(){
+    const p = PRESETS[$("#presetInput").value];
+    if (!p) { $("#advBox").open = true; return; }
+    [$("#laneInput").value, $("#detailInput").value, $("#kfInput").value] = p;
+  }
+  $("#presetInput").addEventListener("change", applyPreset);
+  for (const id of ["laneInput","detailInput","kfInput"]) $("#" + id).addEventListener("change", () => { $("#presetInput").value = "custom"; });
+  applyPreset();
   (async () => {
     try {
       const r = await fetch("/api/health", { cache: "no-store" });
       if (!r.ok) throw new Error();
       up.online = true;
+      const caps = (await r.clone().json()).caps || {};
+      const opt = v => $(`#laneInput option[value="${v}"]`);
+      if (!caps.colmap_cuda && opt("survey")) { opt("survey").disabled = true; opt("survey").textContent += " (needs NVIDIA GPU)"; }
+      if (!caps.pi3) { opt("pi3x").disabled = true; opt("pi3x").textContent += " (not installed)"; }
+      else if (!caps.cuda) opt("pi3x").textContent += " (very slow without a GPU)";
+      if (!caps.pi3 || !caps.cuda) {
+        for (const v of ["balanced","best"]) { const o = $(`#presetInput option[value="${v}"]`); if (o) o.textContent += caps.pi3 ? " (very slow on CPU)" : " (Pi3X not installed)"; if (o && !caps.pi3) o.disabled = true; }
+        $("#presetInput").value = "fast"; applyPreset();
+      }
+      $("#capsNote").textContent = caps.cuda ? `Running on ${caps.gpu}.` : "No NVIDIA GPU found: runs on the CPU and will be much slower (expect 20 min or more for a short clip).";
       const list = await (await fetch("/api/runs")).json();
+      let shown = 0;
       for (const it of list) {
+        if (it.state === "done" && shown++ >= 6) continue;  // newest six finished uploads
         if (it.state === "done") await addRun(it.id);
         else if (it.state === "queued" || it.state === "running" || it.state === "building") poll(it.id);
       }
@@ -691,8 +845,90 @@ window.show3D = async function(run){
 const raycaster = new THREE.Raycaster();
 let downAt = null, picked = null;
 renderer.domElement.addEventListener("pointerdown", e => { downAt = [e.clientX, e.clientY]; });
+// ---------- measure between two surfaces ----------
+let measuring = false, marks = [], measObjs = [];
+const measPanel = document.getElementById("measPanel");
+function clearMeasure(){ for (const o of measObjs) scene.remove(o); measObjs = []; marks = []; }
+window.clearMeasure3D = () => { clearMeasure(); if (measuring) showMeasure(); };
+document.getElementById("tMeasure").onclick = () => {
+  measuring = !measuring; clearMeasure();
+  document.getElementById("tMeasure").setAttribute("aria-pressed", measuring ? "true" : "false");
+  showMeasure();
+};
+function planeMarker(p, n, colour){
+  const g = new THREE.Group();
+  const sph = new THREE.Mesh(new THREE.SphereGeometry(0.35, 16, 12), new THREE.MeshBasicMaterial({ color: colour }));
+  sph.position.copy(p); g.add(sph);
+  const plane = new THREE.Mesh(new THREE.PlaneGeometry(5, 5), new THREE.MeshBasicMaterial({ color: colour, transparent: true, opacity: 0.35, side: THREE.DoubleSide, depthWrite: false }));
+  plane.position.copy(p).addScaledVector(n, 0.05);
+  plane.quaternion.setFromUnitVectors(new THREE.Vector3(0, 0, 1), n);
+  g.add(plane);
+  scene.add(g); measObjs.push(g);
+}
+function addLine(a, b, colour){
+  const geo = new THREE.BufferGeometry().setFromPoints([a, b]);
+  const l = new THREE.Line(geo, new THREE.LineBasicMaterial({ color: colour, depthTest: false }));
+  l.renderOrder = 10; scene.add(l); measObjs.push(l);
+}
+function buildingIdOf(obj){ let o = obj; while (o) { const m = /^b(\d+)/.exec(o.name || ""); if (m) return +m[1]; o = o.parent; } return null; }
+function showMeasure(){
+  if (!measuring) { measPanel.hidden = true; return; }
+  measPanel.hidden = false;
+  const note = window.dashScaleNote ? window.dashScaleNote() : "";
+  if (marks.length < 2) { measPanel.innerHTML = `<b>Measure between two surfaces</b><br>Click a wall, roof or the ground to set plane ${marks.length + 1} of 2. Drag still orbits.`; return; }
+  const [A, B] = marks;
+  const d = A.p.distanceTo(B.p);
+  const dv = Math.abs(B.p.y - A.p.y), dh = Math.hypot(B.p.x - A.p.x, B.p.z - A.p.z);
+  const cosang = Math.abs(A.n.dot(B.n));
+  const ang = Math.acos(Math.min(1, cosang)) * 180 / Math.PI;
+  const perp = Math.abs(new THREE.Vector3().subVectors(B.p, A.p).dot(A.n));
+  const horizA = Math.abs(A.n.y) > 0.85, horizB = Math.abs(B.n.y) > 0.85;   // roof or ground (glTF y is up)
+  const wallA = Math.abs(A.n.y) < 0.35, wallB = Math.abs(B.n.y) < 0.35;
+  const gap = (A.b != null && B.b != null && A.b !== B.b && window.buildingGap) ? window.buildingGap(A.b, B.b) : null;
+  let head, label;
+  if (wallA && wallB && ang < 12) {
+    head = perp; label = "gap between the two facing walls";
+    const foot = new THREE.Vector3().copy(B.p).addScaledVector(A.n, -new THREE.Vector3().subVectors(B.p, A.p).dot(A.n));
+    addLine(B.p, foot, 0xffd166);
+  } else if (gap) {
+    head = gap.m; label = `closest gap between building #${A.b} and #${B.b}`;
+  } else if (horizA && horizB) {
+    head = dh; label = "horizontal distance";
+  } else {
+    head = d; label = "straight-line distance";
+  }
+  let html = `<b>Surface to surface</b><div class="big">${head.toFixed(2)} m</div><div>${label}</div>`;
+  html += `<div class="row"><span>straight line</span><span>${d.toFixed(2)} m</span></div>`;
+  html += `<div class="row"><span>horizontal / height difference</span><span>${dh.toFixed(2)} / ${dv.toFixed(2)} m</span></div>`;
+  if (gap && label.indexOf("closest gap") !== 0) html += `<div class="row"><span>closest gap, #${A.b} to #${B.b}</span><span>${gap.m.toFixed(2)} m</span></div>`;
+  html += `<div class="row"><span>angle between the planes</span><span>${ang.toFixed(1)}°</span></div>`;
+  addLine(A.p, B.p, 0xffffff);
+  measPanel.innerHTML = html + note + `<br><button id="measClear">Clear</button>`;
+  document.getElementById("measClear").onclick = () => { clearMeasure(); showMeasure(); };
+}
+function pickSurface(e){
+  const r = renderer.domElement.getBoundingClientRect();
+  const p = new THREE.Vector2(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
+  raycaster.setFromCamera(p, camera);
+  const targets = [layers.reg, layers.terrain, layers.surface, layers.lod].filter(o => o && o.visible);
+  const hit = raycaster.intersectObjects(targets, true).find(h => h.face);
+  if (!hit) return null;
+  const n = hit.face.normal.clone().transformDirection(hit.object.matrixWorld).normalize();
+  if (n.dot(raycaster.ray.direction) > 0) n.negate();
+  return { p: hit.point.clone(), n, b: buildingIdOf(hit.object) };
+}
+
 renderer.domElement.addEventListener("pointerup", e => {
   if (!downAt || Math.hypot(e.clientX - downAt[0], e.clientY - downAt[1]) > 5) return;
+  if (measuring) {
+    const s = pickSurface(e);
+    if (!s) return;
+    if (marks.length >= 2) clearMeasure();
+    marks.push(s);
+    planeMarker(s.p, s.n, marks.length === 1 ? 0x4fc3f7 : 0xff8a65);
+    showMeasure();
+    return;
+  }
   const target = layers.reg && layers.reg.visible ? layers.reg : null;
   if (!target) return;
   const r = renderer.domElement.getBoundingClientRect();
@@ -711,6 +947,7 @@ window.pick3D = function(id){
   layers.reg.traverse(o => { if (!obj && o.name && new RegExp("^b" + id + "(?!\\d)").test(o.name)) obj = o; });
   if (obj) { picked = new THREE.BoxHelper(obj, 0xffb347); scene.add(picked); }
 };
+window.__dash3d = { THREE, scene, camera, renderer, layers: () => layers, marks: () => marks };
 (function loop(){ requestAnimationFrame(loop); controls.update(); renderer.render(scene, camera); })();
 if (window.DASH && window.dashCurrent) window.show3D(window.dashCurrent());
 </script>

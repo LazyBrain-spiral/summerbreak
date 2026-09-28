@@ -22,3 +22,7 @@ ultralytics>=8.3
 fastapi
 uvicorn
 python-multipart
+# Pi3X lane (repo cloned separately, see scripts/setup_env.sh) and model downloads
+plyfile
+safetensors
+huggingface_hub
